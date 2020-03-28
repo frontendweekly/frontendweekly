@@ -17,7 +17,12 @@
 
 # Netlify subdomain
 [[redirects]]
-    from = "https://beta-frontendweekly.netlify.com/*"
-    to = "https://beta.frontendweekly.tokyo/:splat"
+    from = "https://frontend-weekly.netlify.com/*"
+    to = "https://frontendweekly.tokyo/:splat"
+    status = 301
+    force = true
+[[redirects]]
+    from = "https://www.frontendweekly.tokyo/*"
+    to = "https://frontendweekly.tokyo/:splat"
     status = 301
     force = true
