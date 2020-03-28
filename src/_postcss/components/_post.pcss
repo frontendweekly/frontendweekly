@@ -1,0 +1,101 @@
+.c-post {
+  /* English only part use serif */
+  & .c-post__body h1,
+  & .c-post__body h2,
+  & .c-post__body .inbrief + ul strong {
+    font-family: var(--type-face-serif);
+  }
+
+  /* List */
+  & ul,
+  & ol,
+  & dd {
+    --type-local-font-size-in-px: 40;
+
+    padding-left: calc(
+      (var(--type-local-font-size-in-px) / var(--type-base-font-size)) * 1em
+    );
+  }
+
+  /* Table */
+  & table {
+    border-collapse: collapse;
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  & th {
+    border-style: solid;
+    border-width: 1px 0;
+    border-top-color: var(--color-gray-400);
+    border-bottom-color: var(--color-gray-400);
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: left;
+  }
+
+  /* Figure & Video */
+  & figure,
+  & video {
+    width: 100%;
+    max-width: calc(var(--space-char-per-line) * 1ch);
+    position: relative;
+  }
+
+  /*  Figure & Image */
+  & img {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  & figure img {
+    position: relative;
+    z-index: 1;
+  }
+
+  & figcaption {
+    font-size: 0.9em;
+    font-style: italic;
+    margin: 0.5rem auto 0 auto;
+    text-align: center;
+  }
+
+  /* Code */
+  & pre,
+  & code,
+  & kbd,
+  & samp {
+    /* stylelint-disable font-family-no-duplicate-names */
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace, monospace;
+    font-size: 0.9em;
+  }
+
+  & pre {
+    display: block;
+    overflow-x: auto;
+    background-color: var(--color-gray-900);
+    border-radius: 2px;
+    padding: 1rem;
+    text-align: left;
+    white-space: pre-wrap;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    width: 100%;
+  }
+
+  /* Inline Code */
+  & code:not([class]),
+  & kbd:not([class]),
+  & samp:not([class]) {
+    background-color: var(--color-gray-200);
+    padding: 1px 2px;
+  }
+}
+
+.c-heading-permalink {
+  font-size: 0.8em;
+  color: var(--color-gray-700);
+  margin-left: var(--space-base);
+  vertical-align: middle;
+}

@@ -1,0 +1,28 @@
+.c-navigation {
+  --type-local-font-size-in-px: 16;
+
+  font-size: calc((var(--type-local-font-size-in-px) / var(--type-base-font-size)) * 1em);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  display: flex;
+  align-items: center;
+}
+
+.c-navigation::-webkit-scrollbar {
+  display: none;
+}
+
+.c-navigation > * + * {
+  margin-left: var(--space-base);
+}
+
+.c-navigation a {
+  color: currentColor;
+  flex-shrink: 0;
+  padding: var(--space-base) 0;
+}
+
+.c-navigation a:not(:hover) {
+  text-decoration: none;
+}

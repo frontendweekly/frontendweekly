@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "text": "Home",
+      "url": "/",
+      "external": false
+    },
+    {
+      "text": "Archive",
+      "url": "/archive",
+      "external": false
+    },
+    {
+      "text": "Blogroll",
+      "url": "/blogroll",
+      "external": false
+    },
+    {
+      "text": "Sixty Six",
+      "url": "https://sixtysix.frontendweekly.tokyo",
+      "external": true
+    }
+  ]
+}

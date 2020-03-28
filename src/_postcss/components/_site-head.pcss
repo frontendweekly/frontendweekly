@@ -1,0 +1,33 @@
+.c-site-head {
+  padding: calc(var(--space-base) * 4) 0;
+}
+
+@media screen and (min-width: 48rem) {
+  .c-site-head__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.c-site-head__site-name {
+  --type-local-font-size-in-px: 24;
+  --type-local-space-bottom: var(--type-base-line-height) /
+    var(--type-local-font-size-in-px);
+
+  font-size: calc((var(--type-local-font-size-in-px) / var(--type-base-font-size)) * 1em);
+  line-height: calc(var(--type-base-line-height) / var(--type-local-font-size-in-px));
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.c-site-head__site-name--logo {
+  height: 50px;
+  width: 50px;
+  display: block;
+}
+
+.c-site-head__site-name--logo svg {
+  border-radius: 12%;
+}
