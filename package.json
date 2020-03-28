@@ -1,7 +1,7 @@
 {
   "name": "frontendweekly",
   "version": "0.0.1",
-  "description": "Virga is a bit opinionated but minimum Eleventy starter kit which also focused on using Netlify.",
+  "description": "Frontend Weeklyでは国内・海外のフロントエンド関連情報を厳選し毎週お届けします。",
   "scripts": {
     "build": "cross-env ELEVENTY_ENV=production eleventy",
     "build:clean": "rimraf dist/*",
