@@ -1,5 +1,4 @@
 // Stolen from https://github.com/maxboeck/mxb/blob/master/_lambda/deploy-succeeded.js
-
 import fetch from 'node-fetch';
 import dotenv from 'dotenv';
 import Twitter from 'twitter';
@@ -66,17 +65,21 @@ const processPosts = async posts => {
 // Prepare the content string for tweet format
 const prepareStatusText = post => {
   // Tweet will be
-  // title === Vol.252
-  // summary === Containプロパティを用いたブラウザの最適化、クリーンなコードが全てではない、Webにおけるフォントサイズの変遷、ほか計12リンク
-  // url === https://frontendweekly.tokyo/posts/252/
-  // `${summary} Frontend Weekly ${title} {$url}`
-  // `${summary} Frontend Weekly ${title}`.length MUST be within maxLength
-  const maxLength = 280 - 3 - 1 - 23 - 20;
+  // title === {{ post.data.title | truncate(60) | jsonify | safe }}
+  // `${title} via ${siteTitle}: {$url}`
+  // `${title} via ${siteTitle}: ${$url}`.length MUST be within maxLength
+  const tweetMaxLength = 280;
+  const urlLength = String(post.url).length;
+  const viaLength = 3;
+  const siteTitleLength = String(siteTitle).length;
+  const spaceLength = 3;
+  const colon = 1;
+  const maxLength =
+    tweetMaxLength - viaLength - siteTitleLength - spaceLength - colon - urlLength;
 
   const title = post.title;
-  const summary = post.summary;
 
-  let tweetText = `${summary} Frontend Weekly ${title}`;
+  let tweetText = `${title} via ${siteTitle}: `;
 
   // truncate text if its too long for a tweet.
   if (tweetText.length > maxLength) {
@@ -97,7 +100,7 @@ const publishPost = async post => {
       status: statusText
     });
     if (tweet) {
-      return status(200, `Post ${post.date} successfully posted to Twitter.`);
+      return status(200, `Post ${post.title} successfully posted to Twitter.`);
     } else {
       return status(422, 'Error posting to Twitter API.');
     }
