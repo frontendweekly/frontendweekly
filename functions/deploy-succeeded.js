@@ -1,7 +1,7 @@
 // Stolen from https://github.com/maxboeck/mxb/blob/master/_lambda/deploy-succeeded.js
-import fetch from 'node-fetch';
-import dotenv from 'dotenv';
-import Twitter from 'twitter';
+const fetch = require('node-fetch');
+const dotenv = require('dotenv');
+const Twitter = require('twitter');
 
 dotenv.config();
 
@@ -13,16 +13,16 @@ const twitter = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
   access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 });
 
 // Helper Function to return unknown errors
-const handleError = err => {
+const handleError = (err) => {
   console.error(err);
   const msg = Array.isArray(err) ? err[0].message : err.message;
   return {
     statusCode: 422,
-    body: String(msg)
+    body: String(msg),
   };
 };
 
@@ -31,12 +31,13 @@ const status = (code, msg) => {
   console.log(msg);
   return {
     statusCode: code,
-    body: msg
+    body: msg,
   };
 };
 
 // Check existing posts
-const processPosts = async posts => {
+const processPosts = async (posts) => {
+  const siteTitle = posts.title;
   const items = posts.items;
 
   if (!items.length) {
@@ -53,7 +54,7 @@ const processPosts = async posts => {
     // if there are none, publish it.
     const q = await twitter.get('search/tweets', {q: latestPost.url});
     if (q.statuses && q.statuses.length === 0) {
-      return publishPost(latestPost);
+      return publishPost(siteTitle, latestPost);
     } else {
       return status(400, 'Latest post was already syndicated. No action taken.');
     }
@@ -63,7 +64,7 @@ const processPosts = async posts => {
 };
 
 // Prepare the content string for tweet format
-const prepareStatusText = post => {
+const prepareStatusText = (siteTitle, post) => {
   // Tweet will be
   // title === {{ post.data.title | truncate(60) | jsonify | safe }}
   // `${title} via ${siteTitle}: {$url}`
@@ -93,11 +94,11 @@ const prepareStatusText = post => {
 };
 
 // Push a new post to Twitter
-const publishPost = async post => {
+const publishPost = async (post) => {
   try {
     const statusText = prepareStatusText(post);
     const tweet = await twitter.post('statuses/update', {
-      status: statusText
+      status: statusText,
     });
     if (tweet) {
       return status(200, `Post ${post.title} successfully posted to Twitter.`);
@@ -114,7 +115,7 @@ exports.handler = async () => {
   // Fetch the list of published posts to work on,
   // then process them to check if an action is necessary
   return fetch(FEED_URL)
-    .then(response => response.json())
+    .then((response) => response.json())
     .then(processPosts)
     .catch(handleError);
 };
