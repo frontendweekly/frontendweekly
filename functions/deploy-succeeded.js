@@ -94,9 +94,9 @@ const prepareStatusText = (siteTitle, post) => {
 };
 
 // Push a new post to Twitter
-const publishPost = async (post) => {
+const publishPost = async (siteTitle, post) => {
   try {
-    const statusText = prepareStatusText(post);
+    const statusText = prepareStatusText(siteTitle, post);
     const tweet = await twitter.post('statuses/update', {
       status: statusText,
     });
