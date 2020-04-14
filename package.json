@@ -7,12 +7,11 @@
     "build:clean": "rimraf dist/*",
     "build:function": "netlify functions:build --src functions",
     "build:postcss": "postcss src/_postcss/main.pcss -o src/_includes/assets/styles/main.css --env production",
-    "build:production": "run-s build:clean build:function build:blogroll build:postcss build",
+    "build:production": "run-s build:clean build:function build:postcss build",
     "dev": "cross-env ELEVENTY_ENV=development eleventy --serve",
     "dev:netlify": "cross-env ELEVENTY_ENV=development netlify dev",
     "start": "npm run dev",
-    "post:new": "node _task/node-trello-contents.js",
-    "build:blogroll": "node _task/node-opml-to-blogroll.js"
+    "post:new": "node _task/node-trello-contents.js"
   },
   "author": "Yuya Saito <hello@studiomohawk.com> (https://github.com/studiomohawk)",
   "license": "MIT",
