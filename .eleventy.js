@@ -6,6 +6,7 @@ const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const dateFilter = require('./src/_filters/date-filter.js');
 const markdownFilter = require('./src/_filters/markdown-filter.js');
 const w3DateFilter = require('./src/_filters/w3-date-filter.js');
+const webmentionsForUrl = require('./src/_filters/webmensionsForUrl');
 
 // Import transforms
 const htmlMinTransform = require('./src/_transforms/html-min-transform.js');
@@ -21,7 +22,7 @@ const markdownItAttribution = require('markdown-it-attribution');
 // Import data files
 const site = require('./src/_data/site.json');
 
-module.exports = function(config) {
+module.exports = function (config) {
   // Watch postcss
   config.addWatchTarget('./src/_postcss/');
 
@@ -33,7 +34,14 @@ module.exports = function(config) {
   config.addFilter('dateFilter', dateFilter);
   config.addFilter('markdownFilter', markdownFilter);
   config.addFilter('w3DateFilter', w3DateFilter);
-  config.addFilter('jsonify', value => JSON.stringify(value));
+  config.addFilter('webmentionsForUrl', webmentionsForUrl);
+  config.addFilter('jsonify', (value) => JSON.stringify(value));
+  config.addFilter('head', (array, n) => {
+    if (n < 0) {
+      return array.slice(n);
+    }
+    return array.slice(0, n);
+  });
 
   // Transforms
   config.addTransform('htmlmin', htmlMinTransform);
@@ -45,13 +53,13 @@ module.exports = function(config) {
     markdownIt({
       html: true,
       breaks: true,
-      linkify: true
+      linkify: true,
     })
       .use(markdownItClassy)
       .use(markdownItFootnote)
       .use(markdownItDeflist)
       .use(markdownItAttribution, {
-        removeMarker: false
+        removeMarker: false,
       })
   );
 
@@ -67,14 +75,14 @@ module.exports = function(config) {
 
   // Custom collections
   const now = new Date();
-  const livePosts = post => post.date <= now && !post.data.draft;
-  config.addCollection('posts', collection => {
+  const livePosts = (post) => post.date <= now && !post.data.draft;
+  config.addCollection('posts', (collection) => {
     return [
-      ...collection.getFilteredByGlob('./src/posts/*.md').filter(livePosts)
+      ...collection.getFilteredByGlob('./src/posts/*.md').filter(livePosts),
     ].reverse();
   });
 
-  config.addCollection('postFeed', collection => {
+  config.addCollection('postFeed', (collection) => {
     return [...collection.getFilteredByGlob('./src/posts/*.md').filter(livePosts)]
       .reverse()
       .slice(0, site.maxPostsPerPage);
@@ -83,9 +91,9 @@ module.exports = function(config) {
   return {
     dir: {
       input: 'src',
-      output: 'dist'
+      output: 'dist',
     },
     markdownTemplateEngine: 'njk',
-    passthroughFileCopy: true
+    passthroughFileCopy: true,
   };
 };
