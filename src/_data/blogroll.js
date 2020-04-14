@@ -1,31 +1,29 @@
-const path = require('path');
 const fs = require('fs');
+const {resolve} = require('path');
 
 const jq = require('node-jq');
 const fetch = require('node-fetch');
-const dotenv = require('dotenv');
 
-const DATA_PATH = path.resolve(process.env.PWD, 'src/_data');
+const CACHE_DIR = resolve(process.env.PWD, './_cache');
 
-dotenv.config();
+require('dotenv').config();
 
 // Configuration
 /// Feedbin API URL
 const FEEDBIN_API_URL = 'https://api.feedbin.com/v2/subscriptions.json';
-
 /// Configure Feedbin API option
 const FEEDBIN_API_OPTION = {
   method: 'GET',
   headers: {
-    Authorization: `Basic ${process.env.FEEDBIN_API_TOKEN}`
-  }
+    Authorization: `Basic ${process.env.FEEDBIN_API_TOKEN}`,
+  },
 };
 
 // Helpers function
 /// Function to return unknown errors
-const handleError = err => {
+const handleError = (err) => {
   console.error(err);
-  process.exit(1);
+  return false;
 };
 
 /// Fetch latest subscriptions from Feedbin
@@ -39,7 +37,7 @@ const getSubscription = async () => {
 };
 
 /// Function to transform JSON using node-jq
-const transformJSON = async json => {
+const transformJSON = async (json) => {
   const baseSchema = '{dateCreated: .[0].created_at, items: [.[]]}';
   const removeUnusedKey = '.items |= map(del(.id, .feed_id))';
   const removeDupe = '.items |= unique_by(.feed_url)';
@@ -54,7 +52,7 @@ const transformJSON = async json => {
   const filter = `${baseSchema} | ${removeUnusedKey} | ${removeDupe} | ${sortByTitle} | ${AListApartURLFix} | ${flagTwitter} | ${flagNewsletter}`;
 
   const option = {
-    input: 'string'
+    input: 'string',
   };
 
   try {
@@ -64,16 +62,53 @@ const transformJSON = async json => {
   }
 };
 
+/// Save blogroll in cache file
+const writeToCache = (data) => {
+  const filePath = `${CACHE_DIR}/blogroll.json`;
+
+  // create cache folder if it doesnt exist already
+  if (!fs.existsSync(CACHE_DIR)) {
+    fs.mkdirSync(CACHE_DIR);
+  }
+  // write data to cache json file
+  fs.writeFile(filePath, data, (err) => {
+    if (err) throw err;
+    console.log(`blogroll cached to ${filePath}`);
+  });
+};
+
+// get cache contents from json file
+const readFromCache = () => {
+  const filePath = `${CACHE_DIR}/blogroll.json`;
+
+  if (fs.existsSync(filePath)) {
+    const cacheFile = fs.readFileSync(filePath, 'utf8');
+    return JSON.parse(cacheFile);
+  }
+
+  return {
+    dateCreated: null,
+    items: [],
+  };
+};
+
 // Main Function
-async function main() {
-  const subscription = await getSubscription();
-  const json = JSON.stringify(subscription, null, 2);
-  const blogroll = await transformJSON(json);
+module.exports = async function () {
+  const cache = readFromCache();
+  const {lastFetched} = cache;
 
-  // console.log(subscription);
+  // Only fetch new blogroll in production
+  if (process.env.ELEVENTY_ENV === 'production' || !lastFetched) {
+    const subscription = await getSubscription();
+    if (subscription) {
+      const json = JSON.stringify(subscription, null, 2);
+      const blogroll = await transformJSON(json);
 
-  fs.writeFileSync(`${DATA_PATH}/opml.json`, blogroll, 'utf-8');
-  console.log(`${DATA_PATH}/opml.json has been created.`);
-}
+      writeToCache(blogroll);
+      return JSON.parse(blogroll);
+    }
+  }
 
-main();
+  console.log(`${cache.items.length} subscriptions loaded from cache`);
+  return cache;
+};

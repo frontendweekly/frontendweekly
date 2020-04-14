@@ -1,5 +1,5 @@
 {
-  "dateCreated": "2020-03-10T13:14:32.266508Z",
+  "dateCreated": "2020-04-12T01:47:26.556951Z",
   "items": [
     {
       "created_at": "2019-06-10T00:06:37.350704Z",
@@ -228,7 +228,7 @@
       "created_at": "2019-06-10T00:06:36.330029Z",
       "title": "Bubblin Superbooks | Official Blog",
       "feed_url": "https://bubblin.io/blog/feed.xml",
-      "site_url": "http://localhost:4000/blog/"
+      "site_url": "https://bubblin.io/blog/"
     },
     {
       "created_at": "2019-06-10T00:06:36.129175Z",
@@ -522,6 +522,12 @@
       "site_url": "https://filamentgroup.com/lab/"
     },
     {
+      "created_at": "2020-04-07T09:58:47.263546Z",
+      "title": "Firefox Nightly News",
+      "feed_url": "https://blog.nightly.mozilla.org/feed/",
+      "site_url": "https://blog.nightly.mozilla.org"
+    },
+    {
       "created_at": "2019-06-10T00:06:34.435062Z",
       "title": "Firefox UX",
       "feed_url": "https://blog.mozilla.org/ux/feed/",
@@ -635,7 +641,7 @@
       "created_at": "2019-06-10T00:06:33.423137Z",
       "title": "HubSpot Product Blog (Live)",
       "feed_url": "http://product.hubspot.com/blog/rss.xml",
-      "site_url": "http://product.hubspot.com/blog"
+      "site_url": "https://product.hubspot.com/blog"
     },
     {
       "created_at": "2019-06-10T00:06:33.715941Z",
@@ -1123,6 +1129,12 @@
       "site_url": "http://softwareas.com"
     },
     {
+      "created_at": "2020-04-12T01:47:26.556951Z",
+      "title": "StaffEng",
+      "feed_url": "https://staffeng.com/rss",
+      "site_url": "https://staffeng.com/rss"
+    },
+    {
       "created_at": "2019-06-10T00:06:36.340794Z",
       "title": "Standardista",
       "feed_url": "http://www.standardista.com/feed/",
@@ -1236,6 +1248,12 @@
       "title": "The JavaScript Playground",
       "feed_url": "http://feeds.feedburner.com/TheJavascriptPlayground",
       "site_url": "https://javascriptplayground.com"
+    },
+    {
+      "created_at": "2020-04-09T22:23:22.039256Z",
+      "title": "The Looking Glass",
+      "feed_url": "https://lg.substack.com/feed/",
+      "site_url": "https://lg.substack.com"
     },
     {
       "created_at": "2019-06-10T00:06:37.628911Z",
@@ -1434,6 +1452,13 @@
       "title": "Web Design Weekly",
       "feed_url": "http://jakebresnehan.com?c8282c1f0c872feabe693cea3aacbe80e4ab0e87",
       "site_url": "http://jakebresnehan.com",
+      "newsletter": true
+    },
+    {
+      "created_at": "2020-04-09T20:45:18.948185Z",
+      "title": "Web Design Weekly",
+      "feed_url": "http://web-design-weekly.com?bc9f575347f438386eca731d7c7e234a5b0e93a5",
+      "site_url": "http://web-design-weekly.com",
       "newsletter": true
     },
     {
