@@ -67,6 +67,7 @@ module.exports = function (config) {
   config.addPassthroughCopy('src/images');
   config.addPassthroughCopy('src/favicon.*');
   config.addPassthroughCopy('src/humans.txt');
+  config.addPassthroughCopy('src/key.txt');
   config.addPassthroughCopy('src/fonts');
   config.addPassthroughCopy('src/scripts');
 
