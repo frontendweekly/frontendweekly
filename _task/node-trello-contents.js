@@ -16,7 +16,7 @@ const POSTS_DIR = path.resolve(process.env.PWD, 'src/posts');
 
 // Helper functions
 /// Helper Function to return unknown errors
-const handleError = err => {
+const handleError = (err) => {
   console.error(err);
   process.exit(1);
 };
@@ -37,9 +37,9 @@ const optionHandler = () => {
 };
 
 /// Prepare Template
-const prepareTemplateData = async response => {
+const prepareTemplateData = async (response) => {
   /// Function to transform response using node-jq
-  const transformResponse = async res => {
+  const transformResponse = async (res) => {
     const json = JSON.stringify(res, null, 2);
     const baseSchema =
       '.[] |= { id: .id, title: .name, desc: .desc, label: .labels[].name, url: .attachments[].url }';
@@ -47,7 +47,7 @@ const prepareTemplateData = async response => {
 
     try {
       const option = {
-        input: 'string'
+        input: 'string',
       };
       return await jq.run(filter, json, option);
     } catch (error) {
@@ -66,7 +66,7 @@ const getCards = async () => {
   /// Configure Trello API Client
   const TRELLO_API = {
     access_token_key: process.env.TRELLO_API_TOKEN_KEY,
-    access_token_secret: process.env.TRELLO_API_TOKEN_SECRET
+    access_token_secret: process.env.TRELLO_API_TOKEN_SECRET,
   };
 
   /// Configure list. Our list is "Curated"
@@ -79,7 +79,7 @@ const getCards = async () => {
       card_attachment_fields: 'url',
       fields: 'id,name,desc,labels',
       key: TRELLO_API.access_token_key,
-      token: TRELLO_API.access_token_secret
+      token: TRELLO_API.access_token_secret,
     });
   };
 
@@ -93,11 +93,11 @@ const getCards = async () => {
 };
 
 /// Generate a post file
-const generatePost = tmplData => {
-  const makeTitle = vol => `title: Vol.${vol}`;
-  const makeDate = date => `date: ${date}`;
+const generatePost = (tmplData) => {
+  const makeTitle = (vol) => `title: Vol.${vol}`;
+  const makeDate = (date) => `date: ${date}`;
   const makeDesc = () => `desc: '3 OF TRANSLATED TITLE、ほか計${tmplData.length}リンク'`;
-  const makePermalink = vol => `permalink: /posts/${vol}/`;
+  const makePermalink = (vol) => `permalink: /posts/${vol}/`;
   const frontMatter = () =>
     `---
 ${makeTitle(opts.vol)}
@@ -108,12 +108,12 @@ ${makePermalink(opts.vol)}
 `;
 
   // Strip URL and /n from desc
-  const removeNoise = value => {
+  const removeNoise = (value) => {
     const regex = /(\\n|\\r)|http(s):\/\/\S*/gm;
     return value.replace(regex, '').trim();
   };
 
-  const description = element => (element ? removeNoise(element) : `FILL ME`);
+  const description = (element) => (element ? removeNoise(element) : `FILL ME`);
 
   // A typical post would look like this:
   // ## [${Title}(${Link})
@@ -121,8 +121,8 @@ ${makePermalink(opts.vol)}
   // ${Excerpt}
   // ↑ We will have 3 of this.
   // In Trello, MUSTREAD MUST be labeled as MUSTREAD
-  const isMustRead = element => element.label === 'MUSTREAD';
-  const makeMustRead = element =>
+  const isMustRead = (element) => element.label === 'MUSTREAD';
+  const makeMustRead = (element) =>
     `## [${element.title}](${element.url})
 #### TRANSLATED TITLE
 
@@ -134,8 +134,8 @@ ${description(element.desc)}
   // ${Excerpt}
   // ↑ We will have about 4 of this.
   // In Trello, FEATURED MUST be labeled as FEATURED
-  const isFeatured = element => element.label === 'FEATURED';
-  const makeFeatured = element =>
+  const isFeatured = (element) => element.label === 'FEATURED';
+  const makeFeatured = (element) =>
     `## [${element.title}](${element.url})
 
 ${description(element.desc)}
@@ -149,24 +149,15 @@ ${description(element.desc)}
   // - **[${Title}(${Link})]**: ${Translated Title}
   // ↑ We will have about 5 of this.
   // In Trello, INBRIEF MUST be labeled as INBRIEF
-  const isInBrief = element => element.label === 'INBRIEF';
-  const makeInBrief = element =>
+  const isInBrief = (element) => element.label === 'INBRIEF';
+  const makeInBrief = (element) =>
     `
 - **[${element.title}](${element.url})**: TRANSLATED TITLE
 `;
 
-  const mustread = tmplData
-    .filter(isMustRead)
-    .map(makeMustRead)
-    .join('');
-  const featured = tmplData
-    .filter(isFeatured)
-    .map(makeFeatured)
-    .join('');
-  const inBrief = tmplData
-    .filter(isInBrief)
-    .map(makeInBrief)
-    .join('');
+  const mustread = tmplData.filter(isMustRead).map(makeMustRead).join('');
+  const featured = tmplData.filter(isFeatured).map(makeFeatured).join('');
+  const inBrief = tmplData.filter(isInBrief).map(makeInBrief).join('');
 
   return `${frontMatter()}
 ${mustread}
@@ -176,7 +167,7 @@ ${inBrief}`;
 };
 
 /// Save post as md
-const savePost = post => {
+const savePost = (post) => {
   const filePath = `${POSTS_DIR}/${opts.date}-v${opts.vol}.md`;
   try {
     fs.writeFileSync(filePath, post, 'utf-8');
