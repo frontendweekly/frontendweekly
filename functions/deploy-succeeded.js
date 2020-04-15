@@ -37,7 +37,7 @@ const status = (code, msg) => {
 
 // Check existing posts
 const processPosts = async (posts) => {
-  const siteTitle = posts.title;
+  const siteTitle = posts.summary;
   const items = posts.items;
 
   if (!items.length) {
@@ -66,9 +66,8 @@ const processPosts = async (posts) => {
 // Prepare the content string for tweet format
 const prepareStatusText = (siteTitle, post) => {
   // Tweet will be
-  // title === {{ post.data.title | truncate(60) | jsonify | safe }}
-  // `${title} via ${siteTitle}: {$url}`
-  // `${title} via ${siteTitle}: ${$url}`.length MUST be within maxLength
+  // `${siteTitle} via ${siteTitle}: {$url}`
+  // `${siteTitle} via ${siteTitle}: ${$url}`.length MUST be within maxLength
   const tweetMaxLength = 280;
   const urlLength = String(post.url).length;
   const viaLength = 3;
@@ -78,9 +77,7 @@ const prepareStatusText = (siteTitle, post) => {
   const maxLength =
     tweetMaxLength - viaLength - siteTitleLength - spaceLength - colon - urlLength;
 
-  const title = post.title;
-
-  let tweetText = `${title} via ${siteTitle}: `;
+  let tweetText = `${siteTitle} via ${siteTitle}: `;
 
   // truncate text if its too long for a tweet.
   if (tweetText.length > maxLength) {
