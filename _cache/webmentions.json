@@ -1,0 +1,824 @@
+{
+  "lastFetched": "2020-04-12T11:28:25.311Z",
+  "children": [
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "Hiroki Ishiwatari",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/3a8d380a63efcba822aefd8a9fb2b832d44c0a670c54bc1b516c37c76baf5f58.jpg",
+        "url": "https://twitter.com/ish1r0k1"
+      },
+      "url": "https://twitter.com/frontend_weekly/status/1242635149109534720#favorited-by-2385575935",
+      "published": null,
+      "wm-received": "2020-03-26T02:08:06Z",
+      "wm-id": 775435,
+      "wm-source": "https://brid-gy.appspot.com/like/twitter/frontend_weekly/1242635149109534720/2385575935",
+      "wm-target": "https://frontendweekly.tokyo/posts/261/",
+      "like-of": "https://frontendweekly.tokyo/posts/261/",
+      "wm-property": "like-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "cat",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/7b5d76a2776cf94c10452e243edf60b7f26dbd17994e180a1524027d464acab3.jpg",
+        "url": "https://twitter.com/ericat10"
+      },
+      "url": "https://twitter.com/frontend_weekly/status/1242635149109534720#favorited-by-979367377",
+      "published": null,
+      "wm-received": "2020-03-25T11:30:43Z",
+      "wm-id": 775272,
+      "wm-source": "https://brid-gy.appspot.com/like/twitter/frontend_weekly/1242635149109534720/979367377",
+      "wm-target": "https://frontendweekly.tokyo/posts/261/",
+      "like-of": "https://frontendweekly.tokyo/posts/261/",
+      "wm-property": "like-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "erika k",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/cd2de3c5d5dabe5dc334ff7f4cad4d3a055567d9def19613b5d3f8c62045a52b.jpg",
+        "url": "https://twitter.com/Kitada_Elly"
+      },
+      "url": "https://twitter.com/frontend_weekly/status/1242635149109534720#favorited-by-162631141",
+      "published": null,
+      "wm-received": "2020-03-25T10:59:12Z",
+      "wm-id": 775267,
+      "wm-source": "https://brid-gy.appspot.com/like/twitter/frontend_weekly/1242635149109534720/162631141",
+      "wm-target": "https://frontendweekly.tokyo/posts/261/",
+      "like-of": "https://frontendweekly.tokyo/posts/261/",
+      "wm-property": "like-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "あべ ぽてと / Fumito Abe / necco",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/2d436484ede828caefe420cf151042d3c21e48236d4b112c44094035902a3b9c.png",
+        "url": "https://twitter.com/abefumito"
+      },
+      "url": "https://twitter.com/frontend_weekly/status/1242635149109534720#favorited-by-65575785",
+      "published": null,
+      "wm-received": "2020-03-25T07:30:43Z",
+      "wm-id": 775253,
+      "wm-source": "https://brid-gy.appspot.com/like/twitter/frontend_weekly/1242635149109534720/65575785",
+      "wm-target": "https://frontendweekly.tokyo/posts/261/",
+      "like-of": "https://frontendweekly.tokyo/posts/261/",
+      "wm-property": "like-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "Web Terms Botnet in Python",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/803a2246d8e58a22ab9f776f8001bee18efbe500889994075c2633e5f455abb1.jpg",
+        "url": "https://twitter.com/webtermsbot"
+      },
+      "url": "https://twitter.com/webtermsbot/status/1242681915301224449",
+      "published": "2020-03-25T05:17:11+00:00",
+      "wm-received": "2020-03-25T05:40:26Z",
+      "wm-id": 775246,
+      "wm-source": "https://brid-gy.appspot.com/repost/twitter/frontend_weekly/1242635149109534720/1242681915301224449",
+      "wm-target": "https://frontendweekly.tokyo/posts/261/",
+      "content": {
+        "text": "isLoadingを使うのを止めよう、カスタマインタビューにおける効果的なアプローチ方法、わずか20行のCSSでレスポンシブなマガジンレイアウトを作る、計10リンク Frontend Weekly Vol.261 frontendweekly.tokyo/posts/261/"
+      },
+      "repost-of": "https://frontendweekly.tokyo/posts/261/",
+      "wm-property": "repost-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "ヤマザキ/ちゃふちゃふウェブ",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/cf8e1ebd24b5fa809175887debbd8d4b6c7be3d546c5f36b5ffa7afc4be45c29.jpg",
+        "url": "https://twitter.com/chuff_chuff09"
+      },
+      "url": "https://twitter.com/frontend_weekly/status/1242635149109534720#favorited-by-4329144088",
+      "published": null,
+      "wm-received": "2020-03-25T05:40:18Z",
+      "wm-id": 775245,
+      "wm-source": "https://brid-gy.appspot.com/like/twitter/frontend_weekly/1242635149109534720/4329144088",
+      "wm-target": "https://frontendweekly.tokyo/posts/261/",
+      "like-of": "https://frontendweekly.tokyo/posts/261/",
+      "wm-property": "like-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "渡辺智基@エジプトにいた素晴らしい童貞",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/bfe5bba865f871107bf52818c7b535982a1585a4de445e536eb52d736370f558.png",
+        "url": "https://twitter.com/twokk1994"
+      },
+      "url": "https://twitter.com/frontend_weekly/status/1242635149109534720#favorited-by-2799979652",
+      "published": null,
+      "wm-received": "2020-03-25T03:50:55Z",
+      "wm-id": 775231,
+      "wm-source": "https://brid-gy.appspot.com/like/twitter/frontend_weekly/1242635149109534720/2799979652",
+      "wm-target": "https://frontendweekly.tokyo/posts/261/",
+      "like-of": "https://frontendweekly.tokyo/posts/261/",
+      "wm-property": "like-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "どんぐりりん",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/72cc17ea5e29f5136890641d01992e55105b76f483b3c4309270c49e150613a0.jpg",
+        "url": "https://twitter.com/dongurikako"
+      },
+      "url": "https://twitter.com/frontend_weekly/status/1242635149109534720#favorited-by-264673469",
+      "published": null,
+      "wm-received": "2020-03-25T03:50:36Z",
+      "wm-id": 775230,
+      "wm-source": "https://brid-gy.appspot.com/like/twitter/frontend_weekly/1242635149109534720/264673469",
+      "wm-target": "https://frontendweekly.tokyo/posts/261/",
+      "like-of": "https://frontendweekly.tokyo/posts/261/",
+      "wm-property": "like-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "さとう あまみ👾PentaPROgram",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/56f5e09b14d62fbb6c3a8a5a6d66dcc8656637f8126cf86bdc60d580883af426.jpg",
+        "url": "https://twitter.com/PentaPROgram"
+      },
+      "url": "https://twitter.com/PentaPROgram/status/1242647610319462401",
+      "published": "2020-03-25T03:00:52+00:00",
+      "wm-received": "2020-03-25T03:10:55Z",
+      "wm-id": 775225,
+      "wm-source": "https://brid-gy.appspot.com/repost/twitter/frontend_weekly/1242635149109534720/1242647610319462401",
+      "wm-target": "https://frontendweekly.tokyo/posts/261/",
+      "content": {
+        "text": "isLoadingを使うのを止めよう、カスタマインタビューにおける効果的なアプローチ方法、わずか20行のCSSでレスポンシブなマガジンレイアウトを作る、計10リンク Frontend Weekly Vol.261 frontendweekly.tokyo/posts/261/"
+      },
+      "repost-of": "https://frontendweekly.tokyo/posts/261/",
+      "wm-property": "repost-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "さとう あまみ 👾 PentaPROgram",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/56f5e09b14d62fbb6c3a8a5a6d66dcc8656637f8126cf86bdc60d580883af426.jpg",
+        "url": "https://twitter.com/PentaPROgram"
+      },
+      "url": "https://twitter.com/frontend_weekly/status/1242635149109534720#favorited-by-768067013231058944",
+      "published": null,
+      "wm-received": "2020-03-25T03:10:45Z",
+      "wm-id": 775224,
+      "wm-source": "https://brid-gy.appspot.com/like/twitter/frontend_weekly/1242635149109534720/768067013231058944",
+      "wm-target": "https://frontendweekly.tokyo/posts/261/",
+      "like-of": "https://frontendweekly.tokyo/posts/261/",
+      "wm-property": "like-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "Yuya Saito",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/b80465a02c7f06aa18d2116b0661ca1e7965c7b81f79d6ec217db070ae6dc5ae.png",
+        "url": "https://twitter.com/cssradar"
+      },
+      "url": "https://twitter.com/cssradar/status/1242635405347844097",
+      "published": "2020-03-25T02:12:22+00:00",
+      "wm-received": "2020-03-25T02:30:34Z",
+      "wm-id": 775218,
+      "wm-source": "https://brid-gy.appspot.com/repost/twitter/frontend_weekly/1242635149109534720/1242635405347844097",
+      "wm-target": "https://frontendweekly.tokyo/posts/261/",
+      "content": {
+        "text": "isLoadingを使うのを止めよう、カスタマインタビューにおける効果的なアプローチ方法、わずか20行のCSSでレスポンシブなマガジンレイアウトを作る、計10リンク Frontend Weekly Vol.261 frontendweekly.tokyo/posts/261/"
+      },
+      "repost-of": "https://frontendweekly.tokyo/posts/261/",
+      "wm-property": "repost-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "moschan",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/1679e8d60976d99d3efc5118b804df6b4687b16da85c0ea128759e48b1530f91.jpg",
+        "url": "https://twitter.com/moschann"
+      },
+      "url": "https://twitter.com/moschann/status/1242635522289201152",
+      "published": "2020-03-25T02:12:50+00:00",
+      "wm-received": "2020-03-25T02:30:26Z",
+      "wm-id": 775217,
+      "wm-source": "https://brid-gy.appspot.com/repost/twitter/frontend_weekly/1242635149109534720/1242635522289201152",
+      "wm-target": "https://frontendweekly.tokyo/posts/261/",
+      "content": {
+        "text": "isLoadingを使うのを止めよう、カスタマインタビューにおける効果的なアプローチ方法、わずか20行のCSSでレスポンシブなマガジンレイアウトを作る、計10リンク Frontend Weekly Vol.261 frontendweekly.tokyo/posts/261/"
+      },
+      "repost-of": "https://frontendweekly.tokyo/posts/261/",
+      "wm-property": "repost-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "久保 知己",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/82f5a4a367a759e30d57047e65d33eadf390f47d72d554033a843d7f434575b6.png",
+        "url": "https://twitter.com/kojika17"
+      },
+      "url": "https://twitter.com/kojika17/status/1242637976607141888",
+      "published": "2020-03-25T02:22:35+00:00",
+      "wm-received": "2020-03-25T02:30:13Z",
+      "wm-id": 775216,
+      "wm-source": "https://brid-gy.appspot.com/repost/twitter/frontend_weekly/1242635149109534720/1242637976607141888",
+      "wm-target": "https://frontendweekly.tokyo/posts/261/",
+      "content": {
+        "text": "isLoadingを使うのを止めよう、カスタマインタビューにおける効果的なアプローチ方法、わずか20行のCSSでレスポンシブなマガジンレイアウトを作る、計10リンク Frontend Weekly Vol.261 frontendweekly.tokyo/posts/261/"
+      },
+      "repost-of": "https://frontendweekly.tokyo/posts/261/",
+      "wm-property": "repost-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "shotaCoffee",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/38916caec1938b62c208c2b01fc806c21e4ef0eb1369c166416e11ca6f3c6e02.jpg",
+        "url": "https://twitter.com/shota_coffee"
+      },
+      "url": "https://twitter.com/frontend_weekly/status/1242635149109534720#favorited-by-534383827",
+      "published": null,
+      "wm-received": "2020-03-25T02:29:50Z",
+      "wm-id": 775215,
+      "wm-source": "https://brid-gy.appspot.com/like/twitter/frontend_weekly/1242635149109534720/534383827",
+      "wm-target": "https://frontendweekly.tokyo/posts/261/",
+      "like-of": "https://frontendweekly.tokyo/posts/261/",
+      "wm-property": "like-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "まきの",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/b660e3d6644881606ff66ab950cce5e96514c13bc2646b5e479fed8bfd156449.jpg",
+        "url": "https://twitter.com/jjm61907332"
+      },
+      "url": "https://twitter.com/frontend_weekly/status/1242635149109534720#favorited-by-1069281255462625280",
+      "published": null,
+      "wm-received": "2020-03-25T02:29:36Z",
+      "wm-id": 775214,
+      "wm-source": "https://brid-gy.appspot.com/like/twitter/frontend_weekly/1242635149109534720/1069281255462625280",
+      "wm-target": "https://frontendweekly.tokyo/posts/261/",
+      "like-of": "https://frontendweekly.tokyo/posts/261/",
+      "wm-property": "like-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "ハセ",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/1c28d5577baf01e1fe7cbc26b8fe1e4ba1f68bab66cd1f3a6deb3e89a9412fe0.jpg",
+        "url": "https://twitter.com/Hse_brank"
+      },
+      "url": "https://twitter.com/frontend_weekly/status/1240094424945905665#favorited-by-2471081294",
+      "published": null,
+      "wm-received": "2020-03-18T09:10:13Z",
+      "wm-id": 771346,
+      "wm-source": "https://brid-gy.appspot.com/like/twitter/frontend_weekly/1240094424945905665/2471081294",
+      "wm-target": "https://frontendweekly.tokyo/posts/260/",
+      "like-of": "https://frontendweekly.tokyo/posts/260/",
+      "wm-property": "like-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "たにひろき",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/ee70dbe5b0ebd14317c3f20931415dddf3e9789cb2427b05f72bd4e893cace86.jpg",
+        "url": "https://twitter.com/hiloki"
+      },
+      "url": "https://twitter.com/hiloki/status/1240154923251183616",
+      "published": "2020-03-18T05:55:49+00:00",
+      "wm-received": "2020-03-18T06:25:02Z",
+      "wm-id": 771328,
+      "wm-source": "https://brid-gy.appspot.com/repost/twitter/frontend_weekly/1240094424945905665/1240154923251183616",
+      "wm-target": "https://frontendweekly.tokyo/posts/260/",
+      "content": {
+        "text": "適切なアニメーションを使用するために、ドラッグ・アンド・ドロップのUIデザイン、なぜGOV.UKのデザインシステムチームはinputのtype=\"number\"を使用しないのか Frontend Weekly Vol.260"
+      },
+      "repost-of": "https://frontendweekly.tokyo/posts/260/",
+      "wm-property": "repost-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "moschan",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/1679e8d60976d99d3efc5118b804df6b4687b16da85c0ea128759e48b1530f91.jpg",
+        "url": "https://twitter.com/moschann"
+      },
+      "url": "https://twitter.com/moschann/status/1240095140636528640",
+      "published": "2020-03-18T01:58:16+00:00",
+      "wm-received": "2020-03-18T02:30:37Z",
+      "wm-id": 771301,
+      "wm-source": "https://brid-gy.appspot.com/repost/twitter/frontend_weekly/1240094424945905665/1240095140636528640",
+      "wm-target": "https://frontendweekly.tokyo/posts/260/",
+      "content": {
+        "text": "適切なアニメーションを使用するために、ドラッグ・アンド・ドロップのUIデザイン、なぜGOV.UKのデザインシステムチームはinputのtype=\"number\"を使用しないのか Frontend Weekly Vol.260"
+      },
+      "repost-of": "https://frontendweekly.tokyo/posts/260/",
+      "wm-property": "repost-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "Yuya Saito",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/b80465a02c7f06aa18d2116b0661ca1e7965c7b81f79d6ec217db070ae6dc5ae.png",
+        "url": "https://twitter.com/cssradar"
+      },
+      "url": "https://twitter.com/cssradar/status/1240095378319355905",
+      "published": "2020-03-18T01:59:12+00:00",
+      "wm-received": "2020-03-18T02:30:30Z",
+      "wm-id": 771300,
+      "wm-source": "https://brid-gy.appspot.com/repost/twitter/frontend_weekly/1240094424945905665/1240095378319355905",
+      "wm-target": "https://frontendweekly.tokyo/posts/260/",
+      "content": {
+        "text": "適切なアニメーションを使用するために、ドラッグ・アンド・ドロップのUIデザイン、なぜGOV.UKのデザインシステムチームはinputのtype=\"number\"を使用しないのか Frontend Weekly Vol.260"
+      },
+      "repost-of": "https://frontendweekly.tokyo/posts/260/",
+      "wm-property": "repost-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "るきるき",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/49bdd17a5b56418ebdd4d7560884a60329e8ed9fd8016901a4ae5dde5d861777.jpg",
+        "url": "https://twitter.com/rukiadia"
+      },
+      "url": "https://twitter.com/rukiadia/status/1240098236838248448",
+      "published": "2020-03-18T02:10:34+00:00",
+      "wm-received": "2020-03-18T02:30:21Z",
+      "wm-id": 771299,
+      "wm-source": "https://brid-gy.appspot.com/repost/twitter/frontend_weekly/1240094424945905665/1240098236838248448",
+      "wm-target": "https://frontendweekly.tokyo/posts/260/",
+      "content": {
+        "text": "適切なアニメーションを使用するために、ドラッグ・アンド・ドロップのUIデザイン、なぜGOV.UKのデザインシステムチームはinputのtype=\"number\"を使用しないのか Frontend Weekly Vol.260"
+      },
+      "repost-of": "https://frontendweekly.tokyo/posts/260/",
+      "wm-property": "repost-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "るきるき",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/49bdd17a5b56418ebdd4d7560884a60329e8ed9fd8016901a4ae5dde5d861777.jpg",
+        "url": "https://twitter.com/rukiadia"
+      },
+      "url": "https://twitter.com/frontend_weekly/status/1240094424945905665#favorited-by-211462518",
+      "published": null,
+      "wm-received": "2020-03-18T02:30:03Z",
+      "wm-id": 771298,
+      "wm-source": "https://brid-gy.appspot.com/like/twitter/frontend_weekly/1240094424945905665/211462518",
+      "wm-target": "https://frontendweekly.tokyo/posts/260/",
+      "like-of": "https://frontendweekly.tokyo/posts/260/",
+      "wm-property": "like-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "Rin",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/b757674f6f1bbc6214a534179dfb88450bf54fb1cf2c50fe3c91ad68a7dab8a3.jpg",
+        "url": "https://twitter.com/Buttaoth"
+      },
+      "url": "https://twitter.com/frontend_weekly/status/1240094424945905665#favorited-by-852850916050878465",
+      "published": null,
+      "wm-received": "2020-03-18T02:29:56Z",
+      "wm-id": 771297,
+      "wm-source": "https://brid-gy.appspot.com/like/twitter/frontend_weekly/1240094424945905665/852850916050878465",
+      "wm-target": "https://frontendweekly.tokyo/posts/260/",
+      "like-of": "https://frontendweekly.tokyo/posts/260/",
+      "wm-property": "like-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "Yuya Saito",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/b80465a02c7f06aa18d2116b0661ca1e7965c7b81f79d6ec217db070ae6dc5ae.png",
+        "url": "https://twitter.com/cssradar"
+      },
+      "url": "https://twitter.com/cssradar/status/1237559393115181056",
+      "published": "2020-03-11T02:02:06+00:00",
+      "wm-received": "2020-03-11T02:56:10Z",
+      "wm-id": 767688,
+      "wm-source": "https://brid-gy.appspot.com/post/twitter/frontend_weekly/1237559393115181056",
+      "wm-target": "https://frontendweekly.tokyo/posts/259/",
+      "content": {
+        "html": "カラーコントラストガイドライン、レスポンシブ要素に向けて、ソフトウェア開発における要求ボラティリティの問題、ほか計10リンク Frontend Weekly Vol.259 <a href=\"https://frontendweekly.tokyo/posts/259/\">frontendweekly.tokyo/posts/259/</a>",
+        "text": "カラーコントラストガイドライン、レスポンシブ要素に向けて、ソフトウェア開発における要求ボラティリティの問題、ほか計10リンク Frontend Weekly Vol.259 frontendweekly.tokyo/posts/259/"
+      },
+      "mention-of": "https://frontendweekly.tokyo/posts/259/",
+      "wm-property": "mention-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "moschan",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/1679e8d60976d99d3efc5118b804df6b4687b16da85c0ea128759e48b1530f91.jpg",
+        "url": "https://twitter.com/moschann"
+      },
+      "url": "https://twitter.com/moschann/status/1237559452988928000",
+      "published": "2020-03-11T02:02:20+00:00",
+      "wm-received": "2020-03-11T02:55:55Z",
+      "wm-id": 767687,
+      "wm-source": "https://brid-gy.appspot.com/post/twitter/frontend_weekly/1237559452988928000",
+      "wm-target": "https://frontendweekly.tokyo/posts/259/",
+      "content": {
+        "html": "カラーコントラストガイドライン、レスポンシブ要素に向けて、ソフトウェア開発における要求ボラティリティの問題、ほか計10リンク Frontend Weekly Vol.259 <a href=\"https://frontendweekly.tokyo/posts/259/\">frontendweekly.tokyo/posts/259/</a>",
+        "text": "カラーコントラストガイドライン、レスポンシブ要素に向けて、ソフトウェア開発における要求ボラティリティの問題、ほか計10リンク Frontend Weekly Vol.259 frontendweekly.tokyo/posts/259/"
+      },
+      "mention-of": "https://frontendweekly.tokyo/posts/259/",
+      "wm-property": "mention-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "Yuya Saito",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/b80465a02c7f06aa18d2116b0661ca1e7965c7b81f79d6ec217db070ae6dc5ae.png",
+        "url": "https://twitter.com/cssradar"
+      },
+      "url": "https://twitter.com/cssradar/status/1235032268927840258",
+      "published": "2020-03-04T02:40:13+00:00",
+      "wm-received": "2020-03-04T03:02:08Z",
+      "wm-id": 764105,
+      "wm-source": "https://brid-gy.appspot.com/post/twitter/frontend_weekly/1235032268927840258",
+      "wm-target": "https://frontendweekly.tokyo/posts/258/",
+      "content": {
+        "html": "HTML-in-JSの利点、Shopifyにおけるコードレビューの原則、ブラウザの仕組みを紐解く、ほか計10リンク Frontend Weekly Vol.258 <a href=\"https://frontendweekly.tokyo/posts/258/\">frontendweekly.tokyo/posts/258/</a>",
+        "text": "HTML-in-JSの利点、Shopifyにおけるコードレビューの原則、ブラウザの仕組みを紐解く、ほか計10リンク Frontend Weekly Vol.258 frontendweekly.tokyo/posts/258/"
+      },
+      "mention-of": "https://frontendweekly.tokyo/posts/258/",
+      "wm-property": "mention-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "moschan",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/1679e8d60976d99d3efc5118b804df6b4687b16da85c0ea128759e48b1530f91.jpg",
+        "url": "https://twitter.com/moschann"
+      },
+      "url": "https://twitter.com/moschann/status/1235032855975047168",
+      "published": "2020-03-04T02:42:33+00:00",
+      "wm-received": "2020-03-04T03:01:59Z",
+      "wm-id": 764104,
+      "wm-source": "https://brid-gy.appspot.com/post/twitter/frontend_weekly/1235032855975047168",
+      "wm-target": "https://frontendweekly.tokyo/posts/258/",
+      "content": {
+        "html": "HTML-in-JSの利点、Shopifyにおけるコードレビューの原則、ブラウザの仕組みを紐解く、ほか計10リンク Frontend Weekly Vol.258 <a href=\"https://frontendweekly.tokyo/posts/258/\">frontendweekly.tokyo/posts/258/</a>",
+        "text": "HTML-in-JSの利点、Shopifyにおけるコードレビューの原則、ブラウザの仕組みを紐解く、ほか計10リンク Frontend Weekly Vol.258 frontendweekly.tokyo/posts/258/"
+      },
+      "mention-of": "https://frontendweekly.tokyo/posts/258/",
+      "wm-property": "mention-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "Yuya Saito",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/b80465a02c7f06aa18d2116b0661ca1e7965c7b81f79d6ec217db070ae6dc5ae.png",
+        "url": "https://twitter.com/cssradar"
+      },
+      "url": "https://twitter.com/cssradar/status/1232501932708782080",
+      "published": "2020-02-26T03:05:34+00:00",
+      "wm-received": "2020-02-26T03:33:50Z",
+      "wm-id": 761248,
+      "wm-source": "https://brid-gy.appspot.com/post/twitter/frontend_weekly/1232501932708782080",
+      "wm-target": "https://frontendweekly.tokyo/posts/257/",
+      "content": {
+        "html": "プログレッシブエンハンスメントとそれにまつわる技術について、Gatsbyのパフォーマンスに対する見解について、デザインシステムのサブタスク、ほか計10リンク Frontend Weekly Vol.257 <a href=\"https://frontendweekly.tokyo/posts/257/\">frontendweekly.tokyo/posts/257/</a>",
+        "text": "プログレッシブエンハンスメントとそれにまつわる技術について、Gatsbyのパフォーマンスに対する見解について、デザインシステムのサブタスク、ほか計10リンク Frontend Weekly Vol.257 frontendweekly.tokyo/posts/257/"
+      },
+      "mention-of": "https://frontendweekly.tokyo/posts/257/",
+      "wm-property": "mention-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "moschan",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/1679e8d60976d99d3efc5118b804df6b4687b16da85c0ea128759e48b1530f91.jpg",
+        "url": "https://twitter.com/moschann"
+      },
+      "url": "https://twitter.com/moschann/status/1232502183817408513",
+      "published": "2020-02-26T03:06:34+00:00",
+      "wm-received": "2020-02-26T03:33:38Z",
+      "wm-id": 761247,
+      "wm-source": "https://brid-gy.appspot.com/post/twitter/frontend_weekly/1232502183817408513",
+      "wm-target": "https://frontendweekly.tokyo/posts/257/",
+      "content": {
+        "html": "プログレッシブエンハンスメントとそれにまつわる技術について、Gatsbyのパフォーマンスに対する見解について、デザインシステムのサブタスク、ほか計10リンク Frontend Weekly Vol.257 <a href=\"https://frontendweekly.tokyo/posts/257/\">frontendweekly.tokyo/posts/257/</a>",
+        "text": "プログレッシブエンハンスメントとそれにまつわる技術について、Gatsbyのパフォーマンスに対する見解について、デザインシステムのサブタスク、ほか計10リンク Frontend Weekly Vol.257 frontendweekly.tokyo/posts/257/"
+      },
+      "mention-of": "https://frontendweekly.tokyo/posts/257/",
+      "wm-property": "mention-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "moschan",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/1679e8d60976d99d3efc5118b804df6b4687b16da85c0ea128759e48b1530f91.jpg",
+        "url": "https://twitter.com/moschann"
+      },
+      "url": "https://twitter.com/moschann/status/1229963958368395264",
+      "published": "2020-02-19T03:00:33+00:00",
+      "wm-received": "2020-02-19T03:43:37Z",
+      "wm-id": 758032,
+      "wm-source": "https://brid-gy.appspot.com/post/twitter/frontend_weekly/1229963958368395264",
+      "wm-target": "https://frontendweekly.tokyo/posts/256/",
+      "content": {
+        "html": "デザインシステム総括、CSSの変遷、コードレビュー文化における悪い行動、ほか計10リンク Frontend Weekly Vol.256\n<a href=\"https://frontendweekly.tokyo/posts/256/\">frontendweekly.tokyo/posts/256/</a>",
+        "text": "デザインシステム総括、CSSの変遷、コードレビュー文化における悪い行動、ほか計10リンク Frontend Weekly Vol.256\nfrontendweekly.tokyo/posts/256/"
+      },
+      "mention-of": "https://frontendweekly.tokyo/posts/256/",
+      "wm-property": "mention-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "Yuya Saito",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/b80465a02c7f06aa18d2116b0661ca1e7965c7b81f79d6ec217db070ae6dc5ae.png",
+        "url": "https://twitter.com/cssradar"
+      },
+      "url": "https://twitter.com/cssradar/status/1229960475582124037",
+      "published": "2020-02-19T02:46:43+00:00",
+      "wm-received": "2020-02-19T02:52:16Z",
+      "wm-id": 758022,
+      "wm-source": "https://brid-gy.appspot.com/post/twitter/frontend_weekly/1229960475582124037",
+      "wm-target": "https://frontendweekly.tokyo/posts/256/",
+      "content": {
+        "html": "デザインシステム総括、CSSの変遷、コードレビュー文化における悪い行動、ほか計10リンク&amp;#39; Frontend Weekly Vol.256 <a href=\"https://frontendweekly.tokyo/posts/256/\">frontendweekly.tokyo/posts/256/</a>",
+        "text": "デザインシステム総括、CSSの変遷、コードレビュー文化における悪い行動、ほか計10リンク&#39; Frontend Weekly Vol.256 frontendweekly.tokyo/posts/256/"
+      },
+      "mention-of": "https://frontendweekly.tokyo/posts/256/",
+      "wm-property": "mention-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "Yuya Saito",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/b80465a02c7f06aa18d2116b0661ca1e7965c7b81f79d6ec217db070ae6dc5ae.png",
+        "url": "https://twitter.com/cssradar"
+      },
+      "url": "https://twitter.com/cssradar/status/1229935360064598022",
+      "published": "2020-02-19T01:06:55+00:00",
+      "wm-received": "2020-02-19T01:29:22Z",
+      "wm-id": 758002,
+      "wm-source": "https://brid-gy.appspot.com/post/twitter/frontend_weekly/1229935360064598022",
+      "wm-target": "https://frontendweekly.tokyo/posts/254/",
+      "content": {
+        "html": "EdgeのBlink採用とWebの健全さ、ソフトウェアアーキテクトという職業、技術ドキュメントのベストプラクティス、ほか計10リンク Frontend Weekly Vol.254 <a href=\"https://frontendweekly.tokyo/posts/254/\">frontendweekly.tokyo/posts/254/</a>",
+        "text": "EdgeのBlink採用とWebの健全さ、ソフトウェアアーキテクトという職業、技術ドキュメントのベストプラクティス、ほか計10リンク Frontend Weekly Vol.254 frontendweekly.tokyo/posts/254/"
+      },
+      "mention-of": "https://frontendweekly.tokyo/posts/254/",
+      "wm-property": "mention-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "shimon",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/1d5ea9614ac23803eb4d8a59eb4634230a6bb8b9d57d6f1c0576b57fb696025c.jpg",
+        "url": "https://twitter.com/shimon_tech"
+      },
+      "url": "https://twitter.com/shimon_tech/status/1229937586967203840",
+      "published": "2020-02-19T01:15:46+00:00",
+      "wm-received": "2020-02-19T01:28:52Z",
+      "wm-id": 758001,
+      "wm-source": "https://brid-gy.appspot.com/post/twitter/frontend_weekly/1229937586967203840",
+      "wm-target": "https://frontendweekly.tokyo/posts/254/",
+      "content": {
+        "html": "Vol.254 - Frontend Weekly Tokyo <a href=\"https://frontendweekly.tokyo/posts/254/\">frontendweekly.tokyo/posts/254/</a>",
+        "text": "Vol.254 - Frontend Weekly Tokyo frontendweekly.tokyo/posts/254/"
+      },
+      "mention-of": "https://frontendweekly.tokyo/posts/254/",
+      "wm-property": "mention-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "moschan",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/1679e8d60976d99d3efc5118b804df6b4687b16da85c0ea128759e48b1530f91.jpg",
+        "url": "https://twitter.com/moschann"
+      },
+      "url": "https://twitter.com/moschann/status/1227413385815289857",
+      "published": "2020-02-12T02:05:30+00:00",
+      "wm-received": "2020-02-12T02:29:49Z",
+      "wm-id": 755353,
+      "wm-source": "https://brid-gy.appspot.com/post/twitter/frontend_weekly/1227413385815289857",
+      "wm-target": "https://frontendweekly.tokyo/posts/255/",
+      "content": {
+        "html": "大いなるテクノロジーには大いなる責任が伴う、CSSのカスケード、組織が抱える問題とそれを改善する組織デザイン、ほか計10リンク Frontend Weekly Vol.255\n<a href=\"https://frontendweekly.tokyo/posts/255/\">frontendweekly.tokyo/posts/255/</a>",
+        "text": "大いなるテクノロジーには大いなる責任が伴う、CSSのカスケード、組織が抱える問題とそれを改善する組織デザイン、ほか計10リンク Frontend Weekly Vol.255\nfrontendweekly.tokyo/posts/255/"
+      },
+      "mention-of": "https://frontendweekly.tokyo/posts/255/",
+      "wm-property": "mention-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "Yuya Saito",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/b80465a02c7f06aa18d2116b0661ca1e7965c7b81f79d6ec217db070ae6dc5ae.png",
+        "url": "https://twitter.com/cssradar"
+      },
+      "url": "https://twitter.com/cssradar/status/1224888015476199424",
+      "published": "2020-02-05T02:50:34+00:00",
+      "wm-received": "2020-02-05T08:23:56Z",
+      "wm-id": 752486,
+      "wm-source": "https://brid-gy.appspot.com/post/twitter/frontend_weekly/1224888015476199424",
+      "wm-target": "https://frontendweekly.tokyo/posts/254/",
+      "content": {
+        "html": "EdgeのBlink採用とWebの健全さ、ソフトウェアアーキテクトという職業、技術ドキュメントのベストプラクティス、ほか計10リンク Frontend Weekly Vol.254 <a href=\"https://frontendweekly.tokyo/posts/254\">frontendweekly.tokyo/posts/254</a>\n<a class=\"u-mention\" href=\"https://frontendweekly.tokyo/posts/254/\"></a>",
+        "text": "EdgeのBlink採用とWebの健全さ、ソフトウェアアーキテクトという職業、技術ドキュメントのベストプラクティス、ほか計10リンク Frontend Weekly Vol.254 frontendweekly.tokyo/posts/254"
+      },
+      "mention-of": "https://frontendweekly.tokyo/posts/254/",
+      "wm-property": "mention-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "moschan",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/1679e8d60976d99d3efc5118b804df6b4687b16da85c0ea128759e48b1530f91.jpg",
+        "url": "https://twitter.com/moschann"
+      },
+      "url": "https://twitter.com/moschann/status/1224891728299061248",
+      "published": "2020-02-05T03:05:20+00:00",
+      "wm-received": "2020-02-05T08:23:38Z",
+      "wm-id": 752485,
+      "wm-source": "https://brid-gy.appspot.com/post/twitter/frontend_weekly/1224891728299061248",
+      "wm-target": "https://frontendweekly.tokyo/posts/254/",
+      "content": {
+        "html": "EdgeのBlink採用とWebの健全さ、ソフトウェアアーキテクトという職業、技術ドキュメントのベストプラクティス、ほか計10リンク Frontend Weekly Vol.254\n<a href=\"https://frontendweekly.tokyo/posts/254/\">frontendweekly.tokyo/posts/254/</a>",
+        "text": "EdgeのBlink採用とWebの健全さ、ソフトウェアアーキテクトという職業、技術ドキュメントのベストプラクティス、ほか計10リンク Frontend Weekly Vol.254\nfrontendweekly.tokyo/posts/254/"
+      },
+      "mention-of": "https://frontendweekly.tokyo/posts/254/",
+      "wm-property": "mention-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "Yuya Saito",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/b80465a02c7f06aa18d2116b0661ca1e7965c7b81f79d6ec217db070ae6dc5ae.png",
+        "url": "https://twitter.com/cssradar"
+      },
+      "url": "https://twitter.com/cssradar/status/1222336821109149697",
+      "published": "2020-01-29T01:53:02+00:00",
+      "wm-received": "2020-01-29T02:07:59Z",
+      "wm-id": 749701,
+      "wm-source": "https://brid-gy.appspot.com/post/twitter/frontend_weekly/1222336821109149697",
+      "wm-target": "https://frontendweekly.tokyo/posts/253/",
+      "content": {
+        "html": "Vol.253 誰もがリーダーであるエンジニアリングチーム、コードとシステムにおけるメンタルモデル、Basecampのコミュニケーションガイド、ほか計10リンク | <a href=\"https://frontendweekly.tokyo/posts/253/\">frontendweekly.tokyo/posts/253/</a>",
+        "text": "Vol.253 誰もがリーダーであるエンジニアリングチーム、コードとシステムにおけるメンタルモデル、Basecampのコミュニケーションガイド、ほか計10リンク | frontendweekly.tokyo/posts/253/"
+      },
+      "mention-of": "https://frontendweekly.tokyo/posts/253/",
+      "wm-property": "mention-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "moschan",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/1679e8d60976d99d3efc5118b804df6b4687b16da85c0ea128759e48b1530f91.jpg",
+        "url": "https://twitter.com/moschann"
+      },
+      "url": "https://twitter.com/moschann/status/1222338582439809024",
+      "published": "2020-01-29T02:00:02+00:00",
+      "wm-received": "2020-01-29T02:07:54Z",
+      "wm-id": 749700,
+      "wm-source": "https://brid-gy.appspot.com/post/twitter/frontend_weekly/1222338582439809024",
+      "wm-target": "https://frontendweekly.tokyo/posts/253/",
+      "content": {
+        "html": "誰もがリーダーであるエンジニアリングチーム、コードとシステムにおけるメンタルモデル、Basecampのコミュニケーションガイド、ほか計10リンク Frontend Weekly Vol.253 <a href=\"https://frontendweekly.tokyo/posts/253/\">frontendweekly.tokyo/posts/253/</a>",
+        "text": "誰もがリーダーであるエンジニアリングチーム、コードとシステムにおけるメンタルモデル、Basecampのコミュニケーションガイド、ほか計10リンク Frontend Weekly Vol.253 frontendweekly.tokyo/posts/253/"
+      },
+      "mention-of": "https://frontendweekly.tokyo/posts/253/",
+      "wm-property": "mention-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "moschan",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/1679e8d60976d99d3efc5118b804df6b4687b16da85c0ea128759e48b1530f91.jpg",
+        "url": "https://twitter.com/moschann"
+      },
+      "url": "https://twitter.com/moschann/status/1219810100287696901",
+      "published": "2020-01-22T02:32:45+00:00",
+      "wm-received": "2020-01-22T06:49:27Z",
+      "wm-id": 747042,
+      "wm-source": "https://brid-gy.appspot.com/post/twitter/frontend_weekly/1219810100287696901",
+      "wm-target": "https://frontendweekly.tokyo/posts/252/",
+      "content": {
+        "html": "Containプロパティを用いたブラウザの最適化、クリーンなコードが全てではない、Webにおけるフォントサイズの変遷、ほか計12リンク Frontend Weekly Vol.252 <a href=\"https://frontendweekly.tokyo/posts/252/\">frontendweekly.tokyo/posts/252/</a>",
+        "text": "Containプロパティを用いたブラウザの最適化、クリーンなコードが全てではない、Webにおけるフォントサイズの変遷、ほか計12リンク Frontend Weekly Vol.252 frontendweekly.tokyo/posts/252/"
+      },
+      "mention-of": "https://frontendweekly.tokyo/posts/252/",
+      "wm-property": "mention-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "moschan",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/1679e8d60976d99d3efc5118b804df6b4687b16da85c0ea128759e48b1530f91.jpg",
+        "url": "https://twitter.com/moschann"
+      },
+      "url": "https://twitter.com/moschann/status/1217265913780555777",
+      "published": "2020-01-15T02:03:04+00:00",
+      "wm-received": "2020-01-15T02:07:02Z",
+      "wm-id": 744524,
+      "wm-source": "https://brid-gy.appspot.com/post/twitter/frontend_weekly/1217265913780555777",
+      "wm-target": "https://frontendweekly.tokyo/posts/251/",
+      "content": {
+        "html": "デザインシステムの本質とは、プログラマとして20年働いて分かった5つのこと、現代のソフトウェアに幻滅した、ほか計10リンク Frontend Weekly Vol.251 <a href=\"https://frontendweekly.tokyo/posts/251/\">frontendweekly.tokyo/posts/251/</a>",
+        "text": "デザインシステムの本質とは、プログラマとして20年働いて分かった5つのこと、現代のソフトウェアに幻滅した、ほか計10リンク Frontend Weekly Vol.251 frontendweekly.tokyo/posts/251/"
+      },
+      "mention-of": "https://frontendweekly.tokyo/posts/251/",
+      "wm-property": "mention-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "moschan",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/1679e8d60976d99d3efc5118b804df6b4687b16da85c0ea128759e48b1530f91.jpg",
+        "url": "https://twitter.com/moschann"
+      },
+      "url": "https://twitter.com/moschann/status/1214718381166747648",
+      "published": "2020-01-08T01:20:05+00:00",
+      "wm-received": "2020-01-08T19:56:42Z",
+      "wm-id": 742587,
+      "wm-source": "https://brid-gy.appspot.com/post/twitter/frontend_weekly/1214718381166747648",
+      "wm-target": "https://frontendweekly.tokyo/posts/250/",
+      "content": {
+        "html": "今、CSSを教えるということ、意志決定のための”貨幣”: トレードオフ、フロントエンドについて改めて考えてみる\n、ほか計12リンク Frontend Weekly Vol.250 <a href=\"https://frontendweekly.tokyo/posts/250/\">frontendweekly.tokyo/posts/250/</a>",
+        "text": "今、CSSを教えるということ、意志決定のための”貨幣”: トレードオフ、フロントエンドについて改めて考えてみる\n、ほか計12リンク Frontend Weekly Vol.250 frontendweekly.tokyo/posts/250/"
+      },
+      "mention-of": "https://frontendweekly.tokyo/posts/250/",
+      "wm-property": "mention-of",
+      "wm-private": false
+    }
+  ]
+}

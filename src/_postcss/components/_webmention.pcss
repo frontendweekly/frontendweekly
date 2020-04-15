@@ -1,0 +1,44 @@
+.c-webmention-list__facepile {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.c-webmention-list__face {
+  position: relative;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 12%;
+  object-fit: cover;
+}
+
+.c-webmention-list__face:not(:first-child) {
+  margin-left: calc(var(--space-base) * -1);
+}
+
+.c-webmention {
+  margin-top: calc(var(--space-base) * 4);
+}
+
+.c-webmention__meta,
+.c-webmention__author {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.c-webmention__meta > * + * {
+  margin-left: var(--space-base);
+}
+
+.c-webmention__avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 12%;
+  object-fit: cover;
+}
+
+.c-webmention__avatar + * {
+  margin-left: var(--space-base);
+}
