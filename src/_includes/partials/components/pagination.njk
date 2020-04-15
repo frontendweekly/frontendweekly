@@ -1,7 +1,7 @@
 {% if paginationNextUrl or paginationPrevUrl %}
-<footer class="c-pagination">
+<div class="c-pagination">
   <div class="o-inner-wrapper">
-    <nav class="c-pagination__nav">
+    <nav class="c-pagination__nav" title="pagination">
       {% if paginationPrevUrl %}
         <a href="{{ paginationPrevUrl }}" data-direction="backwards">
           <span>{{ paginationPrevText if paginationPrevText else 'Previous' }}</span>
@@ -16,5 +16,5 @@
       {% endif %}
     </nav>
   </div>
-</footer>
+</div>
 {% endif %}
