@@ -1,23 +1,10 @@
 // Import plugins
 const rssPlugin = require('@11ty/eleventy-plugin-rss');
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
+const molle = require('@frontendweekly/molle');
 
 // Import filters
-const dateFilter = require('./src/_filters/date-filter.js');
-const markdownFilter = require('./src/_filters/markdown-filter.js');
-const w3DateFilter = require('./src/_filters/w3-date-filter.js');
 const webmentionsForUrl = require('./src/_filters/webmensionsForUrl');
-
-// Import transforms
-const htmlMinTransform = require('./src/_transforms/html-min-transform.js');
-const parseTransform = require('./src/_transforms/parse-transform.js');
-
-// Markdown Setting
-const markdownIt = require('markdown-it');
-const markdownItClassy = require('markdown-it-classy');
-const markdownItFootnote = require('markdown-it-footnote');
-const markdownItDeflist = require('markdown-it-deflist');
-const markdownItAttribution = require('markdown-it-attribution');
 
 // Import data files
 const site = require('./src/_data/site.json');
@@ -29,39 +16,10 @@ module.exports = function (config) {
   // Plugins
   config.addPlugin(rssPlugin);
   config.addPlugin(syntaxHighlight);
+  config.addPlugin(molle);
 
   // Filters
-  config.addFilter('dateFilter', dateFilter);
-  config.addFilter('markdownFilter', markdownFilter);
-  config.addFilter('w3DateFilter', w3DateFilter);
   config.addFilter('webmentionsForUrl', webmentionsForUrl);
-  config.addFilter('jsonify', (value) => JSON.stringify(value));
-  config.addFilter('head', (array, n) => {
-    if (n < 0) {
-      return array.slice(n);
-    }
-    return array.slice(0, n);
-  });
-
-  // Transforms
-  config.addTransform('htmlmin', htmlMinTransform);
-  config.addTransform('parse', parseTransform);
-
-  // Load markdown-it plugins
-  config.setLibrary(
-    'md',
-    markdownIt({
-      html: true,
-      breaks: true,
-      linkify: true,
-    })
-      .use(markdownItClassy)
-      .use(markdownItFootnote)
-      .use(markdownItDeflist)
-      .use(markdownItAttribution, {
-        removeMarker: false,
-      })
-  );
 
   // Passthrough copy
   config.addPassthroughCopy('src/images');
@@ -94,6 +52,8 @@ module.exports = function (config) {
       input: 'src',
       output: 'dist',
     },
+    templateFormats: ['njk', 'md', '11ty.js'],
+    htmlTemplateEngine: 'njk',
     markdownTemplateEngine: 'njk',
     passthroughFileCopy: true,
   };
