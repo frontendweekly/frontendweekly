@@ -5,8 +5,10 @@ const fs = require('fs');
 const jq = require('node-jq');
 const fetch = require('node-fetch');
 const dotenv = require('dotenv');
-const minimist = require('minimist');
-const opts = minimist(process.argv.slice(2));
+
+const qoa = require('qoa');
+const signale = require('signale');
+const matter = require('gray-matter');
 
 dotenv.config();
 
@@ -14,52 +16,50 @@ dotenv.config();
 /// Posts location
 const POSTS_DIR = path.resolve(process.env.PWD, 'src/posts');
 
+/// Question
+const ps = [
+  {
+    type: 'input',
+    query: `Enter next vol number e.g. 267:`,
+    handle: 'title',
+  },
+  {
+    type: 'input',
+    query: `Enter next publish date e.g. 2020-05-13:`,
+    handle: 'date',
+  },
+];
+
 // Helper functions
 /// Helper Function to return unknown errors
 const handleError = (err) => {
-  console.error(err);
+  signale.fatal(err);
   process.exit(1);
-};
-
-/// option handler
-const optionHandler = () => {
-  // If opts.vol isn't passed then exit
-  if (!opts.vol) {
-    handleError(`opts.vol is REQUIRED. Please add post vol using the '--vol=' parameter`);
-  }
-
-  // If opts.date isn't passed then exit
-  if (!opts.date) {
-    handleError(
-      `opts.date is REQUIRED. Please add post vol using the '--date=YYYY-MM-DD' parameter`
-    );
-  }
-};
-
-/// Prepare Template
-const prepareTemplateData = async (response) => {
-  /// Function to transform response using node-jq
-  const transformResponse = async (res) => {
-    const json = JSON.stringify(res, null, 2);
-    const baseSchema =
-      '.[] |= { id: .id, title: .name, desc: .desc, label: .labels[].name, url: .attachments[].url }';
-    const filter = `${baseSchema}`;
-
-    try {
-      const option = {
-        input: 'string',
-      };
-      return await jq.run(filter, json, option);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  return JSON.parse(await transformResponse(response));
 };
 
 /// Fetch cards from Trello
 const getCards = async () => {
+  /// Prepare Template
+  const prepareTemplateData = async (response) => {
+    /// Function to transform response using node-jq
+    const transformResponse = async (res) => {
+      const json = JSON.stringify(res, null, 2);
+      const baseSchema =
+        '.[] |= { id: .id, title: .name, desc: .desc, label: .labels[].name, url: .attachments[].url }';
+      const filter = `${baseSchema}`;
+
+      try {
+        return await jq.run(filter, json, {
+          input: 'string',
+        });
+      } catch (error) {
+        handleError(error);
+      }
+    };
+
+    return JSON.parse(await transformResponse(response));
+  };
+
   /// Trello API URL
   const TRELLO_API_URL_PREFIX = 'https://api.trello.com/1/lists/';
 
@@ -92,96 +92,100 @@ const getCards = async () => {
   }
 };
 
-/// Generate a post file
-const generatePost = (tmplData) => {
-  const makeTitle = (vol) => `title: Vol.${vol}`;
-  const makeDate = (date) => `date: ${date}`;
-  const makeDesc = () => `desc: '3 OF TRANSLATED TITLE、ほか計${tmplData.length}リンク'`;
-  const makePermalink = (vol) => `permalink: /posts/${vol}/`;
-  const frontMatter = () =>
-    `---
-${makeTitle(opts.vol)}
-${makeDate(opts.date)}
-${makeDesc()}
-${makePermalink(opts.vol)}
----
-`;
-
+/// clean description
+const cleanDescription = (description) => {
   // Strip URL and /n from desc
   const removeNoise = (value) => {
     const regex = /(\\n|\\r)|http(s):\/\/\S*/gm;
     return value.replace(regex, '').trim();
   };
 
-  const description = (element) => (element ? removeNoise(element) : `FILL ME`);
+  return description ? removeNoise(description) : `FILL ME`;
+};
 
-  // A typical post would look like this:
+/// Generate MUSTREAD
+const generateMustread = (tmplData) => {
   // ## [${Title}(${Link})
   // #### ${Translated Title}
   // ${Excerpt}
   // ↑ We will have 3 of this.
-  // In Trello, MUSTREAD MUST be labeled as MUSTREAD
+  // In Trello, this MUST be labeled as MUSTREAD
   const isMustRead = (element) => element.label === 'MUSTREAD';
-  const makeMustRead = (element) =>
-    `## [${element.title}](${element.url})
+  const mustRead = (element) => `
+## [${element.title}](${element.url})
 #### TRANSLATED TITLE
 
-${description(element.desc)}
+${cleanDescription(element.desc)}
 
 `;
 
+  return tmplData.filter(isMustRead).map(mustRead).join('');
+};
+
+const generateFeatured = (tmplData) => {
   // ## [${Title}(${Link})
   // ${Excerpt}
   // ↑ We will have about 4 of this.
-  // In Trello, FEATURED MUST be labeled as FEATURED
+  // In Trello, this MUST be labeled as FEATURED
   const isFeatured = (element) => element.label === 'FEATURED';
-  const makeFeatured = (element) =>
-    `## [${element.title}](${element.url})
+  const featured = (element) => `
+## [${element.title}](${element.url})
 
-${description(element.desc)}
+${cleanDescription(element.desc)}
 
 `;
 
-  // In Brief heading
-  const makeInBriefHeading = () => `# In Brief{inbrief}`;
+  return tmplData.filter(isFeatured).map(featured).join('');
+};
 
+// In Brief heading
+const generateInBriefHeading = () => `# In Brief{inbrief}`;
+
+const generateInbrief = (tmplData) => {
   // InBrief is
   // - **[${Title}(${Link})]**: ${Translated Title}
   // ↑ We will have about 5 of this.
-  // In Trello, INBRIEF MUST be labeled as INBRIEF
+  // In Trello, this MUST be labeled as INBRIEF
   const isInBrief = (element) => element.label === 'INBRIEF';
-  const makeInBrief = (element) =>
+  const inBrief = (element) =>
     `
 - **[${element.title}](${element.url})**: TRANSLATED TITLE
 `;
 
-  const mustread = tmplData.filter(isMustRead).map(makeMustRead).join('');
-  const featured = tmplData.filter(isFeatured).map(makeFeatured).join('');
-  const inBrief = tmplData.filter(isInBrief).map(makeInBrief).join('');
-
-  return `${frontMatter()}
-${mustread}
-${featured}
-${makeInBriefHeading()}
-${inBrief}`;
+  return tmplData.filter(isInBrief).map(inBrief).join('');
 };
 
-/// Save post as md
-const savePost = (post) => {
-  const filePath = `${POSTS_DIR}/${opts.date}-v${opts.vol}.md`;
-  try {
-    fs.writeFileSync(filePath, post, 'utf-8');
-  } catch (err) {
-    handleError(err);
-  }
+/// Generate Content
+const generateContent = async () => {
+  const tmplData = await getCards();
+  const options = await qoa.prompt(ps);
+
+  const file = () => {
+    return `
+${generateMustread(tmplData)}
+${generateFeatured(tmplData)}
+${generateInBriefHeading()}
+${generateInbrief(tmplData)}`;
+  };
+
+  return matter.stringify(file(), {
+    title: options.title,
+    date: options.date,
+    desc: `3 OF TRANSLATED TITLE、ほか計${tmplData.length}リンク`,
+    permalink: `/posts/${options.title}/`,
+  });
 };
 
 // Main Function
-async function main() {
-  optionHandler();
-  const tmplData = await getCards();
-  const post = generatePost(tmplData);
-  savePost(post);
-}
+generateContent().then((result) => {
+  const {data} = matter(result);
+  // Save md
+  const filePath = `${POSTS_DIR}/${data.date}-v${data.title}.md`;
 
-main();
+  try {
+    signale.success(`Creating new post: ${filePath}`);
+    fs.writeFileSync(filePath, result, 'utf-8');
+  } catch (err) {
+    handleError(err);
+  }
+});
