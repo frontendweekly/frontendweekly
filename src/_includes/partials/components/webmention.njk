@@ -17,7 +17,7 @@
     {% endif %}
 
     {% if webmention.published %}
-      <time class="c-webmention__pubdate dt-published" datetime="{{ webmention.published }}">{{ webmention.published | dateFilter }}</time>
+      <time class="c-webmention__pubdate dt-published" datetime="{{ webmention.published }}">{{ webmention.published | dateOrdinalSuffixFilter }}</time>
     {% endif %}
   </div>
   <p class="c-webmention__content p-content" lang="ja">
