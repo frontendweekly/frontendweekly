@@ -5,7 +5,7 @@ Frontend Weekly is based on [Virga](https://github.com/frontendweekly/virga) is 
 ## For Editors
 
 ```
-npm run post:new -- --vol=${vol} --date=${date in YYYY-MM-DD}
+npm run post:new
 ```
 
 This will fetch contents from "Curated" list in our Trello board and create new post.
