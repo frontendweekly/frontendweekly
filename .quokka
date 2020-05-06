@@ -1,0 +1,6 @@
+{
+  "plugins": ["alias-quokka-plugin"],
+  "alias": {
+    "post": "src/posts"
+  }
+}

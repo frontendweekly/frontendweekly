@@ -5,6 +5,7 @@ const fs = require('fs');
 const jq = require('node-jq');
 const fetch = require('node-fetch');
 const dotenv = require('dotenv');
+const fg = require('fast-glob');
 
 const qoa = require('qoa');
 const signale = require('signale');
@@ -16,16 +17,41 @@ dotenv.config();
 /// Posts location
 const POSTS_DIR = path.resolve(process.env.PWD, 'src/posts');
 
+/// Get next vol from POSTS_DIR
+const getNextVol = () => {
+  const filepathes = (element) => path.basename(element, path.extname(element));
+  const volume = (element) =>
+    element.replace(/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))-(v)/g, '');
+  const latest = fg
+    .sync(`${POSTS_DIR}/*.md`)
+    .map(filepathes)
+    .map(volume)
+    .sort((a, b) => b - a)[0];
+  return Number(latest) + 1;
+};
+
+/// Get next Wednesday
+const getNextWednesday = () => {
+  // Helper Function to format date into YYYY-MM-DD
+  const yyyymmddify = (date) => {
+    return date.toISOString().split('T')[0];
+  };
+
+  const date = new Date();
+  date.setDate(date.getDate() + ((3 + 7 - date.getDay()) % 7));
+  return yyyymmddify(date);
+};
+
 /// Question
 const ps = [
   {
     type: 'input',
-    query: `Enter next vol number e.g. 267:`,
+    query: `Enter next vol number. Next one should be ${getNextVol()}:`,
     handle: 'title',
   },
   {
     type: 'input',
-    query: `Enter next publish date e.g. 2020-05-13:`,
+    query: `Enter next publish date. Next one should be ${getNextWednesday()}:`,
     handle: 'date',
   },
 ];
@@ -169,8 +195,8 @@ ${generateInbrief(tmplData)}`;
   };
 
   return matter.stringify(file(), {
-    title: options.title,
-    date: options.date,
+    title: options.title || getNextVol(),
+    date: options.date || getNextWednesday(),
     desc: `3 OF TRANSLATED TITLE、ほか計${tmplData.length}リンク`,
     permalink: `/posts/${options.title}/`,
   });
