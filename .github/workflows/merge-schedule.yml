@@ -17,6 +17,7 @@ jobs:
       - uses: zcong1993/setup-timezone@v1.0
       - uses: gr2m/merge-schedule-action@v1.x
         env:
+          CRON_TZ: 'Asia/Tokyo'
           tz: 'Asia/Tokyo'
           timezone: 'Asia/Tokyo'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
