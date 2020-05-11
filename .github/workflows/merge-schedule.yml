@@ -7,16 +7,14 @@ on:
       - reopened
       - review_requested
   schedule:
-    # https://crontab.guru/#0_11_*_*_*
-    - cron: 0 11 * * *
+    # https://crontab.guru/#0_2_*_*_*
+    # This is UTC. It's 11 in JST
+    - cron: 0 2 * * *
 
 jobs:
   merge_schedule:
     runs-on: ubuntu-latest
     steps:
-      - uses: zcong1993/setup-timezone@v1.0
-        with:
-          timezone: 'Asia/Tokyo'
       - uses: gr2m/merge-schedule-action@v1.x
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
