@@ -24,7 +24,7 @@
   </article>
   {% if site.webmention %}
     {%- set absoluteUrl -%}{{ page.url | url | absoluteUrl(site.url) }}{%- endset -%}
-    {%- set mentions = webmentions.children | webmentionsForUrl(absoluteUrl) -%}
+    {%- set mentions = webmentions | webmentionsForUrl(absoluteUrl) -%}
     {% if mentions.length %}
     <hr class="o-hr o-hr--three-stars">
     <aside>

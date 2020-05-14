@@ -1,5 +1,5 @@
-dist
-node_modules
-package.json
-package-lock.json
-.git
+dist/
+node_modules/
+.browserslistrc
+.huskyrc
+.lintstagedrc

@@ -1,10 +1,6 @@
-const fs = require('fs');
-const {resolve} = require('path');
-
+const signale = require('signale');
+const CacheAsset = require('@11ty/eleventy-cache-assets');
 const jq = require('node-jq');
-const fetch = require('node-fetch');
-
-const CACHE_DIR = resolve(process.env.PWD, './_cache');
 
 require('dotenv').config();
 
@@ -29,8 +25,11 @@ const handleError = (err) => {
 /// Fetch latest subscriptions from Feedbin
 const getSubscription = async () => {
   try {
-    const response = await fetch(`${FEEDBIN_API_URL}`, FEEDBIN_API_OPTION);
-    return await response.json();
+    return await CacheAsset(FEEDBIN_API_URL, {
+      duration: '1d',
+      type: 'json',
+      fetchOptions: FEEDBIN_API_OPTION,
+    });
   } catch (err) {
     handleError(err);
   }
@@ -62,53 +61,14 @@ const transformJSON = async (json) => {
   }
 };
 
-/// Save blogroll in cache file
-const writeToCache = (data) => {
-  const filePath = `${CACHE_DIR}/blogroll.json`;
-
-  // create cache folder if it doesnt exist already
-  if (!fs.existsSync(CACHE_DIR)) {
-    fs.mkdirSync(CACHE_DIR);
-  }
-  // write data to cache json file
-  fs.writeFile(filePath, data, (err) => {
-    if (err) throw err;
-    console.log(`blogroll cached to ${filePath}`);
-  });
-};
-
-// get cache contents from json file
-const readFromCache = () => {
-  const filePath = `${CACHE_DIR}/blogroll.json`;
-
-  if (fs.existsSync(filePath)) {
-    const cacheFile = fs.readFileSync(filePath, 'utf8');
-    return JSON.parse(cacheFile);
-  }
-
-  return {
-    dateCreated: null,
-    items: [],
-  };
-};
-
 // Main Function
 module.exports = async function () {
-  const cache = readFromCache();
-  const {lastFetched} = cache;
+  const subscription = await getSubscription();
+  if (subscription) {
+    const blogroll = await transformJSON(JSON.stringify(subscription, null, 2));
+    const json = JSON.parse(blogroll);
 
-  // Only fetch new blogroll in production
-  if (process.env.ELEVENTY_ENV === 'production' || !lastFetched) {
-    const subscription = await getSubscription();
-    if (subscription) {
-      const json = JSON.stringify(subscription, null, 2);
-      const blogroll = await transformJSON(json);
-
-      writeToCache(blogroll);
-      return JSON.parse(blogroll);
-    }
+    signale.info(`blogroll has ${json.items.length} items`);
+    return json;
   }
-
-  console.log(`${cache.items.length} subscriptions loaded from cache`);
-  return cache;
 };
