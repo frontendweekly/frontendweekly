@@ -1,7 +1,6 @@
 *.log
 npm-debug.*
 *.scssc
-*.log
 *.swp
 .DS_Store
 .sass-cache
@@ -11,6 +10,7 @@ dist
 .env
 
 # Specifics
+.cache/
 
 # Hide compiled CSS
 src/_includes/assets/styles/*
