@@ -195,7 +195,7 @@ ${generateInbrief(tmplData)}`;
   };
 
   return matter.stringify(file(), {
-    title: `Vol.${options.title}` || `Vol.${getNextVol()}`,
+    title: options.title ? `Vol.${options.title}` : `Vol.${getNextVol()}`,
     date: options.date || getNextWednesday(),
     desc: `3 OF TRANSLATED TITLE、ほか計${tmplData.length}リンク`,
     permalink: `/posts/${options.title}/`,
