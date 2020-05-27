@@ -206,7 +206,7 @@ ${generateInbrief(tmplData)}`;
 generateContent().then((result) => {
   const {data} = matter(result);
   // Save md
-  const filePath = `${POSTS_DIR}/${data.date}-v${data.title}.md`;
+  const filePath = `${POSTS_DIR}/${data.date}-${data.title}.md`;
 
   try {
     signale.success(`Creating new post: ${filePath}`);
