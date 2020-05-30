@@ -9,6 +9,9 @@
         "canonical": "off",
         "is-crawlable": "off"
       }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
     }
   }
 }
