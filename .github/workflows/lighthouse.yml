@@ -19,4 +19,4 @@ jobs:
       - name: run Lighthouse CI
         run: |
           npm install -g @lhci/cli@0.4.x
-          lhci autorun --collect.numberOfRuns=3 --collect.url=${{ steps.netlify.outputs.url }} --assert.preset="lighthouse:no-pwa"
+          lhci autorun --collect.url=${{ steps.netlify.outputs.url }} --assert.preset="lighthouse:no-pwa"
