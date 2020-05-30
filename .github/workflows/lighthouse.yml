@@ -3,7 +3,6 @@ on: pull_request
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
       - name: Wait for the Netlify Preview
@@ -16,4 +15,5 @@ jobs:
         with:
           urls: |
             ${{ steps.netlify.outputs.url }}
-          uploadArtifacts: true
+          temporaryPublicStorage: true
+          runs: 3
