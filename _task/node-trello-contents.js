@@ -65,27 +65,6 @@ const handleError = (err) => {
 
 /// Fetch cards from Trello
 const getCards = async () => {
-  /// Prepare Template
-  const prepareTemplateData = async (response) => {
-    /// Function to transform response using node-jq
-    const transformResponse = async (res) => {
-      const json = JSON.stringify(res, null, 2);
-      const baseSchema =
-        '.[] |= { id: .id, title: .name, desc: .desc, label: .labels[].name, url: .attachments[].url }';
-      const filter = `${baseSchema}`;
-
-      try {
-        return await jq.run(filter, json, {
-          input: 'string',
-        });
-      } catch (error) {
-        handleError(error);
-      }
-    };
-
-    return JSON.parse(await transformResponse(response));
-  };
-
   /// Trello API URL
   const TRELLO_API_URL_PREFIX = 'https://api.trello.com/1/lists/';
 
@@ -112,32 +91,55 @@ const getCards = async () => {
   try {
     const requestURL = `${TRELLO_API_URL_PREFIX}${TRELLO_FE_WEEKLY_LIST}/cards?${params()}`;
     const response = await fetch(requestURL, {method: 'GET'});
-    return prepareTemplateData(await response.json());
+    return response.json();
   } catch (err) {
     handleError(err);
   }
 };
 
-/// clean description
-const cleanDescription = (description) => {
-  // Strip URL and /n from desc
-  const removeNoise = (value) => {
-    const regex = /(\\n|\\r)|http(s):\/\/\S*/gm;
-    return value.replace(regex, '').trim();
+/// Prepare Template
+const prepareTemplateData = async (response) => {
+  /// Function to transform response using node-jq
+  const transformResponse = async (res) => {
+    const json = JSON.stringify(res, null, 2);
+    const baseSchema =
+      '.[] |= { id: .id, title: .name, desc: .desc, label: .labels[].name, url: .attachments[].url }';
+    const filter = `${baseSchema}`;
+
+    try {
+      return await jq.run(filter, json, {
+        input: 'string',
+      });
+    } catch (error) {
+      handleError(error);
+    }
   };
 
-  return description ? removeNoise(description) : `FILL ME`;
+  return JSON.parse(await transformResponse(response));
 };
 
-/// Generate MUSTREAD
-const generateMustread = (tmplData) => {
-  // ## [${Title}(${Link})
-  // #### ${Translated Title}
-  // ${Excerpt}
-  // ↑ We will have 3 of this.
-  // In Trello, this MUST be labeled as MUSTREAD
-  const isMustRead = (element) => element.label === 'MUSTREAD';
-  const mustRead = (element) => `
+/// Generate Content
+const generateContent = async (tmplData, options) => {
+  /// clean description
+  const cleanDescription = (description) => {
+    // Strip URL and /n from desc
+    const removeNoise = (value) => {
+      const regex = /(\\n|\\r)|http(s):\/\/\S*/gm;
+      return value.replace(regex, '').trim();
+    };
+
+    return description ? removeNoise(description) : `FILL ME`;
+  };
+
+  /// Generate MUSTREAD
+  const generateMustread = (tmplData) => {
+    // ## [${Title}(${Link})
+    // #### ${Translated Title}
+    // ${Excerpt}
+    // ↑ We will have 3 of this.
+    // In Trello, this MUST be labeled as MUSTREAD
+    const isMustRead = (element) => element.label === 'MUSTREAD';
+    const mustRead = (element) => `
 ## [${element.title}](${element.url})
 #### TRANSLATED TITLE
 
@@ -145,46 +147,43 @@ ${cleanDescription(element.desc)}
 
 `;
 
-  return tmplData.filter(isMustRead).map(mustRead).join('');
-};
+    return tmplData.filter(isMustRead).map(mustRead).join('');
+  };
 
-const generateFeatured = (tmplData) => {
-  // ## [${Title}(${Link})
-  // ${Excerpt}
-  // ↑ We will have about 4 of this.
-  // In Trello, this MUST be labeled as FEATURED
-  const isFeatured = (element) => element.label === 'FEATURED';
-  const featured = (element) => `
+  /// Generate FEATURED
+  const generateFeatured = (tmplData) => {
+    // ## [${Title}(${Link})
+    // ${Excerpt}
+    // ↑ We will have about 4 of this.
+    // In Trello, this MUST be labeled as FEATURED
+    const isFeatured = (element) => element.label === 'FEATURED';
+    const featured = (element) => `
 ## [${element.title}](${element.url})
 
 ${cleanDescription(element.desc)}
 
 `;
 
-  return tmplData.filter(isFeatured).map(featured).join('');
-};
+    return tmplData.filter(isFeatured).map(featured).join('');
+  };
 
-// In Brief heading
-const generateInBriefHeading = () => `# In Brief{inbrief}`;
+  /// In Brief heading
+  const generateInBriefHeading = () => `# In Brief{inbrief}`;
 
-const generateInbrief = (tmplData) => {
-  // InBrief is
-  // - **[${Title}(${Link})]**: ${Translated Title}
-  // ↑ We will have about 5 of this.
-  // In Trello, this MUST be labeled as INBRIEF
-  const isInBrief = (element) => element.label === 'INBRIEF';
-  const inBrief = (element) =>
-    `
+  /// Generate INBRIEF
+  const generateInbrief = (tmplData) => {
+    // InBrief is
+    // - **[${Title}(${Link})]**: ${Translated Title}
+    // ↑ We will have about 5 of this.
+    // In Trello, this MUST be labeled as INBRIEF
+    const isInBrief = (element) => element.label === 'INBRIEF';
+    const inBrief = (element) =>
+      `
 - **[${element.title}](${element.url})**: TRANSLATED TITLE
 `;
 
-  return tmplData.filter(isInBrief).map(inBrief).join('');
-};
-
-/// Generate Content
-const generateContent = async () => {
-  const tmplData = await getCards();
-  const options = await qoa.prompt(ps);
+    return tmplData.filter(isInBrief).map(inBrief).join('');
+  };
 
   const file = () => {
     return `
@@ -203,15 +202,21 @@ ${generateInbrief(tmplData)}`;
 };
 
 // Main Function
-generateContent().then((result) => {
-  const {data} = matter(result);
-  // Save md
-  const filePath = `${POSTS_DIR}/${data.date}-${data.title}.md`;
+(async () => {
+  const cards = await getCards();
+  const tmpl = await prepareTemplateData(cards);
+  const options = await qoa.prompt(ps);
+  const content = await generateContent(tmpl, options);
 
+  const title = options.title || getNextVol();
+  const date = options.date || getNextWednesday();
+
+  // Save md
+  const filePath = `${POSTS_DIR}/${date}-v${title}.md`;
   try {
     signale.success(`Creating new post: ${filePath}`);
-    fs.writeFileSync(filePath, result, 'utf-8');
+    fs.writeFileSync(filePath, content, 'utf-8');
   } catch (err) {
     handleError(err);
   }
-});
+})();

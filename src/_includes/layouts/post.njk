@@ -1,4 +1,6 @@
 {% extends 'layouts/base.njk' %}
+{% from 'macros/webmention.njk' import facepile, mediaObjectList %}
+
 {% set pageType = 'Post' %}
 
 {# Intro content #}
@@ -23,14 +25,7 @@
     </div>
   </article>
   {% if site.webmention %}
-    {%- set absoluteUrl -%}{{ page.url | url | absoluteUrl(site.url) }}{%- endset -%}
-    {%- set mentions = webmentions | webmentionsForUrl(absoluteUrl) -%}
-    {% if mentions.length %}
-    <hr class="o-hr o-hr--three-stars">
-    <aside>
-      {% include "partials/components/webmentionlist.njk" %}
-    </aside>
-    {% endif %}
+    {% include "partials/components/webmention.njk" %}
   {% endif %}
 </main>
 

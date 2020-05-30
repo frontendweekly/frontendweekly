@@ -6,6 +6,153 @@
       "type": "entry",
       "author": {
         "type": "card",
+        "name": "moschan",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/1679e8d60976d99d3efc5118b804df6b4687b16da85c0ea128759e48b1530f91.jpg",
+        "url": "https://twitter.com/moschann"
+      },
+      "url": "https://twitter.com/moschann/status/1265475704042385408",
+      "published": "2020-05-27T02:51:33+00:00",
+      "wm-received": "2020-05-27T02:53:34Z",
+      "wm-id": 802270,
+      "wm-source": "https://brid-gy.appspot.com/repost/twitter/frontend_weekly/1265465232480260097/1265475704042385408",
+      "wm-target": "https://frontendweekly.tokyo/posts/269/",
+      "content": {
+        "text": "どのようにUIを設計するか、フロントエンドディベロッパーという肩書は時代遅れ、技術的負債のために機能実装を止める必要はない、ほか計10リンク via Frontend Weekly Tokyo: frontendweekly.tokyo/posts/269/"
+      },
+      "repost-of": "https://frontendweekly.tokyo/posts/269/",
+      "wm-property": "repost-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "ばなさん",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/5cb904e84fe063a7377b32c35fa37409de85dec7c86dd02099dfb2cbe3de2af8.jpg",
+        "url": "https://twitter.com/banashade08"
+      },
+      "url": "https://twitter.com/banashade08/status/1265468210842701824",
+      "published": "2020-05-27T02:21:47+00:00",
+      "wm-received": "2020-05-27T02:53:44Z",
+      "wm-id": 802271,
+      "wm-source": "https://brid-gy.appspot.com/repost/twitter/frontend_weekly/1265465232480260097/1265468210842701824",
+      "wm-target": "https://frontendweekly.tokyo/posts/269/",
+      "content": {
+        "text": "どのようにUIを設計するか、フロントエンドディベロッパーという肩書は時代遅れ、技術的負債のために機能実装を止める必要はない、ほか計10リンク via Frontend Weekly Tokyo: frontendweekly.tokyo/posts/269/"
+      },
+      "repost-of": "https://frontendweekly.tokyo/posts/269/",
+      "wm-property": "repost-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "Yuya Saito",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/b80465a02c7f06aa18d2116b0661ca1e7965c7b81f79d6ec217db070ae6dc5ae.png",
+        "url": "https://twitter.com/cssradar"
+      },
+      "url": "https://twitter.com/cssradar/status/1265465929342676992",
+      "published": "2020-05-27T02:12:43+00:00",
+      "wm-received": "2020-05-27T02:53:45Z",
+      "wm-id": 802272,
+      "wm-source": "https://brid-gy.appspot.com/repost/twitter/frontend_weekly/1265465232480260097/1265465929342676992",
+      "wm-target": "https://frontendweekly.tokyo/posts/269/",
+      "content": {
+        "text": "どのようにUIを設計するか、フロントエンドディベロッパーという肩書は時代遅れ、技術的負債のために機能実装を止める必要はない、ほか計10リンク via Frontend Weekly Tokyo: frontendweekly.tokyo/posts/269/"
+      },
+      "repost-of": "https://frontendweekly.tokyo/posts/269/",
+      "wm-property": "repost-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "たにひろき",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/ee70dbe5b0ebd14317c3f20931415dddf3e9789cb2427b05f72bd4e893cace86.jpg",
+        "url": "https://twitter.com/hiloki"
+      },
+      "url": "https://twitter.com/hiloki/status/1262935184493522945",
+      "published": "2020-05-20T02:36:26+00:00",
+      "wm-received": "2020-05-20T03:27:52Z",
+      "wm-id": 798660,
+      "wm-source": "https://brid-gy.appspot.com/repost/twitter/frontend_weekly/1262928455601197061/1262935184493522945",
+      "wm-target": "https://frontendweekly.tokyo/posts/268/",
+      "content": {
+        "text": "ボタンUIの構造、画面サイズでなく振る舞いを考える、より良い抽象化、ほか計10リンク via Frontend Weekly Tokyo: frontendweekly.tokyo/posts/268/"
+      },
+      "repost-of": "https://frontendweekly.tokyo/posts/268/",
+      "wm-property": "repost-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "Yuya Saito",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/b80465a02c7f06aa18d2116b0661ca1e7965c7b81f79d6ec217db070ae6dc5ae.png",
+        "url": "https://twitter.com/cssradar"
+      },
+      "url": "https://twitter.com/cssradar/status/1262934113486426113",
+      "published": "2020-05-20T02:32:11+00:00",
+      "wm-received": "2020-05-20T03:27:53Z",
+      "wm-id": 798661,
+      "wm-source": "https://brid-gy.appspot.com/repost/twitter/frontend_weekly/1262928455601197061/1262934113486426113",
+      "wm-target": "https://frontendweekly.tokyo/posts/268/",
+      "content": {
+        "text": "ボタンUIの構造、画面サイズでなく振る舞いを考える、より良い抽象化、ほか計10リンク via Frontend Weekly Tokyo: frontendweekly.tokyo/posts/268/"
+      },
+      "repost-of": "https://frontendweekly.tokyo/posts/268/",
+      "wm-property": "repost-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "moschan",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/1679e8d60976d99d3efc5118b804df6b4687b16da85c0ea128759e48b1530f91.jpg",
+        "url": "https://twitter.com/moschann"
+      },
+      "url": "https://twitter.com/moschann/status/1262929487647305728",
+      "published": "2020-05-20T02:13:48+00:00",
+      "wm-received": "2020-05-20T03:28:05Z",
+      "wm-id": 798662,
+      "wm-source": "https://brid-gy.appspot.com/repost/twitter/frontend_weekly/1262928455601197061/1262929487647305728",
+      "wm-target": "https://frontendweekly.tokyo/posts/268/",
+      "content": {
+        "text": "ボタンUIの構造、画面サイズでなく振る舞いを考える、より良い抽象化、ほか計10リンク via Frontend Weekly Tokyo: frontendweekly.tokyo/posts/268/"
+      },
+      "repost-of": "https://frontendweekly.tokyo/posts/268/",
+      "wm-property": "repost-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "たにひろき",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/ee70dbe5b0ebd14317c3f20931415dddf3e9789cb2427b05f72bd4e893cace86.jpg",
+        "url": "https://twitter.com/hiloki"
+      },
+      "url": "https://twitter.com/hiloki/status/1261099380536274944",
+      "published": "2020-05-15T01:01:37+00:00",
+      "wm-received": "2020-05-15T01:55:23Z",
+      "wm-id": 796537,
+      "wm-source": "https://brid-gy.appspot.com/repost/twitter/frontend_weekly/1255333647034585091/1261099380536274944",
+      "wm-target": "https://frontendweekly.tokyo/posts/266/",
+      "content": {
+        "text": "デザイナーとディベロッパーが効率的なコラボレーションをするための5つの原則、技術的負債とその妥協点、システム設計とビジネスへの理解 via Frontend Weekly Tokyo: frontendweekly.tokyo/posts/266/"
+      },
+      "repost-of": "https://frontendweekly.tokyo/posts/266/",
+      "wm-property": "repost-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
         "name": "shimon",
         "photo": "https://webmention.io/avatar/pbs.twimg.com/1d5ea9614ac23803eb4d8a59eb4634230a6bb8b9d57d6f1c0576b57fb696025c.jpg",
         "url": "https://twitter.com/shimon_tech"
@@ -861,6 +1008,114 @@
       },
       "mention-of": "https://frontendweekly.tokyo/posts/250/",
       "wm-property": "mention-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "ばなさん",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/5cb904e84fe063a7377b32c35fa37409de85dec7c86dd02099dfb2cbe3de2af8.jpg",
+        "url": "https://twitter.com/banashade08"
+      },
+      "url": "https://twitter.com/frontend_weekly/status/1265465232480260097#favorited-by-631648057",
+      "published": null,
+      "wm-received": "2020-05-27T02:53:34Z",
+      "wm-id": 802269,
+      "wm-source": "https://brid-gy.appspot.com/like/twitter/frontend_weekly/1265465232480260097/631648057",
+      "wm-target": "https://frontendweekly.tokyo/posts/269/",
+      "like-of": "https://frontendweekly.tokyo/posts/269/",
+      "wm-property": "like-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "GENYA lv7",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/a3038030986cca245e74c7a114ae2f231c968fc2407794adf9952be06460455b.jpg",
+        "url": "https://twitter.com/wilf_genya"
+      },
+      "url": "https://twitter.com/frontend_weekly/status/1262928455601197061#favorited-by-76646028",
+      "published": null,
+      "wm-received": "2020-05-20T03:27:49Z",
+      "wm-id": 798659,
+      "wm-source": "https://brid-gy.appspot.com/like/twitter/frontend_weekly/1262928455601197061/76646028",
+      "wm-target": "https://frontendweekly.tokyo/posts/268/",
+      "like-of": "https://frontendweekly.tokyo/posts/268/",
+      "wm-property": "like-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "佐藤せっか",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/c1e2ed37bf30a7c1cced8dbf24f6f26dea0643922c0320a4f1f3880c1f3b1eab.gif",
+        "url": "https://twitter.com/sekka"
+      },
+      "url": "https://twitter.com/frontend_weekly/status/1262928455601197061#favorited-by-3965981",
+      "published": null,
+      "wm-received": "2020-05-20T03:27:48Z",
+      "wm-id": 798658,
+      "wm-source": "https://brid-gy.appspot.com/like/twitter/frontend_weekly/1262928455601197061/3965981",
+      "wm-target": "https://frontendweekly.tokyo/posts/268/",
+      "like-of": "https://frontendweekly.tokyo/posts/268/",
+      "wm-property": "like-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "shimon",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/1d5ea9614ac23803eb4d8a59eb4634230a6bb8b9d57d6f1c0576b57fb696025c.jpg",
+        "url": "https://twitter.com/shimon_tech"
+      },
+      "url": "https://twitter.com/frontend_weekly/status/1262928455601197061#favorited-by-818868089605324801",
+      "published": null,
+      "wm-received": "2020-05-20T03:27:44Z",
+      "wm-id": 798657,
+      "wm-source": "https://brid-gy.appspot.com/like/twitter/frontend_weekly/1262928455601197061/818868089605324801",
+      "wm-target": "https://frontendweekly.tokyo/posts/268/",
+      "like-of": "https://frontendweekly.tokyo/posts/268/",
+      "wm-property": "like-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "かとーん",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/ab87022523037fa154b448d3eb99a8aefb43ac94d8f645923827d8cf3c846959.jpg",
+        "url": "https://twitter.com/katoon081"
+      },
+      "url": "https://twitter.com/frontend_weekly/status/1262928455601197061#favorited-by-306555296",
+      "published": null,
+      "wm-received": "2020-05-20T03:27:43Z",
+      "wm-id": 798656,
+      "wm-source": "https://brid-gy.appspot.com/like/twitter/frontend_weekly/1262928455601197061/306555296",
+      "wm-target": "https://frontendweekly.tokyo/posts/268/",
+      "like-of": "https://frontendweekly.tokyo/posts/268/",
+      "wm-property": "like-of",
+      "wm-private": false
+    },
+    {
+      "type": "entry",
+      "author": {
+        "type": "card",
+        "name": "JimoNull",
+        "photo": "https://webmention.io/avatar/pbs.twimg.com/64cec6f9103223f146c48c396a1e4998cb5df92556e0e5c99370e97cf75912dd.jpg",
+        "url": "https://twitter.com/JimoNull"
+      },
+      "url": "https://twitter.com/frontend_weekly/status/1255333647034585091#favorited-by-1165180079535583233",
+      "published": null,
+      "wm-received": "2020-05-15T01:55:22Z",
+      "wm-id": 796536,
+      "wm-source": "https://brid-gy.appspot.com/like/twitter/frontend_weekly/1255333647034585091/1165180079535583233",
+      "wm-target": "https://frontendweekly.tokyo/posts/266/",
+      "like-of": "https://frontendweekly.tokyo/posts/266/",
+      "wm-property": "like-of",
       "wm-private": false
     },
     {

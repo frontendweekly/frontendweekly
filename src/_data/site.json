@@ -1,6 +1,6 @@
 {
   "name": "Frontend Weekly Tokyo",
-  "shortDesc": "Frontend Weeklyでは国内・海外のフロントエンド関連情報を厳選し毎週お届けします。",
+  "description": "Frontend Weeklyでは国内・海外のフロントエンド関連情報を厳選し毎週お届けします。",
   "url": "https://frontendweekly.tokyo",
   "lang": "ja",
   "author": {
