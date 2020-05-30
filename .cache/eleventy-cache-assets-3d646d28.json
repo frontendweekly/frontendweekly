@@ -1,5 +1,13 @@
 [
   {
+    "id": 5525130,
+    "created_at": "2020-05-15T00:57:24.186923Z",
+    "feed_id": 1604034,
+    "title": "The website of Alice Bartlett",
+    "feed_url": "https://alicebartlett.co.uk/feed.xml",
+    "site_url": "https://alicebartlett.co.uk/"
+  },
+  {
     "id": 5513019,
     "created_at": "2020-05-10T01:25:16.714163Z",
     "feed_id": 1506703,
@@ -155,7 +163,7 @@
     "id": 5288952,
     "created_at": "2020-02-02T18:41:01.227084Z",
     "feed_id": 1752918,
-    "title": "Manuela Barcenas",
+    "title": "Manuela from Fellow.app",
     "feed_url": "http://fellow.app?ad61aebb3fdfcd4d905ae224737ed28cedce3dbe",
     "site_url": "http://fellow.app"
   },
@@ -1085,7 +1093,7 @@
     "feed_id": 2850,
     "title": "Marco's Accessibility Blog",
     "feed_url": "http://www.marcozehe.de/feed/",
-    "site_url": "https://marcozehe.de"
+    "site_url": "https://www.marcozehe.de/"
   },
   {
     "id": 4904288,
@@ -1973,7 +1981,7 @@
     "feed_id": 533964,
     "title": "Jake Archibald's Blog",
     "feed_url": "http://jakearchibald.com/posts.rss",
-    "site_url": "http://jakearchibald.com/"
+    "site_url": "https://jakearchibald.com/"
   },
   {
     "id": 4904072,
@@ -2109,7 +2117,7 @@
     "feed_id": 3275,
     "title": "phpied.com",
     "feed_url": "http://www.phpied.com/feed/",
-    "site_url": "http://www.phpied.com"
+    "site_url": "https://www.phpied.com"
   },
   {
     "id": 4904043,
