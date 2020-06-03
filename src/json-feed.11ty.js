@@ -51,7 +51,7 @@ module.exports = class {
     feed.items = [];
 
     for (const post of data.collections.posts) {
-      const absolutePostUrl = `${data.site.url}${post.filePathStem}`;
+      const absolutePostUrl = `${data.site.url}${post.data.page.url}`;
 
       const item = {
         id: absolutePostUrl,
