@@ -37,12 +37,12 @@
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.1",
     "@frontendweekly/collection-postfeed": "^0.0.6",
     "@frontendweekly/collection-posts": "^0.0.6",
-    "@frontendweekly/molle": "0.0.18",
+    "@frontendweekly/molle": "0.0.19",
     "autoprefixer": "^9.8.0",
     "cssnano": "^4.1.10",
     "dotenv": "^8.2.0",
     "node-jq": "^1.11.1",
-    "postcss": "^7.0.31",
+    "postcss": "^7.0.32",
     "postcss-cli": "^7.1.1",
     "postcss-import": "^12.0.1",
     "postcss-load-config": "^2.1.0",
@@ -51,7 +51,7 @@
     "twitter": "^1.7.1"
   },
   "devDependencies": {
-    "@testing-library/dom": "^7.7.0",
+    "@testing-library/dom": "^7.9.0",
     "@testing-library/jest-dom": "^5.9.0",
     "cross-env": "^7.0.2",
     "eslint": "^7.1.0",
