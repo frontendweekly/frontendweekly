@@ -193,12 +193,12 @@ ${generateInBriefHeading()}
 ${generateInbrief(tmplData)}`;
   };
 
-  const title = options.title ? `Vol.${options.title}` : `Vol.${getNextVol()}`;
+  const vol = options.title || getNextVol();
   return matter.stringify(file(), {
-    title,
+    title: `Vol.${vol}`,
     date: options.date || getNextWednesday(),
     desc: `3 OF TRANSLATED TITLE、ほか計${tmplData.length}リンク`,
-    permalink: `/posts/${title}/`,
+    permalink: `/posts/${vol}/`,
   });
 };
 
