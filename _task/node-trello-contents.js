@@ -39,6 +39,8 @@ const getNextWednesday = () => {
 
   const date = new Date();
   date.setDate(date.getDate() + ((3 + 7 - date.getDay()) % 7));
+  // 東京の時間に合わせる
+  date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
   return yyyymmddify(date);
 };
 
