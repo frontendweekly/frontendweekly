@@ -36,9 +36,11 @@ module.exports = function (config) {
   config.addLayoutAlias('home', 'layouts/home.njk');
 
   // Custom collections
-  config.addCollection('posts', (collection) => collectionPost(collection));
+  config.addCollection('posts', (collection) =>
+    collectionPost(collection, './src/posts/*.md')
+  );
   config.addCollection('postFeed', (collection) =>
-    collectionPostFeed(collection, site.maxPostsPerPage)
+    collectionPostFeed(collection, './src/posts/*.md', site.maxPostsPerPage)
   );
 
   return {

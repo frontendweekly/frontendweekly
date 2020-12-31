@@ -21,7 +21,10 @@ const POSTS_DIR = path.resolve(process.env.PWD, 'src/posts');
 const getNextVol = () => {
   const filepathes = (element) => path.basename(element, path.extname(element));
   const volume = (element) =>
-    element.replace(/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))-(v)/g, '');
+    element.replace(
+      /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))-(v)/g,
+      ''
+    );
   const latest = fg
     .sync(`${POSTS_DIR}/*.md`)
     .map(filepathes)
@@ -170,7 +173,7 @@ ${cleanDescription(element.desc)}
   };
 
   /// In Brief heading
-  const generateInBriefHeading = () => `# In Brief{inbrief}`;
+  const generateInBriefHeading = () => `## In Brief`;
 
   /// Generate INBRIEF
   const generateInbrief = (tmplData) => {

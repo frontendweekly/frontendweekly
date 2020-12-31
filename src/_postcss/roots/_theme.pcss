@@ -1,6 +1,6 @@
 body {
-  color: var(--color-text);
   background-color: var(--color-bg);
+  color: var(--color-text);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -11,8 +11,8 @@ body {
   }
 
   body {
-    color: var(--color-text);
     background-color: var(--color-bg);
+    color: var(--color-text);
   }
 
   .c-intro__heading {
@@ -23,5 +23,9 @@ body {
   .c-post kbd:not([class]),
   .c-post samp:not([class]) {
     background-color: var(--color-gray-500);
+  }
+
+  .c-site-foot__inner::before {
+    border-color: var(--color-gray-400);
   }
 }

@@ -6,16 +6,16 @@
 
 pre[class*='language-'] > code[class*='language-'] {
   padding: 0;
+  background-color: transparent;
+  color: #f8f8f2;
   -webkit-hyphens: none;
   -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-  color: #f8f8f2;
-  word-break: break-word;
   -moz-tab-size: 2;
   -o-tab-size: 2;
   tab-size: 2;
-  background-color: transparent;
+  word-break: break-word;
 }
 
 .token.comment,
@@ -90,8 +90,8 @@ pre[class*='language-'] > code[class*='language-'] {
 @media screen and (-ms-high-contrast: active) {
   code[class*='language-'],
   pre[class*='language-'] {
-    color: windowText;
     background: window;
+    color: windowText;
   }
 
   :not(pre) > code[class*='language-'],
@@ -100,9 +100,9 @@ pre[class*='language-'] > code[class*='language-'] {
   }
 
   .token.important {
-    font-weight: normal;
-    color: window;
     background: highlight;
+    color: window;
+    font-weight: normal;
   }
 
   .token.atrule,

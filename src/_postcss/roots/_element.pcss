@@ -32,13 +32,13 @@ body {
 
 body {
   display: flex;
-  flex-direction: column;
   min-height: 100vh;
+  flex-direction: column;
+  font-variant-ligatures: common-ligatures;
   overflow-x: hidden;
   overflow-y: scroll;
   scroll-behavior: smooth;
   text-rendering: optimizeLegibility;
-  font-variant-ligatures: common-ligatures;
 }
 
 a {
@@ -71,9 +71,9 @@ th {
 }
 
 main {
-  flex: 1 0 auto;
   width: 100%;
   max-width: calc(var(--space-char-per-line) * 1ch);
+  flex: 1 0 auto;
   margin-right: auto;
   margin-left: auto;
 }
