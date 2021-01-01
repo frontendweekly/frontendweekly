@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const postcss = require('postcss');
 const postcssrc = require('postcss-load-config');
-const {plugins} = postcssrc.sync();
+const {plugins, options} = postcssrc.sync();
 
 const fileName = {
   postcss: 'main.pcss',
@@ -14,6 +14,7 @@ module.exports = class {
     const rawFilepath = path.join(__dirname, `./${fileName.postcss}`);
     return {
       permalink: `css/${fileName.css}`,
+      eleventyExcludeFromCollections: true,
       rawFilepath,
       rawCss: await fs.readFileSync(rawFilepath),
     };
@@ -22,6 +23,7 @@ module.exports = class {
   async render({rawCss, rawFilepath}) {
     return postcss(plugins)
       .process(rawCss, {
+        ...options,
         from: rawFilepath,
       })
       .then((result) => result.css);

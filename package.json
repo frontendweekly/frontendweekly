@@ -29,6 +29,9 @@
   "bugs": {
     "url": "https://github.com/frontendweekly/frontendweekly/issues"
   },
+  "engines": {
+    "node": ">=14.15.0"
+  },
   "homepage": "https://github.com/frontendweekly/frontendweekly#readme",
   "dependencies": {
     "@11ty/eleventy": "^0.11.1",
@@ -37,7 +40,7 @@
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.4",
     "@frontendweekly/collection-postfeed": "^0.0.9",
     "@frontendweekly/collection-posts": "^0.0.9",
-    "@frontendweekly/molle": "0.0.25",
+    "@frontendweekly/molle": "0.0.28",
     "autoprefixer": "^10.1.0",
     "cssnano": "^4.1.10",
     "dotenv": "^8.2.0",
