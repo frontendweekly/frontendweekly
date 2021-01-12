@@ -34,24 +34,27 @@ module.exports = class {
   }
 
   async render(data) {
+    // eslint-disable-next-line sonarjs/prefer-object-literal
     const feed = {};
 
-    feed.version = 'https://jsonfeed.org/version/1';
+    feed.version = 'https://jsonfeed.org/version/1.1';
     feed.user_comment = `This is a blog feed. You can add this to your feed reader using the following URL: ${data.site.url}/feed.json`;
     feed.title = `${data.site.name}`;
     feed.home_page_url = `${data.site.url}`;
     feed.feed_url = `${data.site.url}/feed.json`;
     feed.description = `${data.site.description}`;
     feed.favicon = `${data.site.url}/favicon.ico`;
-    feed.author = {
-      name: `${data.site.author.name}`,
-      url: `${data.site.url}`,
-    };
+    feed.authors = [
+      {
+        name: `${data.site.author.name}`,
+        url: `${data.site.url}`,
+      },
+    ];
 
     feed.items = [];
 
     for (const post of data.collections.posts) {
-      const absolutePostUrl = `${data.site.url}${post.data.page.url}`;
+      const absolutePostUrl = `${data.site.url}${post.filePathStem}`;
 
       const item = {
         id: absolutePostUrl,
@@ -60,11 +63,13 @@ module.exports = class {
 
       item.title = post.data.title;
       item.summary = post.data.desc;
-      item.content_html = await this.prepareContent(
-        post.templateContent,
-        absolutePostUrl
-      );
-      item.date_published = new Date(post.data.date).toISOString();
+      item.content_html = await this.prepareContent(post.templateContent);
+      item.date_published = post.data.date;
+      item.authors = [
+        {
+          name: `${post.data.author}`,
+        },
+      ];
 
       feed.items.push(item);
     }

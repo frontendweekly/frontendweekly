@@ -1,5 +1,5 @@
 {% macro facepile( webmentions ) %}
-<ol class="c-webmention__facepile" reversed>
+<ol role="list" class="c-webmention__facepile" reversed>
     {% for wm in webmentions | reverse | head(5) %}
       <li class="c-webmention__face-item">
         <a href="{{ wm.author.url }}">
@@ -21,7 +21,7 @@
 {% endmacro %}
 
 {% macro mediaObjectList( webmentions ) %}
- <ol class="c-webmention__with-contents-list" reversed>
+ <ol role="list" class="c-webmention__with-contents-list" reversed>
     {% for wm in webmentions | reverse %}
       <li class="c-webmention__item">
         <article class="c-wm-self o-media h-cite" id="webmention-{{ wm['wm-id'] }}">
