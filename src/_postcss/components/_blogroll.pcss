@@ -1,3 +1,7 @@
+.c-blogroll__items {
+  padding-left: 0;
+}
+
 .c-blogroll__link {
   text-decoration: none;
 
@@ -11,9 +15,9 @@
 }
 
 .c-blogroll__link--feed-url svg {
-  flex: 1 0 auto;
   width: 1em;
   height: 1em;
+  flex: 1 0 auto;
   margin-top: auto;
   margin-right: 0.25em;
   margin-bottom: auto;
@@ -21,6 +25,7 @@
 }
 
 .c-blogroll__link--feed-url span {
+  overflow-wrap: break-word;
   -ms-word-break: break-all;
 
   /* This is the dangerous one in WebKit, as it breaks things wherever */
@@ -29,5 +34,4 @@
   /* Instead use this non-standard one: */
   word-break: break-word;
   word-wrap: break-word;
-  overflow-wrap: break-word;
 }

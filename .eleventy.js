@@ -29,16 +29,16 @@ module.exports = function (config) {
   config.addPassthroughCopy('src/images');
   config.addPassthroughCopy('src/favicon.*');
   config.addPassthroughCopy('src/humans.txt');
-  config.addPassthroughCopy('src/fonts');
-  config.addPassthroughCopy('src/scripts');
 
   // Layout aliases
   config.addLayoutAlias('home', 'layouts/home.njk');
 
   // Custom collections
-  config.addCollection('posts', (collection) => collectionPost(collection));
+  config.addCollection('posts', (collection) =>
+    collectionPost(collection, './src/posts/*.md')
+  );
   config.addCollection('postFeed', (collection) =>
-    collectionPostFeed(collection, site.maxPostsPerPage)
+    collectionPostFeed(collection, './src/posts/*.md', site.maxPostsPerPage)
   );
 
   return {
