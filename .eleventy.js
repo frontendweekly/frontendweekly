@@ -8,6 +8,7 @@ const collectionPost = require('@frontendweekly/collection-posts');
 const collectionPostFeed = require('@frontendweekly/collection-postfeed');
 
 // Filters
+const filterHead = require('@frontendweekly/filter-head');
 const filterDateOrdinalSuffix = require('@frontendweekly/filter-date-ordinal-suffix');
 const filterDateIso = require('@frontendweekly/filter-date-iso');
 const filters = require('./11ty/_filters/filters.js');
@@ -35,6 +36,7 @@ module.exports = function (config) {
   });
   config.addFilter('dateOrdinalSuffixFilter', filterDateOrdinalSuffix);
   config.addFilter('dateIsoFilter', filterDateIso);
+  config.addFilter('head', filterHead);
 
   // Transforms
   config.addTransform('enhancePostIframe', transformEnhancePostIframe);
