@@ -36,7 +36,9 @@ self.addEventListener('activate', (evt) => {
     caches
       .keys()
       .then((cacheNames) => {
-        return cacheNames.filter((item) => !Object.values(CACHE_KEYS).includes(item));
+        return cacheNames.filter(
+          (item) => !Object.values(CACHE_KEYS).includes(item)
+        );
       })
       .then((itemsToDelete) => {
         return Promise.all(
