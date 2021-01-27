@@ -7,7 +7,12 @@ module.exports = {
 
     // Extract webmentions by wm-property
     const extractByType = (item) => {
-      const allowedTypes = ['repost-of', 'like-of', 'mention-of', 'in-reply-to'];
+      const allowedTypes = [
+        'repost-of',
+        'like-of',
+        'mention-of',
+        'in-reply-to',
+      ];
       return allowedTypes.includes(item['wm-property']);
     };
 

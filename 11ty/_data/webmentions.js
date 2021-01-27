@@ -9,6 +9,9 @@ require('dotenv').config();
 const API_ORIGIN = 'https://webmention.io/api/mentions.jf2';
 const TOKEN = process.env.WEBMENTION_IO_TOKEN;
 
+/**
+ *
+ */
 async function fetchWebmentions() {
   const {webmention} = metadata;
 

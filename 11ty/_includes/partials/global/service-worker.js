@@ -17,14 +17,15 @@ const IGNORED_HOSTS = ['localhost'];
 /**
  * Takes an array of strings and puts them in a named cache store
  *
- * @param {String} cacheName
+ * @param {string} cacheName
  * @param {Array} items=[]
+ * @param items
  */
 const addItemsToCache = function (cacheName, items = []) {
   caches.open(cacheName).then((cache) => cache.addAll(items));
 };
 
-self.addEventListener('install', (evt) => {
+self.addEventListener('install', () => {
   self.skipWaiting();
 
   addItemsToCache(CACHE_KEYS.PRE_CACHE, PRE_CACHE_URLS);
@@ -36,7 +37,9 @@ self.addEventListener('activate', (evt) => {
     caches
       .keys()
       .then((cacheNames) => {
-        return cacheNames.filter((item) => !Object.values(CACHE_KEYS).includes(item));
+        return cacheNames.filter(
+          (item) => !Object.values(CACHE_KEYS).includes(item)
+        );
       })
       .then((itemsToDelete) => {
         return Promise.all(
@@ -78,7 +81,7 @@ self.addEventListener('fetch', (evt) => {
               return response;
             });
           })
-          .catch((ex) => {});
+          .catch(() => {});
       });
     })
   );

@@ -15,7 +15,7 @@ dotenv.config();
 
 // Configuration
 /// Posts location
-const POSTS_DIR = path.resolve(process.env.PWD, 'src/posts');
+const POSTS_DIR = path.resolve(process.env.PWD, '11ty/posts');
 
 /// Get next vol from POSTS_DIR
 const getNextVol = () => {
@@ -65,6 +65,7 @@ const ps = [
 /// Helper Function to return unknown errors
 const handleError = (err) => {
   signale.fatal(err);
+  // eslint-disable-next-line no-process-exit
   process.exit(1);
 };
 
