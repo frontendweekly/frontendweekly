@@ -64,10 +64,10 @@
     "twitter": "^1.7.1"
   },
   "devDependencies": {
+    "@frontendweekly/browserslist-config-molle": "^0.0.2",
     "@frontendweekly/eslint-config-molle": "^0.0.6",
     "@frontendweekly/jest-preset-molle": "^0.0.20",
     "@frontendweekly/stylelint-config-molle": "^0.0.7",
-    "@frontendweekly/browserslist-config-molle": "^0.0.2",
     "cross-env": "^7.0.3",
     "eslint": "^7.25.0",
     "fast-glob": "^3.2.5",
