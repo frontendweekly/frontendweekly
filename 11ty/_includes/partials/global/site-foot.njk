@@ -11,6 +11,12 @@
 
       {% include "partials/components/small-print.njk" %}
 
+      {% if page.url === '/' %}
+        {% if speedify %}
+          {% include "partials/components/speedify.njk" %}
+        {% endif %}
+      {% endif %}
+
       {% if site.showThemeCredit %}
       <p class="c-site-foot__credit">
         <small>Powered by <a href="https://github.com/frontendweekly/virga">Virga</a>. Made Proudly in Tokyo.</small>
