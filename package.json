@@ -12,6 +12,7 @@
     "dev:netlify": "cross-env ELEVENTY_ENV=development netlify dev",
     "start": "npm run dev",
     "post:new": "node _task/node-trello-contents.js",
+    "prepare": "husky install",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch"
