@@ -109,7 +109,7 @@ const prepareTemplateData = async (response) => {
   const transformResponse = async (res) => {
     const json = JSON.stringify(res, null, 2);
     const baseSchema =
-      '.[] |= { id: .id, title: .name, desc: .desc, label: .labels[].name, url: .attachments[].url }';
+      '.[] |= { id: .id, title: .name, desc: .desc, label: .labels[].name }';
     const filter = `${baseSchema}`;
 
     try {
@@ -126,15 +126,13 @@ const prepareTemplateData = async (response) => {
 
 /// Generate Content
 const generateContent = async (tmplData, options) => {
-  /// clean description
-  const cleanDescription = (description) => {
-    // Strip URL and /n from desc
-    const removeNoise = (value) => {
-      const regex = /(\\n|\\r)|http(s):\/\/\S*/gm;
-      return value.replace(regex, '').trim();
-    };
-
-    return description ? removeNoise(description) : `FILL ME`;
+  /// Get URL from description
+  const GetURL = (description) => {
+    /* eslint-disable */
+    const regex =
+      /https?:\/\/(www\.)?[-\w@:%.\+~#=]{1,256}\.[a-zA-Z\d()]{1,6}\b([-\w()!@:%\+.~#?&/\=]*)/i;
+    /* eslint-enable */
+    return description.match(regex)[0];
   };
 
   /// Generate MUSTREAD
@@ -146,10 +144,10 @@ const generateContent = async (tmplData, options) => {
     // In Trello, this MUST be labeled as MUSTREAD
     const isMustRead = (element) => element.label === 'MUSTREAD';
     const mustRead = (element) => `
-## [${element.title}](${element.url})
+## [${element.title}](${GetURL(element.desc)})
 #### TRANSLATED TITLE
 
-${cleanDescription(element.desc)}
+FILL ME
 
 `;
 
@@ -164,9 +162,9 @@ ${cleanDescription(element.desc)}
     // In Trello, this MUST be labeled as FEATURED
     const isFeatured = (element) => element.label === 'FEATURED';
     const featured = (element) => `
-## [${element.title}](${element.url})
+## [${element.title}](${GetURL(element.desc)})
 
-${cleanDescription(element.desc)}
+FILL ME
 
 `;
 
@@ -185,7 +183,7 @@ ${cleanDescription(element.desc)}
     const isInBrief = (element) => element.label === 'INBRIEF';
     const inBrief = (element) =>
       `
-- **[${element.title}](${element.url})**: TRANSLATED TITLE
+- **[${element.title}](${GetURL(element.desc)})**: TRANSLATED TITLE
 `;
 
     return tmplData.filter(isInBrief).map(inBrief).join('');
