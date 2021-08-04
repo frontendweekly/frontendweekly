@@ -109,7 +109,7 @@ const prepareTemplateData = async (response) => {
   const transformResponse = async (res) => {
     const json = JSON.stringify(res, null, 2);
     const baseSchema =
-      '.[] |= { id: .id, title: .name, desc: .desc, label: .labels[].name, url: .attachments[].url }';
+      '.[] |= { id: .id, title: .name, desc: .desc, label: .labels[].name }';
     const filter = `${baseSchema}`;
 
     try {
