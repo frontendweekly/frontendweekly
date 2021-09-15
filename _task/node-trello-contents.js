@@ -129,10 +129,16 @@ const generateContent = async (tmplData, options) => {
   /// Get URL from description
   const GetURL = (description) => {
     /* eslint-disable */
-    const regex =
-      /https?:\/\/(www\.)?[-\w@:%.\+~#=]{1,256}\.[a-zA-Z\d()]{1,6}\b([-\w()!@:%\+.~#?&/\=]*)/i;
+    // Regex for capturing URL string
+    const regex = /https?:\/\/(www\.)?[-\w@:%.\+~#=]{1,256}\.[a-zA-Z\d()]{1,12}\b([-\w()!@:%\+.~#?&/\=]*)/i;
     /* eslint-enable */
-    return description.match(regex)[0];
+    try {
+      return description.match(regex)[0];
+    } catch (err) {
+      console.log(err);
+      console.log('ERROR: There is no URL in the description');
+      console.log(description);
+    }
   };
 
   /// Generate MUSTREAD
