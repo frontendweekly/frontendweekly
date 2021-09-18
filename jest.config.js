@@ -1,3 +1,3 @@
 module.exports = {
-  preset: '@frontendweekly/jest-preset-molle',
+  preset: '@frontendweekly/jest-preset',
 };

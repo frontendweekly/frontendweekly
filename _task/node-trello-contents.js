@@ -128,10 +128,9 @@ const prepareTemplateData = async (response) => {
 const generateContent = async (tmplData, options) => {
   /// Get URL from description
   const GetURL = (description) => {
-    /* eslint-disable */
     // Regex for capturing URL string
-    const regex = /https?:\/\/(www\.)?[-\w@:%.\+~#=]{1,256}\.[a-zA-Z\d()]{1,12}\b([-\w()!@:%\+.~#?&/\=]*)/i;
-    /* eslint-enable */
+    const regex =
+      /https?:\/\/(www\.)?[-\w@:%.+~#=]{1,256}\.[a-z\d()]{1,6}\b([-\w()!@:%+.~#?&/=]*)/i;
     try {
       return description.match(regex)[0];
     } catch (err) {
