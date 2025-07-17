@@ -1,8 +1,9 @@
-const signale = require('signale');
-const CacheAsset = require('@11ty/eleventy-cache-assets');
-const jq = require('node-jq');
+import eleventyFetch from '@11ty/eleventy-fetch';
+import dotenv from 'dotenv';
+import jq from 'node-jq';
+import signale from 'signale';
 
-require('dotenv').config();
+dotenv.config();
 
 // Configuration
 /// Feedbin API URL
@@ -25,11 +26,11 @@ const handleError = (err) => {
 /// Fetch latest subscriptions from Feedbin
 const getSubscription = async () => {
   try {
-    return await CacheAsset(FEEDBIN_API_URL, {
+    const response = await eleventyFetch(FEEDBIN_API_URL, {
       duration: '1d',
-      type: 'json',
       fetchOptions: FEEDBIN_API_OPTION,
     });
+    return response;
   } catch (err) {
     handleError(err);
   }
@@ -62,13 +63,17 @@ const transformJSON = async (json) => {
 };
 
 // Main Function
-module.exports = async function () {
+export default async function () {
   const subscription = await getSubscription();
   if (subscription) {
     const blogroll = await transformJSON(JSON.stringify(subscription, null, 2));
-    const json = JSON.parse(blogroll);
-
-    signale.info(`blogroll has ${json.items.length} items`);
-    return json;
+    if (blogroll) {
+      const json = JSON.parse(blogroll);
+      signale.info(`blogroll has ${json.items.length} items`);
+      return json;
+    }
+    signale.warn('Failed to transform blogroll data, returning empty result');
+    return { dateCreated: new Date().toISOString(), items: [] };
   }
-};
+  return { dateCreated: new Date().toISOString(), items: [] };
+}

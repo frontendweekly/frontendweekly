@@ -1,61 +1,72 @@
 // Import plugins
-const rssPlugin = require('@11ty/eleventy-plugin-rss');
-const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
-const markdown = require('./11ty/_plugin/eleventy-plugin-markdown');
+import rssPlugin from '@11ty/eleventy-plugin-rss';
+import syntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight';
+import markdown from './11ty/_plugin/eleventy-plugin-markdown.js';
 
+import collectionPostFeed from './11ty/_collection/collection-postfeed.js';
 // Import collection
-const collectionPost = require('./11ty/_collections/collection-posts');
-const collectionPostFeed = require('./11ty/_collections/collection-postfeed');
+import collectionPost from './11ty/_collection/collection-posts.js';
 
+import filterDateIso from './11ty/_filter/date-iso.js';
+import filterDateOrdinalSuffix from './11ty/_filter/date-ordinal-suffix.js';
 // Filters
-const filterHead = require('./11ty/_filters/head');
-const filterDateOrdinalSuffix = require('./11ty/_filters/date-ordinal-suffix');
-const filterDateIso = require('./11ty/_filters/date-iso');
-const webmentionFilters = require('./11ty/_filters/webmention.js');
+import filterHead from './11ty/_filter/head.js';
+import * as webmentionFilters from './11ty/_filter/webmention.js';
 
+import transformEnhancePostCodeBlock from './11ty/_transform/transform-enhance-post-code-block.js';
+import transformEnhancePostIframe from './11ty/_transform/transform-enhance-post-iframe.js';
 // Import transforms
-const transformHtmlMin = require('./11ty/_transforms/transform-htmlmin');
-const transformEnhancePostIframe = require('./11ty/_transforms/transform-enhance-post-iframe');
-const transformEnhancePostCodeBlock = require('./11ty/_transforms/transform-enhance-post-code-block');
+import transformHtmlMin from './11ty/_transform/transform-htmlmin.js';
 
 // Import data files
-const site = require('./11ty/_data/site.json');
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-module.exports = function (config) {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const site = JSON.parse(
+  readFileSync(join(__dirname, '11ty/_data/site.json'), 'utf8')
+);
+
+export default function (eleventyConfig) {
   // Watch postcss
-  config.addWatchTarget('./11ty/_postcss/');
+  eleventyConfig.addWatchTarget('./11ty/_postcss/');
 
   // Plugins
-  config.addPlugin(rssPlugin);
-  config.addPlugin(syntaxHighlight);
-  config.setLibrary('md', markdown);
+  eleventyConfig.addPlugin(rssPlugin);
+  eleventyConfig.addPlugin(syntaxHighlight);
+  markdown(eleventyConfig);
 
   // Filters
-  Object.keys(webmentionFilters).forEach((filterName) => {
-    config.addFilter(filterName, webmentionFilters[filterName]);
-  });
-  config.addFilter('dateOrdinalSuffixFilter', filterDateOrdinalSuffix);
-  config.addFilter('dateIsoFilter', filterDateIso);
-  config.addFilter('head', filterHead);
+  for (const filterName of Object.keys(webmentionFilters)) {
+    eleventyConfig.addFilter(filterName, webmentionFilters[filterName]);
+  }
+  eleventyConfig.addFilter('dateOrdinalSuffixFilter', filterDateOrdinalSuffix);
+  eleventyConfig.addFilter('dateIsoFilter', filterDateIso);
+  eleventyConfig.addFilter('head', filterHead);
 
   // Transforms
-  config.addTransform('enhancePostIframe', transformEnhancePostIframe);
-  config.addTransform('enhancePostCodeBlock', transformEnhancePostCodeBlock);
-  config.addTransform('htmlmin', transformHtmlMin);
+  eleventyConfig.addTransform('enhancePostIframe', transformEnhancePostIframe);
+  eleventyConfig.addTransform(
+    'enhancePostCodeBlock',
+    transformEnhancePostCodeBlock
+  );
+  eleventyConfig.addTransform('htmlmin', transformHtmlMin);
 
   // Passthrough copy
-  config.addPassthroughCopy('11ty/images');
-  config.addPassthroughCopy('11ty/favicon.*');
-  config.addPassthroughCopy('11ty/humans.txt');
+  eleventyConfig.addPassthroughCopy('11ty/images');
+  eleventyConfig.addPassthroughCopy('11ty/favicon.*');
+  eleventyConfig.addPassthroughCopy('11ty/humans.txt');
 
   // Layout aliases
-  config.addLayoutAlias('home', 'layouts/home.njk');
+  eleventyConfig.addLayoutAlias('home', 'layouts/home.njk');
 
   // Custom collections
-  config.addCollection('posts', (collection) =>
+  eleventyConfig.addCollection('posts', (collection) =>
     collectionPost(collection, './11ty/posts/*.md')
   );
-  config.addCollection('postFeed', (collection) =>
+  eleventyConfig.addCollection('postFeed', (collection) =>
     collectionPostFeed(collection, './11ty/posts/*.md', site.maxPostsPerPage)
   );
 
@@ -63,10 +74,10 @@ module.exports = function (config) {
     dir: {
       input: '11ty',
       output: 'dist',
+      includes: '_include',
     },
     templateFormats: ['njk', 'md', '11ty.js'],
     htmlTemplateEngine: 'njk',
     markdownTemplateEngine: 'njk',
-    passthroughFileCopy: true,
   };
-};
+}

@@ -1,26 +1,31 @@
-const fs = require('fs');
-const path = require('path');
-const postcss = require('postcss');
-const postcssrc = require('postcss-load-config');
-const {plugins, options} = postcssrc.sync();
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import postcss from 'postcss';
 
-const fileName = {
-  postcss: 'main.pcss',
-  css: 'main.css',
-};
-
-module.exports = class {
+export default class {
   async data() {
-    const rawFilepath = path.join(__dirname, `./${fileName.postcss}`);
+    const fileName = {
+      postcss: 'main.pcss',
+      css: 'main.css',
+    };
+    const rawFilepath = path.join(
+      path.dirname(new URL(import.meta.url).pathname),
+      `./${fileName.postcss}`
+    );
+    // Dynamically import postcss-load-config for ESM compatibility
+    const postcssrc = await import('postcss-load-config');
+    const { plugins, options } = await postcssrc.default();
     return {
-      permalink: `css/${fileName.css}`,
+      permalink: `assets/styles/${fileName.css}`,
       eleventyExcludeFromCollections: true,
       rawFilepath,
-      rawCss: await fs.readFileSync(rawFilepath),
+      rawCss: await fs.readFile(rawFilepath),
+      plugins,
+      options,
     };
   }
 
-  async render({rawCss, rawFilepath}) {
+  async render({ rawCss, rawFilepath, plugins, options }) {
     return postcss(plugins)
       .process(rawCss, {
         ...options,
@@ -28,4 +33,4 @@ module.exports = class {
       })
       .then((result) => result.css);
   }
-};
+}

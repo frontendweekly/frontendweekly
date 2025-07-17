@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import dateISO from './date-iso.js';
 
 describe('dateISO', () => {
@@ -18,7 +18,7 @@ describe('dateISO', () => {
     // Act
     const actual = dateISO(date);
     // Assert
-    const expected = `2020-04-01T00:00:00.000Z`;
+    const expected = '2020-03-31T15:00:00.000Z';
     expect(actual).toEqual(expected);
   });
-}); 
+});

@@ -1,9 +1,16 @@
-const signale = require('signale');
-const CacheAsset = require('@11ty/eleventy-cache-assets');
-const metadata = require('./site.json');
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import eleventyFetch from '@11ty/eleventy-fetch';
+import signale from 'signale';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const metadata = JSON.parse(readFileSync(join(__dirname, 'site.json'), 'utf8'));
 
 // Load .env variables with dotenv
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 // Configuration Parameters
 const API_ORIGIN = 'https://webmention.io/api/mentions.jf2';
@@ -13,7 +20,7 @@ const TOKEN = process.env.WEBMENTION_IO_TOKEN;
  *
  */
 async function fetchWebmentions() {
-  const {webmention} = metadata;
+  const { webmention } = metadata;
 
   if (!webmention) {
     // If we dont have a domain name, abort
@@ -34,24 +41,29 @@ async function fetchWebmentions() {
   const url = `${API_ORIGIN}?domain=${webmention}&token=${TOKEN}&per-page=999&sort-by=published`;
 
   try {
-    const response = await CacheAsset(url, {
+    const response = await eleventyFetch(url, {
       duration: '1d',
-      type: 'json',
     });
+    const data = await response;
 
-    signale.info(
-      `${response.children.length} webmentions fetched from {API_ORIGIN}?domain=${webmention}}`
-    );
-    return response;
+    if (data?.children) {
+      signale.info(
+        `${data.children.length} webmentions fetched from {API_ORIGIN}?domain=${webmention}}`
+      );
+      return data;
+    }
+    signale.warn('No webmentions data available');
+    return { children: [] };
   } catch (err) {
     signale.fatal(err);
-    return null;
+    return { children: [] };
   }
 }
 
-module.exports = async function () {
+export default async function () {
   const feed = await fetchWebmentions();
-  if (feed) {
+  if (feed?.children) {
     return feed.children;
   }
-};
+  return [];
+}

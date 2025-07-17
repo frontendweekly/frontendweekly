@@ -1,9 +1,15 @@
-import { describe, test, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 import eleventyPluginMarkdown from './eleventy-plugin-markdown.js';
 
 // Mock the dependencies
-vi.mock('markdown-it');
-vi.mock('markdown-it-anchor');
+vi.mock('markdown-it', () => ({
+  default: () => ({
+    use: vi.fn().mockReturnThis(),
+  }),
+}));
+vi.mock('markdown-it-anchor', () => ({
+  default: vi.fn(),
+}));
 
 describe('eleventy-plugin-markdown', () => {
   let eleventyConfig;
@@ -43,4 +49,4 @@ describe('eleventy-plugin-markdown', () => {
     eleventyPluginMarkdown(eleventyConfig, options);
     expect(eleventyConfig.setLibrary).toHaveBeenCalled();
   });
-}); 
+});

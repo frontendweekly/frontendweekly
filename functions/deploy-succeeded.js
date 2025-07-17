@@ -52,12 +52,11 @@ const processPosts = async (posts) => {
   try {
     // check twitter for any tweets containing post URL.
     // if there are none, publish it.
-    const q = await twitter.get('search/tweets', {q: latestPost.url});
+    const q = await twitter.get('search/tweets', { q: latestPost.url });
     if (q.statuses && q.statuses.length === 0) {
       return publishPost(siteTitle, latestPost);
-    } else {
-      return status(400, 'Latest post was already syndicated. No action taken.');
     }
+    return status(400, 'Latest post was already syndicated. No action taken.');
   } catch (err) {
     return handleError(err);
   }
@@ -88,7 +87,7 @@ const prepareStatusText = (siteTitle, post) => {
 
   // truncate text if its too long for a tweet.
   if (tweetText.length > maxLength) {
-    tweetText = tweetText.substring(0, maxLength) + '...';
+    tweetText = `${tweetText.substring(0, maxLength)}...`;
   }
 
   // include the post url at the end;
@@ -106,9 +105,8 @@ const publishPost = async (siteTitle, post) => {
     });
     if (tweet) {
       return status(200, `Post ${post.title} successfully posted to Twitter.`);
-    } else {
-      return status(422, 'Error posting to Twitter API.');
     }
+    return status(422, 'Error posting to Twitter API.');
   } catch (err) {
     return handleError(err);
   }

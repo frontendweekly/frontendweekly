@@ -21,7 +21,7 @@ const IGNORED_HOSTS = ['localhost'];
  * @param {Array} items=[]
  * @param items
  */
-const addItemsToCache = function (cacheName, items = []) {
+const addItemsToCache = (cacheName, items = []) => {
   caches.open(cacheName).then((cache) => cache.addAll(items));
 };
 
@@ -53,7 +53,7 @@ self.addEventListener('activate', (evt) => {
 });
 
 self.addEventListener('fetch', (evt) => {
-  const {hostname} = new URL(evt.request.url);
+  const { hostname } = new URL(evt.request.url);
 
   // Check we don't want to ignore this host
   if (IGNORED_HOSTS.indexOf(hostname) >= 0) {

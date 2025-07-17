@@ -1,10 +1,10 @@
-const posthtml = require('posthtml');
-const posthtmlUrls = require('posthtml-urls');
+import posthtml from 'posthtml';
+import posthtmlUrls from 'posthtml-urls';
 
-module.exports = class {
+export default class {
   async data() {
     return {
-      permalink: `/feed.json`,
+      permalink: '/feed.json',
       eleventyExcludeFromCollections: true,
     };
   }
@@ -12,19 +12,19 @@ module.exports = class {
   async prepareContent(content, baseURL) {
     const prep = posthtml().use(
       posthtmlUrls({
-        eachURL: function (url) {
-          url = url.trim();
+        eachURL: (url) => {
+          const trimmedUrl = url.trim();
 
           // #anchor in-page
-          if (url.indexOf('#') === 0) {
-            return url;
+          if (trimmedUrl.indexOf('#') === 0) {
+            return trimmedUrl;
           }
 
-          if (url.indexOf('http') === 0) {
-            return url;
+          if (trimmedUrl.indexOf('http') === 0) {
+            return trimmedUrl;
           }
 
-          return `${baseURL}${url}`;
+          return `${baseURL}${trimmedUrl}`;
         },
       })
     );
@@ -76,4 +76,4 @@ module.exports = class {
 
     return JSON.stringify(feed, null, 2);
   }
-};
+}

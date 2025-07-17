@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import dateWithOrdinalSuffixFilter from './date-ordinal-suffix.js';
 
 describe('filterDateWithOrdinalSuffix', () => {
@@ -17,7 +17,7 @@ describe('filterDateWithOrdinalSuffix', () => {
     // Act
     const actual = dateWithOrdinalSuffixFilter(date);
     // Assert
-    const expected = `1st April 2020`;
+    const expected = '1st April 2020';
     expect(actual).toEqual(expected);
   });
 
@@ -28,7 +28,7 @@ describe('filterDateWithOrdinalSuffix', () => {
     // Act
     const actual = dateWithOrdinalSuffixFilter(date);
     // Assert
-    const expected = `22nd April 2020`;
+    const expected = '22nd April 2020';
     expect(actual).toEqual(expected);
   });
 
@@ -39,7 +39,7 @@ describe('filterDateWithOrdinalSuffix', () => {
     // Act
     const actual = dateWithOrdinalSuffixFilter(date);
     // Assert
-    const expected = `3rd April 2020`;
+    const expected = '3rd April 2020';
     expect(actual).toEqual(expected);
   });
 
@@ -50,7 +50,7 @@ describe('filterDateWithOrdinalSuffix', () => {
     // Act
     const actual = dateWithOrdinalSuffixFilter(date);
     // Assert
-    const expected = `29th April 2020`;
+    const expected = '29th April 2020';
     expect(actual).toEqual(expected);
   });
-}); 
+});

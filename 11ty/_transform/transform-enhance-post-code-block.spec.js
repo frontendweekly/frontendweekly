@@ -1,4 +1,4 @@
-import { describe, test, expect } from 'vitest';
+import { describe, expect, test } from 'vitest';
 import transformEnhancePostCodeBlock from './transform-enhance-post-code-block.js';
 
 describe('transform-enhance-post-code-block', () => {
@@ -12,4 +12,4 @@ describe('transform-enhance-post-code-block', () => {
     const content = 'Just some text';
     expect(transformEnhancePostCodeBlock(content, 'test.txt')).toBe(content);
   });
-}); 
+});

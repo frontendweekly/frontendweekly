@@ -13,7 +13,7 @@
     {% include "partials/global/meta-info.njk" %}
     <script>document.documentElement.classList.remove('no-js');</script>
     {% if global.environment == "production" %}
-      <style>{% include "assets/styles/main.css" %}</style>
+      <link rel="stylesheet" href="/assets/styles/main.css">
     {% else %}
       <link rel="stylesheet" href="/css/main.css">
     {% endif %}

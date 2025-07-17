@@ -1,4 +1,4 @@
-module.exports = function (value) {
+export default function (value) {
   const dateObject = new Date(value);
   return dateObject.toISOString();
-}; 
+}

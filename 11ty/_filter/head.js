@@ -1,4 +1,4 @@
-module.exports = function (value = [], n) {
+export default function (value, n) {
   if (value.length === 0 || !Array.isArray(value)) {
     return;
   }
@@ -8,4 +8,4 @@ module.exports = function (value = [], n) {
   }
 
   return value.slice(0, n);
-}; 
+}

@@ -1,26 +1,54 @@
-const CacheAsset = require('@11ty/eleventy-cache-assets');
-const fetch = require('node-fetch');
-const site = require('./site.json');
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import eleventyFetch from '@11ty/eleventy-fetch';
+import fetch from 'node-fetch';
 
-module.exports = async function () {
-  const speedifyUrl = 'https://speedify.frontendweekly.tokyo';
-  const speedify = await CacheAsset(`${speedifyUrl}/api/urls.json`, {
-    duration: '1d',
-    type: 'json',
-  });
-  const urlWithOrigin = speedify[site.url + '/'];
-  const hash = urlWithOrigin.hash;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const site = JSON.parse(readFileSync(join(__dirname, 'site.json'), 'utf8'));
 
-  const response = await fetch(`${speedifyUrl}/api/${hash}.json`);
-  const score = await response.json();
+export default async function () {
+  try {
+    const speedifyUrl = 'https://speedify.frontendweekly.tokyo';
+    const speedify = await eleventyFetch(`${speedifyUrl}/api/urls.json`, {
+      duration: '1d',
+    });
+    const urlWithOrigin = speedify[`${site.url}/`];
 
-  const lighthouse = score.lighthouse;
+    if (!urlWithOrigin || !urlWithOrigin.hash) {
+      console.warn('Speedify data not available for URL:', site.url);
+      return {
+        performance: 0,
+        accessibility: 0,
+        bestPractices: 0,
+        seo: 0,
+        timestamp: new Date().toISOString(),
+      };
+    }
 
-  return Object.assign(lighthouse, {
-    timestamp: score.timestamp,
-    performance: parseInt(lighthouse.performance * 100, 10),
-    accessibility: parseInt(lighthouse.accessibility * 100, 10),
-    bestPractices: parseInt(lighthouse.bestPractices * 100, 10),
-    seo: parseInt(lighthouse.seo * 100, 10),
-  });
-};
+    const hash = urlWithOrigin.hash;
+
+    const response = await fetch(`${speedifyUrl}/api/${hash}.json`);
+    const score = await response.json();
+
+    const lighthouse = score.lighthouse;
+
+    return Object.assign(lighthouse, {
+      timestamp: score.timestamp,
+      performance: Number.parseInt(lighthouse.performance * 100, 10),
+      accessibility: Number.parseInt(lighthouse.accessibility * 100, 10),
+      bestPractices: Number.parseInt(lighthouse.bestPractices * 100, 10),
+      seo: Number.parseInt(lighthouse.seo * 100, 10),
+    });
+  } catch (error) {
+    console.error('Error fetching speedify data:', error);
+    return {
+      performance: 0,
+      accessibility: 0,
+      bestPractices: 0,
+      seo: 0,
+      timestamp: new Date().toISOString(),
+    };
+  }
+}

@@ -1,4 +1,4 @@
-import { describe, test, expect } from 'vitest';
+import { describe, expect, test } from 'vitest';
 import SUT from './head.js';
 
 describe('filter-head', () => {
@@ -22,4 +22,4 @@ describe('filter-head', () => {
     const expected = undefined;
     expect(actual).toEqual(expected);
   });
-}); 
+});

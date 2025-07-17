@@ -1,6 +1,6 @@
-const querystring = require('querystring');
-const path = require('path');
-const fs = require('fs');
+const querystring = require('node:querystring');
+const path = require('node:path');
+const fs = require('node:fs');
 
 const jq = require('node-jq');
 const fetch = require('node-fetch');
@@ -96,7 +96,7 @@ const getCards = async () => {
 
   try {
     const requestURL = `${TRELLO_API_URL_PREFIX}${TRELLO_FE_WEEKLY_LIST}/cards?${params()}`;
-    const response = await fetch(requestURL, {method: 'GET'});
+    const response = await fetch(requestURL, { method: 'GET' });
     return response.json();
   } catch (err) {
     handleError(err);
@@ -177,7 +177,7 @@ FILL ME
   };
 
   /// In Brief heading
-  const generateInBriefHeading = () => `## In Brief`;
+  const generateInBriefHeading = () => '## In Brief';
 
   /// Generate INBRIEF
   const generateInbrief = (tmplData) => {

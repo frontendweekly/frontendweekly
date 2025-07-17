@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   environment: process.env.ELEVENTY_ENV,
   random() {
     const segment = () => {
