@@ -1,3 +1,9 @@
+/**
+ * Transforms code blocks to include language data attributes
+ * @param {string} content - HTML content to transform
+ * @param {string} outputPath - Output file path
+ * @returns {string} Transformed HTML content with enhanced code blocks
+ */
 export default function (content, outputPath) {
   if (outputPath?.endsWith('.html')) {
     return content.replace(

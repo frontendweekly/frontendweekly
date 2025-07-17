@@ -21,6 +21,7 @@ const POSTS_DIR = resolve(__dirname, '../11ty/posts');
 
 /**
  * Get the next volume number based on existing posts
+ * @returns {number} The next volume number to use
  */
 export function getNextVol() {
   const filepathes = (element) => basename(element, extname(element));
@@ -41,6 +42,7 @@ export function getNextVol() {
 
 /**
  * Get the next Wednesday date in YYYY-MM-DD format
+ * @returns {string} Date string in YYYY-MM-DD format
  */
 export function getNextWednesday() {
   const yyyymmddify = (date) => {
@@ -56,6 +58,8 @@ export function getNextWednesday() {
 
 /**
  * Fetch cards from Trello API
+ * @returns {Promise<Array>} Array of Trello card objects
+ * @throws {Error} When API request fails
  */
 export async function getCards() {
   const TRELLO_API_URL_PREFIX = 'https://api.trello.com/1/lists/';
@@ -90,6 +94,9 @@ export async function getCards() {
 
 /**
  * Transform Trello response using jq-like filtering
+ * @param {Array} response - Raw Trello API response
+ * @returns {Promise<Array>} Transformed card data with id, title, desc, and label
+ * @throws {Error} When transformation fails
  */
 export async function transformResponse(response) {
   const json = JSON.stringify(response, null, 2);
@@ -106,6 +113,9 @@ export async function transformResponse(response) {
 
 /**
  * Extract URL from description using regex
+ * @param {string} description - Card description containing URL
+ * @returns {string} Extracted URL
+ * @throws {Error} When no URL is found in description
  */
 export function extractURL(description) {
   const regex = /https?:\/\/(www\.)?[-\w@:%.+~#=]{1,256}\.[a-z\d()]{1,6}\b([-\w()!@:%+.~#?&/=]*)/i;
@@ -118,7 +128,9 @@ export function extractURL(description) {
 }
 
 /**
- * Generate MUSTREAD section
+ * Generate MUSTREAD section from template data
+ * @param {Array} tmplData - Transformed card data
+ * @returns {string} Markdown formatted MUSTREAD section
  */
 export function generateMustread(tmplData) {
   const isMustRead = (element) => element.label === 'MUSTREAD';
@@ -134,7 +146,9 @@ FILL ME
 }
 
 /**
- * Generate FEATURED section
+ * Generate FEATURED section from template data
+ * @param {Array} tmplData - Transformed card data
+ * @returns {string} Markdown formatted FEATURED section
  */
 export function generateFeatured(tmplData) {
   const isFeatured = (element) => element.label === 'FEATURED';
@@ -150,13 +164,16 @@ FILL ME
 
 /**
  * Generate In Brief heading
+ * @returns {string} Markdown heading for In Brief section
  */
 export function generateInBriefHeading() {
   return '## In Brief';
 }
 
 /**
- * Generate INBRIEF section
+ * Generate INBRIEF section from template data
+ * @param {Array} tmplData - Transformed card data
+ * @returns {string} Markdown formatted INBRIEF section
  */
 export function generateInbrief(tmplData) {
   const isInBrief = (element) => element.label === 'INBRIEF';
@@ -169,7 +186,12 @@ export function generateInbrief(tmplData) {
 }
 
 /**
- * Generate the complete content
+ * Generate the complete content with front matter
+ * @param {Array} tmplData - Transformed card data
+ * @param {Object} options - Options for content generation
+ * @param {number} options.title - Volume number (defaults to next volume)
+ * @param {string} options.date - Publish date (defaults to next Wednesday)
+ * @returns {string} Complete markdown content with front matter
  */
 export function generateContent(tmplData, options = {}) {
   const file = () => {
@@ -190,7 +212,8 @@ ${generateInbrief(tmplData)}`;
 }
 
 /**
- * Prompt user for input
+ * Prompt user for input (volume number and date)
+ * @returns {Promise<Object>} Object containing title and date
  */
 export async function promptUser() {
   const nextVol = getNextVol();
@@ -204,6 +227,12 @@ export async function promptUser() {
 
 /**
  * Save the generated content to a file
+ * @param {string} content - Markdown content to save
+ * @param {Object} options - Options for file naming
+ * @param {number} options.title - Volume number
+ * @param {string} options.date - Publish date
+ * @returns {string} Path to the created file
+ * @throws {Error} When file write fails
  */
 export function saveContent(content, options) {
   const title = options.title || getNextVol();
@@ -221,7 +250,9 @@ export function saveContent(content, options) {
 }
 
 /**
- * Main function
+ * Main function that orchestrates the entire process
+ * @returns {Promise<void>}
+ * @throws {Error} When any step in the process fails
  */
 export async function main() {
   try {

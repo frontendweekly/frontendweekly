@@ -1,7 +1,14 @@
 import posthtml from 'posthtml';
 import posthtmlUrls from 'posthtml-urls';
 
+/**
+ * Generates a JSON Feed (version 1.1) for the blog
+ */
 export default class {
+  /**
+   * Returns configuration data for the feed
+   * @returns {Object} Feed configuration
+   */
   async data() {
     return {
       permalink: '/feed.json',
@@ -9,6 +16,12 @@ export default class {
     };
   }
 
+  /**
+   * Processes HTML content to make URLs absolute
+   * @param {string} content - HTML content to process
+   * @param {string} baseURL - Base URL for making relative URLs absolute
+   * @returns {Promise<string>} Processed HTML with absolute URLs
+   */
   async prepareContent(content, baseURL) {
     const prep = posthtml().use(
       posthtmlUrls({
@@ -33,6 +46,11 @@ export default class {
     return processed.html.replace(/\n/g, ' ');
   }
 
+  /**
+   * Renders the JSON feed with all posts
+   * @param {Object} data - Eleventy data object containing site and collections
+   * @returns {Promise<string>} JSON string representation of the feed
+   */
   async render(data) {
     // eslint-disable-next-line sonarjs/prefer-object-literal
     const feed = {};

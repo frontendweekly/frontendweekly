@@ -16,14 +16,20 @@ const FEEDBIN_API_OPTION = {
   },
 };
 
-// Helpers function
-/// Function to return unknown errors
+/**
+ * Handles and logs errors
+ * @param {Error} err - The error to handle
+ * @returns {boolean} Always returns false
+ */
 const handleError = (err) => {
   console.error(err);
   return false;
 };
 
-/// Fetch latest subscriptions from Feedbin
+/**
+ * Fetches latest subscriptions from Feedbin API
+ * @returns {Promise<Array|false>} Array of subscriptions or false on error
+ */
 const getSubscription = async () => {
   try {
     const response = await eleventyFetch(FEEDBIN_API_URL, {
@@ -36,7 +42,11 @@ const getSubscription = async () => {
   }
 };
 
-/// Function to transform JSON using node-jq
+/**
+ * Transforms JSON data using node-jq with various filters
+ * @param {string} json - JSON string to transform
+ * @returns {Promise<Object|undefined>} Transformed blogroll data
+ */
 const transformJSON = async (json) => {
   const baseSchema = '{dateCreated: .[0].created_at, items: [.[]]}';
   const removeUnusedKey = '.items |= map(del(.id, .feed_id))';
@@ -62,7 +72,10 @@ const transformJSON = async (json) => {
   }
 };
 
-// Main Function
+/**
+ * Main function to fetch and transform blogroll data from Feedbin
+ * @returns {Promise<Object>} Blogroll data with items array and creation date
+ */
 export default async function () {
   const subscription = await getSubscription();
   if (subscription) {

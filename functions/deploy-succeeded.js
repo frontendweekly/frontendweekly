@@ -8,7 +8,10 @@ dotenv.config();
 // URL of site JSON feed
 const FEED_URL = 'https://frontendweekly.tokyo/feed.json';
 
-// Factory for Twitter API Client
+/**
+ * Returns a Twitter API v2 client using credentials from environment variables.
+ * @returns {TwitterApi} An authenticated TwitterApi client instance.
+ */
 export function getTwitterClient() {
   return new TwitterApi({
     appKey: process.env.TWITTER_CONSUMER_KEY,
@@ -18,7 +21,11 @@ export function getTwitterClient() {
   });
 }
 
-// Helper Function to return unknown errors
+/**
+ * Handles and logs errors, returning a standard error response object.
+ * @param {Error|Array} err - The error object or array of errors.
+ * @returns {{statusCode: number, body: string}} Error response object.
+ */
 export const handleError = (err) => {
   console.error(err);
   const msg = Array.isArray(err) ? err[0].message : err.message;
@@ -28,7 +35,12 @@ export const handleError = (err) => {
   };
 };
 
-// Helper Function to return function status
+/**
+ * Returns a standard status response object and logs the message.
+ * @param {number} code - HTTP status code.
+ * @param {string} msg - Message to log and return.
+ * @returns {{statusCode: number, body: string}} Status response object.
+ */
 export const status = (code, msg) => {
   console.log(msg);
   return {
@@ -37,7 +49,12 @@ export const status = (code, msg) => {
   };
 };
 
-// Check existing posts
+/**
+ * Checks the latest post and syndicates it to Twitter if not already syndicated.
+ * @param {object} posts - The posts feed object (must have title and items).
+ * @param {TwitterApi} twitter - The TwitterApi client instance.
+ * @returns {Promise<{statusCode: number, body: string}>} Result of the operation.
+ */
 export const processPosts = async (posts, twitter) => {
   const siteTitle = posts.title;
   const items = posts.items;
@@ -69,7 +86,12 @@ export const processPosts = async (posts, twitter) => {
   }
 };
 
-// Prepare the content string for tweet format
+/**
+ * Prepares the tweet text for a post, ensuring it fits within Twitter's character limit.
+ * @param {string} siteTitle - The site title.
+ * @param {object} post - The post object (must have summary and url).
+ * @returns {string} The formatted tweet text.
+ */
 export const prepareStatusText = (siteTitle, post) => {
   const tweetMaxLength = 280;
   const summaryLength = String(post.summary).length;
@@ -100,7 +122,13 @@ export const prepareStatusText = (siteTitle, post) => {
   return tweetText;
 };
 
-// Push a new post to Twitter
+/**
+ * Publishes a post to Twitter.
+ * @param {string} siteTitle - The site title.
+ * @param {object} post - The post object (must have title, summary, url).
+ * @param {TwitterApi} twitter - The TwitterApi client instance.
+ * @returns {Promise<{statusCode: number, body: string}>} Result of the operation.
+ */
 export const publishPost = async (siteTitle, post, twitter) => {
   try {
     const statusText = prepareStatusText(siteTitle, post);
@@ -114,7 +142,10 @@ export const publishPost = async (siteTitle, post, twitter) => {
   }
 };
 
-// Main Lambda Function Handler
+/**
+ * Main Lambda Function Handler. Fetches the feed and syndicates the latest post to Twitter if needed.
+ * @returns {Promise<{statusCode: number, body: string}>} Result of the operation.
+ */
 export async function handler() {
   const twitter = getTwitterClient();
   return fetch(FEED_URL)

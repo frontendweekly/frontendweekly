@@ -3,19 +3,19 @@ import rssPlugin from '@11ty/eleventy-plugin-rss';
 import syntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight';
 import markdown from './11ty/_plugin/eleventy-plugin-markdown.js';
 
-import collectionPostFeed from './11ty/_collection/collection-postfeed.js';
 // Import collection
+import collectionPostFeed from './11ty/_collection/collection-postfeed.js';
 import collectionPost from './11ty/_collection/collection-posts.js';
 
+// Filters
 import filterDateIso from './11ty/_filter/date-iso.js';
 import filterDateOrdinalSuffix from './11ty/_filter/date-ordinal-suffix.js';
-// Filters
 import filterHead from './11ty/_filter/head.js';
 import * as webmentionFilters from './11ty/_filter/webmention.js';
 
+// Import transforms
 import transformEnhancePostCodeBlock from './11ty/_transform/transform-enhance-post-code-block.js';
 import transformEnhancePostIframe from './11ty/_transform/transform-enhance-post-iframe.js';
-// Import transforms
 import transformHtmlMin from './11ty/_transform/transform-htmlmin.js';
 
 // Import data files

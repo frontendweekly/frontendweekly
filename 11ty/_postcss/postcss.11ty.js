@@ -2,7 +2,14 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import postcss from 'postcss';
 
+/**
+ * PostCSS processor for Eleventy that compiles PCSS files to CSS
+ */
 export default class {
+  /**
+   * Returns configuration data for the PostCSS processor
+   * @returns {Promise<Object>} Configuration object with file paths, content, and PostCSS options
+   */
   async data() {
     const fileName = {
       postcss: 'main.pcss',
@@ -25,6 +32,15 @@ export default class {
     };
   }
 
+  /**
+   * Processes CSS using PostCSS with configured plugins
+   * @param {Object} params - Parameters from data() method
+   * @param {Buffer} params.rawCss - Raw CSS content to process
+   * @param {string} params.rawFilepath - Path to the source file
+   * @param {Array} params.plugins - PostCSS plugins to apply
+   * @param {Object} params.options - PostCSS options
+   * @returns {Promise<string>} Processed CSS string
+   */
   async render({ rawCss, rawFilepath, plugins, options }) {
     return postcss(plugins)
       .process(rawCss, {

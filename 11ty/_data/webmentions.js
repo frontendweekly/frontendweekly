@@ -10,7 +10,11 @@ dotenv.config();
 
 const API_ORIGIN = 'https://webmention.io/api/mentions.jf2';
 
-export default async function () {
+/**
+ * Fetches webmentions from webmention.io API
+ * @returns {Promise<Array|false>} Array of webmentions or false on error
+ */
+async function fetchWebmentions() {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
   let metadata = {};
@@ -22,43 +26,47 @@ export default async function () {
   }
   const TOKEN = process.env.WEBMENTION_IO_TOKEN;
 
-  async function fetchWebmentions() {
-    const { webmention } = metadata;
+  const { webmention } = metadata;
 
-    if (!webmention) {
-      signale.fatal(
-        'unable to fetch webmentions: no webmention specified in src/_data/site.json.'
-      );
-      return false;
-    }
-
-    if (!TOKEN) {
-      signale.fatal(
-        'unable to fetch webmentions: no access token specified in environment.'
-      );
-      return false;
-    }
-
-    const url = `${API_ORIGIN}?domain=${webmention}&token=${TOKEN}&per-page=999&sort-by=published`;
-
-    try {
-      const data = await eleventyFetch(url, {
-        duration: '1d',
-      });
-      if (data?.children) {
-        signale.info(
-          `${data.children.length} webmentions fetched from {API_ORIGIN}?domain=${webmention}}`
-        );
-        return data;
-      }
-      signale.warn('No webmentions data available');
-      return { children: [] };
-    } catch (err) {
-      signale.fatal(err);
-      return { children: [] };
-    }
+  if (!webmention) {
+    signale.fatal(
+      'unable to fetch webmentions: no webmention specified in src/_data/site.json.'
+    );
+    return false;
   }
 
+  if (!TOKEN) {
+    signale.fatal(
+      'unable to fetch webmentions: no access token specified in environment.'
+    );
+    return false;
+  }
+
+  const url = `${API_ORIGIN}?domain=${webmention}&token=${TOKEN}&per-page=999&sort-by=published`;
+
+  try {
+    const data = await eleventyFetch(url, {
+      duration: '1d',
+    });
+    if (data?.children) {
+      signale.info(
+	`${data.children.length} webmentions fetched from {API_ORIGIN}?domain=${webmention}}`
+      );
+      return data;
+    }
+    signale.warn('No webmentions data available');
+    return { children: [] };
+  } catch (err) {
+    signale.fatal(err);
+    return { children: [] };
+  }
+}
+
+/**
+ * Main function to fetch webmentions data
+ * @returns {Promise<Array>} Array of webmention entries
+ */
+export default async function () {
   const feed = await fetchWebmentions();
   if (feed === false) {
     return [];

@@ -7,6 +7,10 @@ import fetch from 'node-fetch';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+/**
+ * Fetches and processes Speedify performance data for the site
+ * @returns {Promise<Object>} Object containing performance metrics and timestamp
+ */
 export default async function () {
   try {
     // Read site.json inside the function so it can be mocked in tests
