@@ -1,5 +1,5 @@
 export default function (value, n) {
-  if (value.length === 0 || !Array.isArray(value)) {
+  if (!value || value.length === 0 || !Array.isArray(value)) {
     return;
   }
 

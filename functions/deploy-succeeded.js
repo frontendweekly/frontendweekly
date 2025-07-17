@@ -1,23 +1,25 @@
 // Stolen from https://github.com/maxboeck/mxb/blob/master/_lambda/deploy-succeeded.js
-const fetch = require('node-fetch');
-const dotenv = require('dotenv');
-const Twitter = require('twitter');
+import fetch from 'node-fetch';
+import dotenv from 'dotenv';
+import { TwitterApi } from 'twitter-api-v2';
 
 dotenv.config();
 
 // URL of site JSON feed
 const FEED_URL = 'https://frontendweekly.tokyo/feed.json';
 
-// Configure Twitter API Client
-const twitter = new Twitter({
-  consumer_key: process.env.TWITTER_CONSUMER_KEY,
-  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
-});
+// Factory for Twitter API Client
+export function getTwitterClient() {
+  return new TwitterApi({
+    appKey: process.env.TWITTER_CONSUMER_KEY,
+    appSecret: process.env.TWITTER_CONSUMER_SECRET,
+    accessToken: process.env.TWITTER_ACCESS_TOKEN_KEY,
+    accessSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
+  });
+}
 
 // Helper Function to return unknown errors
-const handleError = (err) => {
+export const handleError = (err) => {
   console.error(err);
   const msg = Array.isArray(err) ? err[0].message : err.message;
   return {
@@ -27,7 +29,7 @@ const handleError = (err) => {
 };
 
 // Helper Function to return function status
-const status = (code, msg) => {
+export const status = (code, msg) => {
   console.log(msg);
   return {
     statusCode: code,
@@ -36,7 +38,7 @@ const status = (code, msg) => {
 };
 
 // Check existing posts
-const processPosts = async (posts) => {
+export const processPosts = async (posts, twitter) => {
   const siteTitle = posts.title;
   const items = posts.items;
 
@@ -50,23 +52,25 @@ const processPosts = async (posts) => {
   console.log('latestPost.url is ', latestPost.url);
 
   try {
-    // check twitter for any tweets containing post URL.
-    // if there are none, publish it.
-    const q = await twitter.get('search/tweets', { q: latestPost.url });
-    if (q.statuses && q.statuses.length === 0) {
-      return publishPost(siteTitle, latestPost);
+    // check twitter for any tweets containing post URL using Twitter API v2
+    // Search for tweets containing the post URL
+    const searchResults = await twitter.v2.search(`${latestPost.url}`);
+    
+    if (searchResults.data && searchResults.data.length === 0) {
+      return publishPost(siteTitle, latestPost, twitter);
     }
-    return status(400, 'Latest post was already syndicated. No action taken.');
+    if (searchResults.data && searchResults.data.length > 0) {
+      return status(400, 'Latest post was already syndicated. No action taken.');
+    }
+    // Defensive: if searchResults is undefined or malformed
+    return status(422, 'Unexpected Twitter API response.');
   } catch (err) {
     return handleError(err);
   }
 };
 
 // Prepare the content string for tweet format
-const prepareStatusText = (siteTitle, post) => {
-  // Tweet will be
-  // `${post.summary} via ${SITE_TITLE}: {$url}`
-  // `${post.summary} via ${SITE_TITLE}: ${$url}`.length MUST be within maxLength
+export const prepareStatusText = (siteTitle, post) => {
   const tweetMaxLength = 280;
   const summaryLength = String(post.summary).length;
   const urlLength = String(post.url).length;
@@ -97,13 +101,11 @@ const prepareStatusText = (siteTitle, post) => {
 };
 
 // Push a new post to Twitter
-const publishPost = async (siteTitle, post) => {
+export const publishPost = async (siteTitle, post, twitter) => {
   try {
     const statusText = prepareStatusText(siteTitle, post);
-    const tweet = await twitter.post('statuses/update', {
-      status: statusText,
-    });
-    if (tweet) {
+    const tweet = await twitter.v2.tweet(statusText);
+    if (tweet && tweet.data) {
       return status(200, `Post ${post.title} successfully posted to Twitter.`);
     }
     return status(422, 'Error posting to Twitter API.');
@@ -113,11 +115,10 @@ const publishPost = async (siteTitle, post) => {
 };
 
 // Main Lambda Function Handler
-exports.handler = async () => {
-  // Fetch the list of published posts to work on,
-  // then process them to check if an action is necessary
+export async function handler() {
+  const twitter = getTwitterClient();
   return fetch(FEED_URL)
     .then((response) => response.json())
-    .then(processPosts)
+    .then((posts) => processPosts(posts, twitter))
     .catch(handleError);
-};
+}

@@ -5,7 +5,7 @@ const CACHE_KEYS = {
   /* eslint-enable */
 };
 
-// URLS that we don’t want to end up in the cache
+// URLS that we don't want to end up in the cache
 const EXCLUDED_URLS = ['admin'];
 
 // URLS that we want to be cached when the worker is installed

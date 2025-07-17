@@ -66,14 +66,30 @@ const transformJSON = async (json) => {
 export default async function () {
   const subscription = await getSubscription();
   if (subscription) {
-    const blogroll = await transformJSON(JSON.stringify(subscription, null, 2));
-    if (blogroll) {
-      const json = JSON.parse(blogroll);
-      signale.info(`blogroll has ${json.items.length} items`);
-      return json;
+    let blogroll;
+    try {
+      blogroll = await transformJSON(JSON.stringify(subscription, null, 2));
+      // Always try to parse the result if it's a string
+      if (typeof blogroll === 'string') {
+        try {
+          blogroll = JSON.parse(blogroll);
+        } catch (parseErr) {
+          signale.warn('Failed to parse transformed blogroll data, returning empty result');
+          return { dateCreated: new Date().toISOString(), items: [] };
+        }
+      }
+      // Only log info if items is an array
+      if (blogroll && Array.isArray(blogroll.items)) {
+        signale.info(`blogroll has ${blogroll.items.length} items`);
+        return blogroll;
+      } else {
+        signale.warn('Transformed blogroll data missing items array, returning empty result');
+        return { dateCreated: new Date().toISOString(), items: [] };
+      }
+    } catch (err) {
+      signale.warn('Failed to transform blogroll data, returning empty result');
+      return { dateCreated: new Date().toISOString(), items: [] };
     }
-    signale.warn('Failed to transform blogroll data, returning empty result');
-    return { dateCreated: new Date().toISOString(), items: [] };
   }
   return { dateCreated: new Date().toISOString(), items: [] };
 }

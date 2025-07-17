@@ -6,10 +6,12 @@ import fetch from 'node-fetch';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const site = JSON.parse(readFileSync(join(__dirname, 'site.json'), 'utf8'));
 
 export default async function () {
   try {
+    // Read site.json inside the function so it can be mocked in tests
+    const site = JSON.parse(readFileSync(join(__dirname, 'site.json'), 'utf8'));
+    
     const speedifyUrl = 'https://speedify.frontendweekly.tokyo';
     const speedify = await eleventyFetch(`${speedifyUrl}/api/urls.json`, {
       duration: '1d',
@@ -33,6 +35,18 @@ export default async function () {
     const score = await response.json();
 
     const lighthouse = score.lighthouse;
+
+    // Check if lighthouse data exists
+    if (!lighthouse) {
+      console.warn('Lighthouse data not available for hash:', hash);
+      return {
+        performance: 0,
+        accessibility: 0,
+        bestPractices: 0,
+        seo: 0,
+        timestamp: new Date().toISOString(),
+      };
+    }
 
     return Object.assign(lighthouse, {
       timestamp: score.timestamp,

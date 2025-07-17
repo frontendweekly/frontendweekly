@@ -1,11 +1,11 @@
-import htmlmin from 'html-minifier';
+import htmlmin from 'html-minifier-terser';
 
-export default function (content, outputPath) {
+export default async function (content, outputPath) {
   if (outputPath?.endsWith('.html')) {
-    return htmlmin.minify(content, {
-      useShortDoctype: true,
+    return await htmlmin.minify(content, {
+      collapseWhitespace: 'aggressive',
       removeComments: true,
-      collapseWhitespace: true,
+      minifySvg: false,
     });
   }
   return content;
