@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { webmentionData, webmentionProperty } from '../11ty/_filter/webmention.js';
+import { webmentionData, webmentionProperty } from '../11ty/_filters/webmention.js';
 
 describe('webmention filters', () => {
   const mockMentions = [

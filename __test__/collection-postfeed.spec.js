@@ -1,5 +1,5 @@
 import { describe, expect, test, vi, beforeEach } from 'vitest';
-import collectionPostfeed from '../11ty/_collection/collection-postfeed.js';
+import collectionPostfeed from '../11ty/_collections/collection-postfeed.js';
 
 describe('collection-postfeed', () => {
   let mockCollection;

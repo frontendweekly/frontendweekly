@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import transformEnhancePostIframe from '../11ty/_transform/transform-enhance-post-iframe.js';
+import transformEnhancePostIframe from '../11ty/_transforms/transform-enhance-post-iframe.js';
 
 describe('transform-enhance-post-iframe', () => {
   test('should add loading="lazy" to iframes', () => {

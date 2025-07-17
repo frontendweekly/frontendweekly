@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
-import dateWithOrdinalSuffixFilter from '../11ty/_filter/date-ordinal-suffix.js';
+import dateWithOrdinalSuffixFilter from '../11ty/_filters/date-ordinal-suffix.js';
 
 describe('filterDateWithOrdinalSuffix', () => {
   beforeEach(() => {

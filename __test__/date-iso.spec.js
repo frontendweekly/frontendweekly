@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
-import dateISO from '../11ty/_filter/date-iso.js';
+import dateISO from '../11ty/_filters/date-iso.js';
 
 describe('dateISO', () => {
   beforeEach(() => {

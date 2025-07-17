@@ -1,22 +1,22 @@
 // Import plugins
 import rssPlugin from '@11ty/eleventy-plugin-rss';
 import syntaxHighlight from '@11ty/eleventy-plugin-syntaxhighlight';
-import markdown from './11ty/_plugin/eleventy-plugin-markdown.js';
+import markdown from './11ty/_plugins/eleventy-plugin-markdown.js';
 
 // Import collection
-import collectionPostFeed from './11ty/_collection/collection-postfeed.js';
-import collectionPost from './11ty/_collection/collection-posts.js';
+import collectionPostFeed from './11ty/_collections/collection-postfeed.js';
+import collectionPost from './11ty/_collections/collection-posts.js';
 
 // Filters
-import filterDateIso from './11ty/_filter/date-iso.js';
-import filterDateOrdinalSuffix from './11ty/_filter/date-ordinal-suffix.js';
-import filterHead from './11ty/_filter/head.js';
-import * as webmentionFilters from './11ty/_filter/webmention.js';
+import filterDateIso from './11ty/_filters/date-iso.js';
+import filterDateOrdinalSuffix from './11ty/_filters/date-ordinal-suffix.js';
+import filterHead from './11ty/_filters/head.js';
+import * as webmentionFilters from './11ty/_filters/webmention.js';
 
 // Import transforms
-import transformEnhancePostCodeBlock from './11ty/_transform/transform-enhance-post-code-block.js';
-import transformEnhancePostIframe from './11ty/_transform/transform-enhance-post-iframe.js';
-import transformHtmlMin from './11ty/_transform/transform-htmlmin.js';
+import transformEnhancePostCodeBlock from './11ty/_transforms/transform-enhance-post-code-block.js';
+import transformEnhancePostIframe from './11ty/_transforms/transform-enhance-post-iframe.js';
+import transformHtmlMin from './11ty/_transforms/transform-htmlmin.js';
 
 // Import data files
 import { readFileSync } from 'node:fs';
@@ -74,7 +74,7 @@ export default function (eleventyConfig) {
     dir: {
       input: '11ty',
       output: 'dist',
-      includes: '_include',
+      includes: '_includes',
     },
     templateFormats: ['njk', 'md', '11ty.js'],
     htmlTemplateEngine: 'njk',
