@@ -1,9 +1,10 @@
-const wm = require('../11ty/_data/webmentions');
+import { describe, test, expect } from 'vitest';
+import wm from '../_data/webmentions.js';
 
 describe('webmentions', () => {
   test('it should return expected field', async () => {
     // Act
-    const mentions = await wm(); // ?
+    const mentions = await wm();
     // Assert
     expect(mentions[0]).toMatchSnapshot({
       author: {

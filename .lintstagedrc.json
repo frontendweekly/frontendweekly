@@ -1,5 +1,5 @@
 {
-  "*.js": ["eslint --fix", "jest --findRelatedTests"],
-  "*.pcss": "stylelint --fix",
-  "*.{js,pcss,json}": "prettier --write"
+  "*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}": ["biome check --write", "vitest --run --reporter=verbose"],
+  "*.{css,scss,pcss}": "biome check --write",
+  "*.{json,md}": "biome format --write"
 }

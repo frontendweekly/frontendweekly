@@ -1,22 +1,22 @@
 // Import plugins
 const rssPlugin = require('@11ty/eleventy-plugin-rss');
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
-const markdown = require('@frontendweekly/eleventy-plugin-markdown');
+const markdown = require('./11ty/_plugin/eleventy-plugin-markdown');
 
 // Import collection
-const collectionPost = require('@frontendweekly/collection-posts');
-const collectionPostFeed = require('@frontendweekly/collection-postfeed');
+const collectionPost = require('./11ty/_collections/collection-posts');
+const collectionPostFeed = require('./11ty/_collections/collection-postfeed');
 
 // Filters
-const filterHead = require('@frontendweekly/filter-head');
-const filterDateOrdinalSuffix = require('@frontendweekly/filter-date-ordinal-suffix');
-const filterDateIso = require('@frontendweekly/filter-date-iso');
-const filters = require('./11ty/_filters/filters.js');
+const filterHead = require('./11ty/_filters/head');
+const filterDateOrdinalSuffix = require('./11ty/_filters/date-ordinal-suffix');
+const filterDateIso = require('./11ty/_filters/date-iso');
+const webmentionFilters = require('./11ty/_filters/webmention.js');
 
 // Import transforms
-const transformHtmlMin = require('@frontendweekly/transform-htmlmin');
-const transformEnhancePostIframe = require('@frontendweekly/transform-enhance-post-iframe');
-const transformEnhancePostCodeBlock = require('@frontendweekly/transform-enhance-post-code-block');
+const transformHtmlMin = require('./11ty/_transforms/transform-htmlmin');
+const transformEnhancePostIframe = require('./11ty/_transforms/transform-enhance-post-iframe');
+const transformEnhancePostCodeBlock = require('./11ty/_transforms/transform-enhance-post-code-block');
 
 // Import data files
 const site = require('./11ty/_data/site.json');
@@ -31,8 +31,8 @@ module.exports = function (config) {
   config.setLibrary('md', markdown);
 
   // Filters
-  Object.keys(filters).forEach((filterName) => {
-    config.addFilter(filterName, filters[filterName]);
+  Object.keys(webmentionFilters).forEach((filterName) => {
+    config.addFilter(filterName, webmentionFilters[filterName]);
   });
   config.addFilter('dateOrdinalSuffixFilter', filterDateOrdinalSuffix);
   config.addFilter('dateIsoFilter', filterDateIso);

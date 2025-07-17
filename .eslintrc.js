@@ -1,3 +1,3 @@
 module.exports = {
-  extends: '@frontendweekly/eslint-config',
+  extends: './eslint-config-molle.js',
 };
