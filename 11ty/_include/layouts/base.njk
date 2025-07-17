@@ -12,11 +12,7 @@
     <link rel="alternate" type="application/feed+json" title="{{ site.name }}" href="{{ site.url }}/feed.json">
     {% include "partials/global/meta-info.njk" %}
     <script>document.documentElement.classList.remove('no-js');</script>
-    {% if global.environment == "production" %}
-      <link rel="stylesheet" href="/assets/styles/main.css">
-    {% else %}
-      <link rel="stylesheet" href="/css/main.css">
-    {% endif %}
+    <link rel="stylesheet" href="/assets/styles/main.css">
   </head>
 </html>
 <body>

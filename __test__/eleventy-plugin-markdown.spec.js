@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import eleventyPluginMarkdown from './eleventy-plugin-markdown.js';
+import eleventyPluginMarkdown from '../11ty/_plugin/eleventy-plugin-markdown.js';
 
 // Mock the dependencies
 vi.mock('markdown-it', () => ({

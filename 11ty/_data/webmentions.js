@@ -5,7 +5,7 @@ import eleventyFetch from '@11ty/eleventy-fetch';
 import signale from 'signale';
 
 // Load .env variables with dotenv
-import dotenv from 'dotenv';
+import dotenv from '@dotenvx/dotenvx';
 dotenv.config();
 
 const API_ORIGIN = 'https://webmention.io/api/mentions.jf2';
@@ -50,7 +50,7 @@ async function fetchWebmentions() {
     });
     if (data?.children) {
       signale.info(
-	`${data.children.length} webmentions fetched from {API_ORIGIN}?domain=${webmention}}`
+        `${data.children.length} webmentions fetched from {API_ORIGIN}?domain=${webmention}}`
       );
       return data;
     }

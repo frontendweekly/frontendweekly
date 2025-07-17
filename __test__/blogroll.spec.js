@@ -15,7 +15,7 @@ vi.mock('signale', () => ({
     warn: vi.fn(),
   },
 }));
-vi.mock('dotenv', () => ({
+vi.mock('@dotenvx/dotenvx', () => ({
   default: { config: vi.fn() },
 }));
 
@@ -31,7 +31,7 @@ describe('blogroll data', () => {
     mockEleventyFetch = (await import('@11ty/eleventy-fetch')).default;
     mockJq = (await import('node-jq')).default;
     mockSignale = (await import('signale')).default;
-    blogroll = (await import('./blogroll.js')).default;
+    blogroll = (await import('../11ty/_data/blogroll.js')).default;
   });
 
   afterEach(() => {

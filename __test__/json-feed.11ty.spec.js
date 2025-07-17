@@ -37,9 +37,9 @@ describe('JSON Feed 11ty', () => {
       eachURL: vi.fn(),
     });
     
-    // Import the class
-    const module = await import('./json-feed.11ty.js');
-    JsonFeed11ty = module.default;
+          // Import the class
+      const module = await import('../11ty/json-feed.11ty.js');
+      JsonFeed11ty = module.default;
   });
 
   afterEach(() => {

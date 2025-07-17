@@ -5,7 +5,7 @@ vi.mock('node-fetch', () => ({
   default: vi.fn(),
 }));
 
-vi.mock('dotenv', () => ({
+vi.mock('@dotenvx/dotenvx', () => ({
   default: { config: vi.fn() },
 }));
 

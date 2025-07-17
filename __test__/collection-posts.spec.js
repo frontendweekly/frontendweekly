@@ -1,5 +1,5 @@
 import { describe, expect, test, vi, beforeEach } from 'vitest';
-import collectionPosts from './collection-posts.js';
+import collectionPosts from '../11ty/_collection/collection-posts.js';
 
 describe('collection-posts', () => {
   let mockCollection;

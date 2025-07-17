@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import globalData from './global.js';
+import globalData from '../11ty/_data/global.js';
 
 describe('global data', () => {
   describe('environment', () => {

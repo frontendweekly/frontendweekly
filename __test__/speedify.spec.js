@@ -55,7 +55,7 @@ describe('speedify data', () => {
     // Get mocked modules
     mockEleventyFetch = (await import('@11ty/eleventy-fetch')).default;
     mockFetch = (await import('node-fetch')).default;
-    speedify = (await import('./speedify.js')).default;
+          speedify = (await import('../11ty/_data/speedify.js')).default;
   });
 
   afterEach(() => {

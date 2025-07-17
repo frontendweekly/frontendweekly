@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import transformHtmlMin from './transform-htmlmin.js';
+import transformHtmlMin from '../11ty/_transform/transform-htmlmin.js';
 
 describe('transform-htmlmin', () => {
   test('should minify HTML content', async () => {

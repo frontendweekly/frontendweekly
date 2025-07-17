@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
 import fg from 'fast-glob';
 import matter from 'gray-matter';
-import dotenv from 'dotenv';
+import dotenv from '@dotenvx/dotenvx';
 
 // Load environment variables
 dotenv.config();

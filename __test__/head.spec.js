@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import SUT from './head.js';
+import SUT from '../11ty/_filter/head.js';
 
 describe('filter-head', () => {
   test('should return first 3 items from an array', () => {

@@ -1,6 +1,6 @@
 // Stolen from https://github.com/maxboeck/mxb/blob/master/_lambda/deploy-succeeded.js
 import fetch from 'node-fetch';
-import dotenv from 'dotenv';
+import dotenv from '@dotenvx/dotenvx';
 import { TwitterApi } from 'twitter-api-v2';
 
 dotenv.config();

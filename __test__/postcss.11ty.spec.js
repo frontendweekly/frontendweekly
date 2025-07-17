@@ -63,9 +63,9 @@ describe('PostCSS 11ty', () => {
       process: mockProcess,
     });
     
-    // Import the class
-    const module = await import('./postcss.11ty.js');
-    PostCSS11ty = module.default;
+          // Import the class
+      const module = await import('../11ty/_postcss/postcss.11ty.js');
+      PostCSS11ty = module.default;
   });
 
   afterEach(() => {

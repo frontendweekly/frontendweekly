@@ -1,5 +1,5 @@
 import eleventyFetch from '@11ty/eleventy-fetch';
-import dotenv from 'dotenv';
+import dotenv from '@dotenvx/dotenvx';
 import jq from 'node-jq';
 import signale from 'signale';
 

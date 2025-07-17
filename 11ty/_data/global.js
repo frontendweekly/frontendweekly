@@ -5,7 +5,7 @@
 export default {
   /** Current environment (development, production, etc.) */
   environment: process.env.ELEVENTY_ENV,
-
+  
   /**
    * Generates a random UUID-like string
    * @returns {string} A random string in format xxxxxxxx-xxxxxxxx-xxxxxxxx
@@ -16,7 +16,7 @@ export default {
     };
     return `${segment()}-${segment()}-${segment()}`;
   },
-
+  
   /** Current timestamp in milliseconds */
   now: Date.now(),
 };
