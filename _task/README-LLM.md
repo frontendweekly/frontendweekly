@@ -18,6 +18,7 @@ The LLM system builds upon your existing `node-trello-contents.mjs` script to au
 - **Writing Style Analysis**: Learns from your existing posts to match your tone and style
 - **Smart Content Extraction**: Uses Playwright to extract article content from URLs
 - **Context-Aware Translations**: Generates different content for MUSTREAD, FEATURED, and INBRIEF sections
+- **Robust Fallback System**: Automatically falls back to original template when LLM fails
 - **Error Handling**: Gracefully handles API failures and content extraction issues
 
 ### 📝 **Section-Specific Content**
@@ -95,6 +96,31 @@ React 18では、Concurrent Features、Automatic Batching、Suspense on the Serv
 
 ## Configuration
 
+### Environment Variables
+```bash
+# Required for LLM functionality
+OPENAI_API_KEY=your_openai_api_key_here
+
+# Optional: Disable LLM processing entirely
+LLM_ENABLED=false
+
+# Required for Trello integration
+TRELLO_API_TOKEN_KEY=your_trello_key
+TRELLO_API_TOKEN_SECRET=your_trello_secret
+TRELLO_FE_WEEKLY_LIST=your_list_id
+```
+
+### LLM Configuration
+The system includes several configuration options:
+
+```javascript
+const LLM_CONFIG = {
+  enabled: process.env.LLM_ENABLED !== 'false', // Default: true
+  fallbackOnError: true, // Always fallback to template on error
+  maxRetries: 2, // Number of retries for LLM operations
+};
+```
+
 ### Writing Style Analysis
 The system analyzes your last 5 posts to understand your writing style. You can customize this by modifying the `analyzeWritingStyle()` function.
 
@@ -113,14 +139,29 @@ You can customize the selectors in the `extractArticleContent()` function.
 ### AI Prompts
 The system uses different prompts for different section types. You can customize these in the `generateJapaneseContent()` function.
 
-## Error Handling
+## Error Handling & Fallback System
 
-The system is designed to be resilient:
+The system is designed to be resilient with multiple layers of fallback:
 
-- **API Failures**: If OpenAI API fails, it shows `[翻訳エラー]` and continues
-- **Content Extraction**: If Playwright fails, it shows an error message and continues
-- **Network Issues**: Timeouts and connection errors are handled gracefully
-- **Invalid URLs**: URLs that can't be processed are marked with error messages
+### Automatic Fallback Scenarios
+- **LLM Disabled**: If `LLM_ENABLED=false` or no OpenAI API key, uses original template
+- **API Failures**: If OpenAI API fails after retries, falls back to template for that item
+- **Content Extraction**: If Playwright fails, falls back to template for that item
+- **Network Issues**: Timeouts and connection errors trigger fallback
+- **Invalid URLs**: URLs that can't be processed use template format
+
+### Fallback Behavior
+- **Per-Item Fallback**: Individual items that fail use the original template format
+- **Graceful Degradation**: The system continues processing other items even if some fail
+- **Transparent Logging**: Clear indication of which items used LLM vs template
+- **No Data Loss**: All items are included in the final output regardless of processing method
+
+### Example Fallback Output
+```
+📊 MUSTREAD processing complete: 2 LLM success, 1 fallback
+📊 FEATURED processing complete: 3 LLM success, 0 fallback
+📊 INBRIEF processing complete: 5 LLM success, 2 fallback
+```
 
 ## Cost Estimation
 
@@ -157,16 +198,23 @@ The only difference is that it now includes AI-generated Japanese content instea
 
 1. **"OPENAI_API_KEY environment variable is required"**
    - Make sure you've added your OpenAI API key to the `.env` file
+   - **Note**: The system will automatically fall back to template mode if no API key is provided
 
 2. **"Failed to fetch Trello cards"**
    - Check your Trello API credentials in the `.env` file
 
 3. **"Browser launch failed"**
    - Playwright might need to install browsers: `npx playwright install`
+   - **Note**: The system will fall back to template mode for items that can't be extracted
 
 4. **Translation errors**
    - Check your OpenAI API quota and billing
    - Verify the API key is valid
+   - **Note**: Individual items that fail will use the template format
+
+5. **LLM processing disabled**
+   - Set `LLM_ENABLED=false` in your `.env` file to use template mode only
+   - Useful for testing or when you want to avoid API costs
 
 ### Debug Mode
 
@@ -184,6 +232,8 @@ To see more detailed logging, you can modify the script to add more console.log 
 | Writing Style Learning | ❌ | ✅ |
 | Content Extraction | ❌ | ✅ |
 | Error Handling | Basic | Comprehensive |
+| Fallback System | ❌ | ✅ |
+| LLM Disable Option | ❌ | ✅ |
 
 ## Future Enhancements
 

@@ -11,6 +11,14 @@ import dotenv from '@dotenvx/dotenvx';
 import OpenAI from 'openai';
 import { chromium } from 'playwright';
 
+// Import original template functions for fallback
+import {
+  generateMustread as generateMustreadTemplate,
+  generateFeatured as generateFeaturedTemplate,
+  generateInbrief as generateInbriefTemplate,
+  generateInBriefHeading as generateInBriefHeadingTemplate
+} from './node-trello-contents.mjs';
+
 // Load environment variables
 dotenv.config();
 
@@ -21,10 +29,28 @@ const __dirname = dirname(__filename);
 // Configuration
 const POSTS_DIR = resolve(__dirname, '../11ty/posts');
 
-// Initialize OpenAI client
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// LLM Configuration
+const LLM_CONFIG = {
+  enabled: process.env.LLM_ENABLED !== 'false', // Default to true unless explicitly disabled
+  fallbackOnError: true, // Always fallback to template on error
+  maxRetries: 2, // Number of retries for LLM operations
+};
+
+/**
+ * Check if LLM processing is available
+ * @returns {boolean} True if LLM processing is available
+ */
+export function isLLMAvailable() {
+  return LLM_CONFIG.enabled && !!process.env.OPENAI_API_KEY;
+}
+
+// Initialize OpenAI client conditionally
+let openai = null;
+if (process.env.OPENAI_API_KEY) {
+  openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+}
 
 /**
  * Get the next volume number based on existing posts
@@ -181,6 +207,10 @@ export async function extractArticleContent(url) {
  * @returns {Promise<string>} Writing style analysis
  */
 export async function analyzeWritingStyle() {
+  if (!openai) {
+    throw new Error('OpenAI client not available');
+  }
+
   try {
     const posts = fg.sync(`${POSTS_DIR}/*.md`).slice(-5); // Get last 5 posts
     const sampleContent = posts.map(post => readFileSync(post, 'utf-8')).join('\n\n');
@@ -247,6 +277,10 @@ Format your response as JSON:
 Keep the tone professional and technical, suitable for a Japanese developer audience.
 `;
 
+  if (!openai) {
+    throw new Error('OpenAI client not available');
+  }
+
   try {
     const response = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
@@ -276,84 +310,154 @@ Keep the tone professional and technical, suitable for a Japanese developer audi
 }
 
 /**
- * Generate MUSTREAD section with LLM-enhanced content
+ * Generate MUSTREAD section with LLM-enhanced content and fallback
  * @param {Array} tmplData - Transformed card data
  * @param {string} writingStyle - Writing style analysis
  * @returns {Promise<string>} Markdown formatted MUSTREAD section
  */
 export async function generateMustread(tmplData, writingStyle) {
+  // If LLM is disabled, use template immediately
+  if (!LLM_CONFIG.enabled) {
+    console.log('🤖 LLM disabled, using template for MUSTREAD section');
+    return generateMustreadTemplate(tmplData);
+  }
+
   const isMustRead = (element) => element.label === 'MUSTREAD';
   const mustReadItems = tmplData.filter(isMustRead);
   
+  // If no MUSTREAD items, return empty string
+  if (mustReadItems.length === 0) {
+    return '';
+  }
+
   let mustReadContent = '';
+  let llmSuccessCount = 0;
+  let fallbackCount = 0;
   
   for (const item of mustReadItems) {
     const url = extractURL(item.desc);
     console.log(`📖 Processing MUSTREAD: ${item.title}`);
     
-    try {
-      const content = await extractArticleContent(url);
-      const japaneseContent = await generateJapaneseContent(item.title, url, content, writingStyle, 'MUSTREAD');
-      
-      mustReadContent += `
+    let processed = false;
+    let retries = 0;
+
+    while (!processed && retries < LLM_CONFIG.maxRetries) {
+      try {
+	const content = await extractArticleContent(url);
+	const japaneseContent = await generateJapaneseContent(item.title, url, content, writingStyle, 'MUSTREAD');
+
+	mustReadContent += `
 ## [${item.title}](${url})
 #### ${japaneseContent.translatedTitle}
 
 ${japaneseContent.excerpt}
 
 `;
-    } catch (error) {
-      console.error(`Error processing MUSTREAD item "${item.title}":`, error.message);
-      mustReadContent += `
+	llmSuccessCount++;
+	processed = true;
+      } catch (error) {
+	retries++;
+	console.warn(`⚠️ LLM processing failed for "${item.title}" (attempt ${retries}/${LLM_CONFIG.maxRetries}):`, error.message);
+
+	if (retries >= LLM_CONFIG.maxRetries) {
+	  if (LLM_CONFIG.fallbackOnError) {
+	    console.log(`🔄 Falling back to template for "${item.title}"`);
+	    // Use template for this specific item
+	    const templateItem = [item];
+	    const templateContent = generateMustreadTemplate(templateItem);
+	    mustReadContent += templateContent;
+	    fallbackCount++;
+	  } else {
+	    mustReadContent += `
 ## [${item.title}](${url})
 #### [翻訳エラー]
 
 コンテンツの処理中にエラーが発生しました。
 
 `;
+	  }
+	  processed = true;
+	}
+      }
     }
   }
   
+  console.log(`📊 MUSTREAD processing complete: ${llmSuccessCount} LLM success, ${fallbackCount} fallback`);
   return mustReadContent;
 }
 
 /**
- * Generate FEATURED section with LLM-enhanced content
+ * Generate FEATURED section with LLM-enhanced content and fallback
  * @param {Array} tmplData - Transformed card data
  * @param {string} writingStyle - Writing style analysis
  * @returns {Promise<string>} Markdown formatted FEATURED section
  */
 export async function generateFeatured(tmplData, writingStyle) {
+  // If LLM is disabled, use template immediately
+  if (!LLM_CONFIG.enabled) {
+    console.log('🤖 LLM disabled, using template for FEATURED section');
+    return generateFeaturedTemplate(tmplData);
+  }
+
   const isFeatured = (element) => element.label === 'FEATURED';
   const featuredItems = tmplData.filter(isFeatured);
   
+  // If no FEATURED items, return empty string
+  if (featuredItems.length === 0) {
+    return '';
+  }
+
   let featuredContent = '';
+  let llmSuccessCount = 0;
+  let fallbackCount = 0;
   
   for (const item of featuredItems) {
     const url = extractURL(item.desc);
     console.log(`⭐ Processing FEATURED: ${item.title}`);
     
-    try {
-      const content = await extractArticleContent(url);
-      const japaneseContent = await generateJapaneseContent(item.title, url, content, writingStyle, 'FEATURED');
-      
-      featuredContent += `
+    let processed = false;
+    let retries = 0;
+
+    while (!processed && retries < LLM_CONFIG.maxRetries) {
+      try {
+	const content = await extractArticleContent(url);
+	const japaneseContent = await generateJapaneseContent(item.title, url, content, writingStyle, 'FEATURED');
+
+	featuredContent += `
 ## [${item.title}](${url})
 
 ${japaneseContent.excerpt}
 
 `;
-    } catch (error) {
-      console.error(`Error processing FEATURED item "${item.title}":`, error.message);
-      featuredContent += `
+	llmSuccessCount++;
+	processed = true;
+      } catch (error) {
+	retries++;
+	console.warn(`⚠️ LLM processing failed for "${item.title}" (attempt ${retries}/${LLM_CONFIG.maxRetries}):`, error.message);
+
+	if (retries >= LLM_CONFIG.maxRetries) {
+	  if (LLM_CONFIG.fallbackOnError) {
+	    console.log(`🔄 Falling back to template for "${item.title}"`);
+	    // Use template for this specific item
+	    const templateItem = [item];
+	    const templateContent = generateFeaturedTemplate(templateItem);
+	    featuredContent += templateContent;
+	    fallbackCount++;
+	  } else {
+	    featuredContent += `
 ## [${item.title}](${url})
 
 コンテンツの処理中にエラーが発生しました。
 
 `;
+	  }
+	  processed = true;
+	}
+      }
     }
   }
   
+  console.log(`📊 FEATURED processing complete: ${llmSuccessCount} LLM success, ${fallbackCount} fallback`);
   return featuredContent;
 }
 
@@ -366,36 +470,71 @@ export function generateInBriefHeading() {
 }
 
 /**
- * Generate INBRIEF section with LLM-enhanced content
+ * Generate INBRIEF section with LLM-enhanced content and fallback
  * @param {Array} tmplData - Transformed card data
  * @param {string} writingStyle - Writing style analysis
  * @returns {Promise<string>} Markdown formatted INBRIEF section
  */
 export async function generateInbrief(tmplData, writingStyle) {
+  // If LLM is disabled, use template immediately
+  if (!LLM_CONFIG.enabled) {
+    console.log('🤖 LLM disabled, using template for INBRIEF section');
+    return generateInbriefTemplate(tmplData);
+  }
+
   const isInBrief = (element) => element.label === 'INBRIEF';
   const inBriefItems = tmplData.filter(isInBrief);
   
+  // If no INBRIEF items, return empty string
+  if (inBriefItems.length === 0) {
+    return '';
+  }
+
   let inBriefContent = '';
+  let llmSuccessCount = 0;
+  let fallbackCount = 0;
   
   for (const item of inBriefItems) {
     const url = extractURL(item.desc);
     console.log(`📝 Processing INBRIEF: ${item.title}`);
     
-    try {
-      const content = await extractArticleContent(url);
-      const japaneseContent = await generateJapaneseContent(item.title, url, content, writingStyle, 'INBRIEF');
-      
-      inBriefContent += `
+    let processed = false;
+    let retries = 0;
+
+    while (!processed && retries < LLM_CONFIG.maxRetries) {
+      try {
+	const content = await extractArticleContent(url);
+	const japaneseContent = await generateJapaneseContent(item.title, url, content, writingStyle, 'INBRIEF');
+
+	inBriefContent += `
 - **[${item.title}](${url})**: ${japaneseContent.translatedTitle}
 `;
-    } catch (error) {
-      console.error(`Error processing INBRIEF item "${item.title}":`, error.message);
-      inBriefContent += `
+	llmSuccessCount++;
+	processed = true;
+      } catch (error) {
+	retries++;
+	console.warn(`⚠️ LLM processing failed for "${item.title}" (attempt ${retries}/${LLM_CONFIG.maxRetries}):`, error.message);
+
+	if (retries >= LLM_CONFIG.maxRetries) {
+	  if (LLM_CONFIG.fallbackOnError) {
+	    console.log(`🔄 Falling back to template for "${item.title}"`);
+	    // Use template for this specific item
+	    const templateItem = [item];
+	    const templateContent = generateInbriefTemplate(templateItem);
+	    inBriefContent += templateContent;
+	    fallbackCount++;
+	  } else {
+	    inBriefContent += `
 - **[${item.title}](${url})**: [翻訳エラー]
 `;
+	  }
+	  processed = true;
+	}
+      }
     }
   }
   
+  console.log(`📊 INBRIEF processing complete: ${llmSuccessCount} LLM success, ${fallbackCount} fallback`);
   return inBriefContent;
 }
 
@@ -408,8 +547,44 @@ export async function generateInbrief(tmplData, writingStyle) {
  * @returns {Promise<string>} Complete markdown content with front matter
  */
 export async function generateContent(tmplData, options = {}) {
+  // Check if LLM is enabled and OpenAI API key is available
+  const llmAvailable = LLM_CONFIG.enabled && process.env.OPENAI_API_KEY;
+
+  if (!llmAvailable) {
+    console.log('🤖 LLM processing disabled or OpenAI API key not available, using template mode');
+    console.log('📝 Generating content using original template...');
+
+    const mustReadContent = generateMustreadTemplate(tmplData);
+    const featuredContent = generateFeaturedTemplate(tmplData);
+    const inBriefContent = generateInbriefTemplate(tmplData);
+
+    const file = () => {
+      return `
+${mustReadContent}
+${featuredContent}
+${generateInBriefHeadingTemplate()}
+${inBriefContent}`;
+    };
+
+    const vol = options.title || getNextVol();
+    const mustReadCount = tmplData.filter(item => item.label === 'MUSTREAD').length;
+
+    return matter.stringify(file(), {
+      title: `Vol.${vol}`,
+      date: options.date || getNextWednesday(),
+      desc: `${mustReadCount} OF TRANSLATED TITLE、ほか計${tmplData.length}リンク`,
+      permalink: `/posts/${vol}/`,
+    });
+  }
+
   console.log('🎨 Analyzing writing style...');
-  const writingStyle = await analyzeWritingStyle();
+  let writingStyle;
+  try {
+    writingStyle = await analyzeWritingStyle();
+  } catch (error) {
+    console.warn('⚠️ Could not analyze writing style, using default:', error.message);
+    writingStyle = 'Professional, concise Japanese translations with technical accuracy';
+  }
   
   console.log('📝 Generating MUSTREAD section...');
   const mustReadContent = await generateMustread(tmplData, writingStyle);
@@ -484,11 +659,6 @@ export function saveContent(content, options) {
  */
 export async function main() {
   try {
-    // Validate OpenAI API key
-    if (!process.env.OPENAI_API_KEY) {
-      throw new Error('OPENAI_API_KEY environment variable is required');
-    }
-    
     console.log('🔄 Fetching Trello cards...');
     const cards = await getCards();
     
@@ -498,14 +668,20 @@ export async function main() {
     console.log('📝 Prompting for user input...');
     const options = await promptUser();
     
-    console.log('🤖 Generating LLM-enhanced content...');
+    console.log('🤖 Generating content...');
     const content = await generateContent(tmpl, options);
     
     console.log('💾 Saving file...');
     const filePath = saveContent(content, options);
     
     console.log(`🎉 Successfully created: ${filePath}`);
-    console.log('✨ The post now includes Japanese translations and excerpts generated by AI!');
+
+    // Check if LLM was used
+    if (LLM_CONFIG.enabled && process.env.OPENAI_API_KEY) {
+      console.log('✨ The post includes Japanese translations and excerpts generated by AI!');
+    } else {
+      console.log('📝 The post was generated using the original template format.');
+    }
   } catch (error) {
     console.error('❌ Error:', error.message);
     process.exit(1);
