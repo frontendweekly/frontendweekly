@@ -22,7 +22,7 @@ The LLM system builds upon your existing `node-trello-contents.mjs` script to au
 
 ### 📝 **Section-Specific Content**
 - **MUSTREAD**: Detailed Japanese excerpts (2-3 sentences) explaining key points
-- **FEATURED**: Brief Japanese excerpts (1-2 sentences) summarizing main points
+- **FEATURED**: Brief Japanese excerpts (1-2 sentences) summarizing main points  
 - **INBRIEF**: Concise Japanese title translations for the brief section
 
 ## System Architecture
@@ -192,4 +192,4 @@ Potential improvements for the LLM system:
 - **Batch Processing**: Process multiple articles in parallel
 - **Custom Prompts**: Allow users to customize AI prompts
 - **Quality Control**: Add validation for generated content
-- **Cost Optimization**: Use cheaper models for simple translations
+- **Cost Optimization**: Use cheaper models for simple translations 

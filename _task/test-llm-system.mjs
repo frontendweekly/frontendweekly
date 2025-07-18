@@ -37,7 +37,7 @@ console.log('\n3️⃣ Testing Enhanced System Components...');
 try {
   // Test if the LLM script can be imported
   const { getNextVol, getNextWednesday, extractURL } = await import('./llm-curation.mjs');
-
+  
   console.log('✅ LLM script components loaded successfully');
 console.log(`   - Next volume: ${getNextVol()}`);
 console.log(`   - Next Wednesday: ${getNextWednesday()}`);
@@ -55,4 +55,4 @@ console.log('\nTo use the LLM system:');
 console.log('1. Add your OpenAI API key to .env');
 console.log('2. Install Playwright: npx playwright install chromium');
 console.log('3. Run: npm run post:llm');
-console.log('\nThe LLM system builds on your existing workflow and adds AI-powered Japanese content generation!');
+console.log('\nThe LLM system builds on your existing workflow and adds AI-powered Japanese content generation!'); 

@@ -1,6 +1,6 @@
 #!/usr/bin/env zx
 
-import { $ } from 'zx';
+import { $, question } from 'zx';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve, basename, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -37,13 +37,13 @@ export function getNextVol() {
       /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))-(v)/g,
       ''
     );
-
+  
   const latest = fg
     .sync(`${POSTS_DIR}/*.md`)
     .map(filepathes)
     .map(volume)
     .sort((a, b) => b - a)[0];
-
+  
   return Number(latest) + 1;
 }
 
@@ -87,11 +87,11 @@ export async function getCards() {
   try {
     const requestURL = `${TRELLO_API_URL_PREFIX}${TRELLO_FE_WEEKLY_LIST}/cards?${params}`;
     const response = await fetch(requestURL, { method: 'GET' });
-
+    
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-
+    
     return await response.json();
   } catch (err) {
     console.error('Failed to fetch Trello cards:', err);
@@ -108,7 +108,7 @@ export async function getCards() {
 export async function transformResponse(response) {
   const json = JSON.stringify(response, null, 2);
   const baseSchema = '.[] |= { id: .id, title: .name, desc: .desc, label: .labels[].name }';
-
+  
   try {
     const result = await $`echo '${json}' | jq '${baseSchema}'`;
     return JSON.parse(result.stdout);
@@ -144,32 +144,32 @@ export async function extractArticleContent(url) {
   try {
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
-
+    
     // Extract main content - this is a basic approach
     // You might want to customize this based on the sites you're targeting
     const content = await page.evaluate(() => {
       // Try to find the main content area
       const selectors = [
-	'article',
-	'[role="main"]',
-	'.content',
-	'.post-content',
-	'.article-content',
-	'main',
-	'.entry-content'
+        'article',
+        '[role="main"]',
+        '.content',
+        '.post-content',
+        '.article-content',
+        'main',
+        '.entry-content'
       ];
-
+      
       for (const selector of selectors) {
-	const element = document.querySelector(selector);
-	if (element) {
-	  return element.innerText.trim();
-	}
+        const element = document.querySelector(selector);
+        if (element) {
+          return element.innerText.trim();
+        }
       }
-
+      
       // Fallback to body content
       return document.body.innerText.trim();
     });
-
+    
     return content.substring(0, 2000); // Limit content length
   } finally {
     await browser.close();
@@ -184,23 +184,23 @@ export async function analyzeWritingStyle() {
   try {
     const posts = fg.sync(`${POSTS_DIR}/*.md`).slice(-5); // Get last 5 posts
     const sampleContent = posts.map(post => readFileSync(post, 'utf-8')).join('\n\n');
-
+    
     const response = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
-	{
-	  role: 'system',
-	  content: 'You are analyzing the writing style of a Japanese tech blog. Extract key characteristics of the writing style, tone, and translation patterns.'
-	},
-	{
-	  role: 'user',
-	  content: `Analyze the writing style from these sample posts and provide a summary of the key characteristics:\n\n${sampleContent}`
-	}
+        {
+          role: 'system',
+          content: 'You are analyzing the writing style of a Japanese tech blog. Extract key characteristics of the writing style, tone, and translation patterns.'
+        },
+        {
+          role: 'user',
+          content: `Analyze the writing style from these sample posts and provide a summary of the key characteristics:\n\n${sampleContent}`
+        }
       ],
       max_tokens: 500,
       temperature: 0.3
     });
-
+    
     return response.choices[0].message.content;
   } catch (error) {
     console.warn('Could not analyze writing style, using default:', error.message);
@@ -220,7 +220,7 @@ export async function analyzeWritingStyle() {
 export async function generateJapaneseContent(title, url, content, writingStyle, section) {
   const isMustRead = section === 'MUSTREAD';
   const isFeatured = section === 'FEATURED';
-
+  
   const prompt = `
 You are translating and summarizing a tech article for a Japanese audience.
 
@@ -234,8 +234,8 @@ Section type: ${section}
 
 Please provide:
 1. A natural Japanese translation of the title
-2. ${isMustRead ? 'A detailed Japanese excerpt (2-3 sentences) explaining the key points and why it\'s important' :
-    isFeatured ? 'A brief Japanese excerpt (1-2 sentences) summarizing the main point' :
+2. ${isMustRead ? 'A detailed Japanese excerpt (2-3 sentences) explaining the key points and why it\'s important' : 
+    isFeatured ? 'A brief Japanese excerpt (1-2 sentences) summarizing the main point' : 
     'A very brief Japanese translation of the title for the In Brief section'}
 
 Format your response as JSON:
@@ -251,19 +251,19 @@ Keep the tone professional and technical, suitable for a Japanese developer audi
     const response = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
-	{
-	  role: 'system',
-	  content: 'You are a professional translator specializing in tech content for Japanese audiences.'
-	},
-	{
-	  role: 'user',
-	  content: prompt
-	}
+        {
+          role: 'system',
+          content: 'You are a professional translator specializing in tech content for Japanese audiences.'
+        },
+        {
+          role: 'user',
+          content: prompt
+        }
       ],
       max_tokens: 300,
       temperature: 0.3
     });
-
+    
     const result = JSON.parse(response.choices[0].message.content);
     return result;
   } catch (error) {
@@ -284,17 +284,17 @@ Keep the tone professional and technical, suitable for a Japanese developer audi
 export async function generateMustread(tmplData, writingStyle) {
   const isMustRead = (element) => element.label === 'MUSTREAD';
   const mustReadItems = tmplData.filter(isMustRead);
-
+  
   let mustReadContent = '';
-
+  
   for (const item of mustReadItems) {
     const url = extractURL(item.desc);
     console.log(`📖 Processing MUSTREAD: ${item.title}`);
-
+    
     try {
       const content = await extractArticleContent(url);
       const japaneseContent = await generateJapaneseContent(item.title, url, content, writingStyle, 'MUSTREAD');
-
+      
       mustReadContent += `
 ## [${item.title}](${url})
 #### ${japaneseContent.translatedTitle}
@@ -313,7 +313,7 @@ ${japaneseContent.excerpt}
 `;
     }
   }
-
+  
   return mustReadContent;
 }
 
@@ -326,17 +326,17 @@ ${japaneseContent.excerpt}
 export async function generateFeatured(tmplData, writingStyle) {
   const isFeatured = (element) => element.label === 'FEATURED';
   const featuredItems = tmplData.filter(isFeatured);
-
+  
   let featuredContent = '';
-
+  
   for (const item of featuredItems) {
     const url = extractURL(item.desc);
     console.log(`⭐ Processing FEATURED: ${item.title}`);
-
+    
     try {
       const content = await extractArticleContent(url);
       const japaneseContent = await generateJapaneseContent(item.title, url, content, writingStyle, 'FEATURED');
-
+      
       featuredContent += `
 ## [${item.title}](${url})
 
@@ -353,7 +353,7 @@ ${japaneseContent.excerpt}
 `;
     }
   }
-
+  
   return featuredContent;
 }
 
@@ -374,17 +374,17 @@ export function generateInBriefHeading() {
 export async function generateInbrief(tmplData, writingStyle) {
   const isInBrief = (element) => element.label === 'INBRIEF';
   const inBriefItems = tmplData.filter(isInBrief);
-
+  
   let inBriefContent = '';
-
+  
   for (const item of inBriefItems) {
     const url = extractURL(item.desc);
     console.log(`📝 Processing INBRIEF: ${item.title}`);
-
+    
     try {
       const content = await extractArticleContent(url);
       const japaneseContent = await generateJapaneseContent(item.title, url, content, writingStyle, 'INBRIEF');
-
+      
       inBriefContent += `
 - **[${item.title}](${url})**: ${japaneseContent.translatedTitle}
 `;
@@ -395,7 +395,7 @@ export async function generateInbrief(tmplData, writingStyle) {
 `;
     }
   }
-
+  
   return inBriefContent;
 }
 
@@ -410,16 +410,16 @@ export async function generateInbrief(tmplData, writingStyle) {
 export async function generateContent(tmplData, options = {}) {
   console.log('🎨 Analyzing writing style...');
   const writingStyle = await analyzeWritingStyle();
-
+  
   console.log('📝 Generating MUSTREAD section...');
   const mustReadContent = await generateMustread(tmplData, writingStyle);
-
+  
   console.log('⭐ Generating FEATURED section...');
   const featuredContent = await generateFeatured(tmplData, writingStyle);
-
+  
   console.log('📝 Generating INBRIEF section...');
   const inBriefContent = await generateInbrief(tmplData, writingStyle);
-
+  
   const file = () => {
     return `
 ${mustReadContent}
@@ -430,7 +430,7 @@ ${inBriefContent}`;
 
   const vol = options.title || getNextVol();
   const mustReadCount = tmplData.filter(item => item.label === 'MUSTREAD').length;
-
+  
   return matter.stringify(file(), {
     title: `Vol.${vol}`,
     date: options.date || getNextWednesday(),
@@ -446,10 +446,10 @@ ${inBriefContent}`;
 export async function promptUser() {
   const nextVol = getNextVol();
   const nextDate = getNextWednesday();
-
+  
   const title = await question(`Enter next vol number. Next one should be ${nextVol}: `);
   const date = await question(`Enter next publish date. Next one should be ${nextDate}: `);
-
+  
   return { title: title || nextVol, date: date || nextDate };
 }
 
@@ -466,7 +466,7 @@ export function saveContent(content, options) {
   const title = options.title || getNextVol();
   const date = options.date || getNextWednesday();
   const filePath = `${POSTS_DIR}/${date}-v${title}.md`;
-
+  
   try {
     writeFileSync(filePath, content, 'utf-8');
     console.log(`✅ Created new post: ${filePath}`);
@@ -488,22 +488,22 @@ export async function main() {
     if (!process.env.OPENAI_API_KEY) {
       throw new Error('OPENAI_API_KEY environment variable is required');
     }
-
+    
     console.log('🔄 Fetching Trello cards...');
     const cards = await getCards();
-
+    
     console.log('🔄 Transforming data...');
     const tmpl = await transformResponse(cards);
-
+    
     console.log('📝 Prompting for user input...');
     const options = await promptUser();
-
+    
     console.log('🤖 Generating LLM-enhanced content...');
     const content = await generateContent(tmpl, options);
-
+    
     console.log('💾 Saving file...');
     const filePath = saveContent(content, options);
-
+    
     console.log(`🎉 Successfully created: ${filePath}`);
     console.log('✨ The post now includes Japanese translations and excerpts generated by AI!');
   } catch (error) {
@@ -515,4 +515,4 @@ export async function main() {
 // Run if this is the main module
 if (import.meta.url === `file://${process.argv[1]}`) {
   main();
-}
+} 

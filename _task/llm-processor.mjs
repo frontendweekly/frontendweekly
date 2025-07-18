@@ -22,30 +22,30 @@ const openai = new OpenAI({
 export async function generateJapaneseContent(article, category, styleGuide, sampleArticles = []) {
   try {
     console.log(`🤖 Generating Japanese content for: ${article.title}`);
-
+    
     const prompt = buildPrompt(article, category, styleGuide, sampleArticles);
-
+    
     const response = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
-	{
-	  role: 'system',
-	  content: 'You are a professional technical translator specializing in frontend development and web technologies. You translate English technical articles into natural, accurate Japanese while maintaining the author\'s style and technical precision.'
-	},
-	{
-	  role: 'user',
-	  content: prompt
-	}
+        {
+          role: 'system',
+          content: 'You are a professional technical translator specializing in frontend development and web technologies. You translate English technical articles into natural, accurate Japanese while maintaining the author\'s style and technical precision.'
+        },
+        {
+          role: 'user',
+          content: prompt
+        }
       ],
       temperature: 0.3,
       max_tokens: category === 'MUSTREAD' ? 1000 : category === 'FEATURED' ? 500 : 100,
     });
-
+    
     const result = response.choices[0].message.content.trim();
-
+    
     // Parse the response based on category
     return parseResponse(result, category);
-
+    
   } catch (error) {
     console.error('Error generating Japanese content:', error);
     throw new Error(`Failed to generate Japanese content: ${error.message}`);
@@ -69,7 +69,7 @@ English Title: ${sample.title}
 Japanese Title: ${sample.japaneseTitle || 'N/A'}
 Content: ${sample.content || 'N/A'}
 `).join('\n');
-
+  
   const categoryInstructions = {
     MUSTREAD: `
 Generate:
@@ -100,7 +100,7 @@ Generate:
 Keep it concise and accurate.
 `
   };
-
+  
   return `
 ${styleGuide}
 
@@ -138,17 +138,17 @@ function parseResponse(response, category) {
       // For INBRIEF, just extract the title
       const titleMatch = response.match(/Title:\s*(.+)/);
       return {
-	japaneseTitle: titleMatch ? titleMatch[1].trim() : response.trim(),
-	japaneseContent: ''
+        japaneseTitle: titleMatch ? titleMatch[1].trim() : response.trim(),
+        japaneseContent: ''
       };
     } else {
       // For MUSTREAD and FEATURED, extract both title and content
       const titleMatch = response.match(/Title:\s*(.+)/);
       const contentMatch = response.match(/Content:\s*([\s\S]+)/);
-
+      
       return {
-	japaneseTitle: titleMatch ? titleMatch[1].trim() : '',
-	japaneseContent: contentMatch ? contentMatch[1].trim() : response.trim()
+        japaneseTitle: titleMatch ? titleMatch[1].trim() : '',
+        japaneseContent: contentMatch ? contentMatch[1].trim() : response.trim()
       };
     }
   } catch (error) {
@@ -169,35 +169,35 @@ function parseResponse(response, category) {
  */
 export async function generateMultipleJapaneseContent(articles, styleGuide, sampleArticles = []) {
   const results = [];
-
+  
   for (const article of articles) {
     try {
       const japaneseContent = await generateJapaneseContent(
-	article,
-	article.category,
-	styleGuide,
-	sampleArticles
+        article, 
+        article.category, 
+        styleGuide, 
+        sampleArticles
       );
-
+      
       results.push({
-	...article,
-	japaneseTitle: japaneseContent.japaneseTitle,
-	japaneseContent: japaneseContent.japaneseContent
+        ...article,
+        japaneseTitle: japaneseContent.japaneseTitle,
+        japaneseContent: japaneseContent.japaneseContent
       });
-
+      
       console.log(`✅ Generated Japanese content for: ${article.title}`);
-
+      
     } catch (error) {
       console.error(`❌ Failed to generate Japanese content for ${article.title}:`, error.message);
       results.push({
-	...article,
-	japaneseTitle: '',
-	japaneseContent: '',
-	error: error.message
+        ...article,
+        japaneseTitle: '',
+        japaneseContent: '',
+        error: error.message
       });
     }
   }
-
+  
   return results;
 }
 
@@ -208,11 +208,11 @@ export async function generateMultipleJapaneseContent(articles, styleGuide, samp
 export async function validateOpenAI() {
   try {
     const response = await openai.chat.completions.create({
-      model: 'gpt-4o',
+      model: 'gpt-4o-mini',
       messages: [{ role: 'user', content: 'Hello' }],
       max_tokens: 10,
     });
-
+    
     return response.choices[0].message.content.length > 0;
   } catch (error) {
     console.error('OpenAI API validation failed:', error.message);
@@ -227,50 +227,50 @@ export async function validateOpenAI() {
  */
 export function estimateCost(articles) {
   const modelCosts = {
-    'gpt-4o': {
-      input: 0.0025, // per 1K tokens
-      output: 0.01   // per 1K tokens
+    'gpt-4o-mini': {
+      input: 0.00015, // per 1K tokens
+      output: 0.0006  // per 1K tokens
     }
   };
-
+  
   let totalInputTokens = 0;
   let totalOutputTokens = 0;
-
+  
   for (const article of articles) {
     // Estimate input tokens (prompt + article content)
     const promptLength = 2000; // Approximate prompt length
     const contentLength = article.content.length;
     const inputTokens = Math.ceil((promptLength + contentLength) / 4); // Rough estimate
-
+    
     // Estimate output tokens based on category
     let outputTokens;
     switch (article.category) {
       case 'MUSTREAD':
-	outputTokens = 300; // 2-3 paragraphs
-	break;
+        outputTokens = 300; // 2-3 paragraphs
+        break;
       case 'FEATURED':
-	outputTokens = 150; // 1 paragraph
-	break;
+        outputTokens = 150; // 1 paragraph
+        break;
       case 'INBRIEF':
-	outputTokens = 50;  // Title only
-	break;
+        outputTokens = 50;  // Title only
+        break;
       default:
-	outputTokens = 100;
+        outputTokens = 100;
     }
-
+    
     totalInputTokens += inputTokens;
     totalOutputTokens += outputTokens;
   }
-
-  const inputCost = (totalInputTokens / 1000) * modelCosts['gpt-4o'].input;
-  const outputCost = (totalOutputTokens / 1000) * modelCosts['gpt-4o'].output;
+  
+  const inputCost = (totalInputTokens / 1000) * modelCosts['gpt-4o-mini'].input;
+  const outputCost = (totalOutputTokens / 1000) * modelCosts['gpt-4o-mini'].output;
   const totalCost = inputCost + outputCost;
-
+  
   return {
     totalInputTokens,
     totalOutputTokens,
     estimatedCost: totalCost,
-    costPerArticle: totalCost / articles.length
+    costPerArticle: articles.length > 0 ? totalCost / articles.length : 0
   };
 }
 
@@ -280,14 +280,14 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   validateOpenAI()
     .then(isValid => {
       if (isValid) {
-	console.log('✅ OpenAI API is working correctly');
+        console.log('✅ OpenAI API is working correctly');
       } else {
-	console.log('❌ OpenAI API validation failed');
-	process.exit(1);
+        console.log('❌ OpenAI API validation failed');
+        process.exit(1);
       }
     })
     .catch(error => {
       console.error('Error testing OpenAI API:', error);
       process.exit(1);
     });
-}
+} 
