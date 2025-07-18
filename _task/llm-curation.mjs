@@ -210,7 +210,7 @@ export async function analyzeWritingStyle() {
   if (!openai) {
     throw new Error('OpenAI client not available');
   }
-
+  
   try {
     const posts = fg.sync(`${POSTS_DIR}/*.md`).slice(-5); // Get last 5 posts
     const sampleContent = posts.map(post => readFileSync(post, 'utf-8')).join('\n\n');
@@ -280,7 +280,7 @@ Keep the tone professional and technical, suitable for a Japanese developer audi
   if (!openai) {
     throw new Error('OpenAI client not available');
   }
-
+  
   try {
     const response = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
@@ -329,7 +329,7 @@ export async function generateMustread(tmplData, writingStyle) {
   if (mustReadItems.length === 0) {
     return '';
   }
-
+  
   let mustReadContent = '';
   let llmSuccessCount = 0;
   let fallbackCount = 0;
@@ -340,44 +340,44 @@ export async function generateMustread(tmplData, writingStyle) {
     
     let processed = false;
     let retries = 0;
-
+    
     while (!processed && retries < LLM_CONFIG.maxRetries) {
       try {
-	const content = await extractArticleContent(url);
-	const japaneseContent = await generateJapaneseContent(item.title, url, content, writingStyle, 'MUSTREAD');
-
-	mustReadContent += `
+        const content = await extractArticleContent(url);
+        const japaneseContent = await generateJapaneseContent(item.title, url, content, writingStyle, 'MUSTREAD');
+        
+        mustReadContent += `
 ## [${item.title}](${url})
 #### ${japaneseContent.translatedTitle}
 
 ${japaneseContent.excerpt}
 
 `;
-	llmSuccessCount++;
-	processed = true;
+        llmSuccessCount++;
+        processed = true;
       } catch (error) {
-	retries++;
-	console.warn(`⚠️ LLM processing failed for "${item.title}" (attempt ${retries}/${LLM_CONFIG.maxRetries}):`, error.message);
-
-	if (retries >= LLM_CONFIG.maxRetries) {
-	  if (LLM_CONFIG.fallbackOnError) {
-	    console.log(`🔄 Falling back to template for "${item.title}"`);
-	    // Use template for this specific item
-	    const templateItem = [item];
-	    const templateContent = generateMustreadTemplate(templateItem);
-	    mustReadContent += templateContent;
-	    fallbackCount++;
-	  } else {
-	    mustReadContent += `
+        retries++;
+        console.warn(`⚠️ LLM processing failed for "${item.title}" (attempt ${retries}/${LLM_CONFIG.maxRetries}):`, error.message);
+        
+        if (retries >= LLM_CONFIG.maxRetries) {
+          if (LLM_CONFIG.fallbackOnError) {
+            console.log(`🔄 Falling back to template for "${item.title}"`);
+            // Use template for this specific item
+            const templateItem = [item];
+            const templateContent = generateMustreadTemplate(templateItem);
+            mustReadContent += templateContent;
+            fallbackCount++;
+          } else {
+            mustReadContent += `
 ## [${item.title}](${url})
 #### [翻訳エラー]
 
 コンテンツの処理中にエラーが発生しました。
 
 `;
-	  }
-	  processed = true;
-	}
+          }
+          processed = true;
+        }
       }
     }
   }
@@ -406,7 +406,7 @@ export async function generateFeatured(tmplData, writingStyle) {
   if (featuredItems.length === 0) {
     return '';
   }
-
+  
   let featuredContent = '';
   let llmSuccessCount = 0;
   let fallbackCount = 0;
@@ -417,42 +417,42 @@ export async function generateFeatured(tmplData, writingStyle) {
     
     let processed = false;
     let retries = 0;
-
+    
     while (!processed && retries < LLM_CONFIG.maxRetries) {
       try {
-	const content = await extractArticleContent(url);
-	const japaneseContent = await generateJapaneseContent(item.title, url, content, writingStyle, 'FEATURED');
-
-	featuredContent += `
+        const content = await extractArticleContent(url);
+        const japaneseContent = await generateJapaneseContent(item.title, url, content, writingStyle, 'FEATURED');
+        
+        featuredContent += `
 ## [${item.title}](${url})
 
 ${japaneseContent.excerpt}
 
 `;
-	llmSuccessCount++;
-	processed = true;
+        llmSuccessCount++;
+        processed = true;
       } catch (error) {
-	retries++;
-	console.warn(`⚠️ LLM processing failed for "${item.title}" (attempt ${retries}/${LLM_CONFIG.maxRetries}):`, error.message);
-
-	if (retries >= LLM_CONFIG.maxRetries) {
-	  if (LLM_CONFIG.fallbackOnError) {
-	    console.log(`🔄 Falling back to template for "${item.title}"`);
-	    // Use template for this specific item
-	    const templateItem = [item];
-	    const templateContent = generateFeaturedTemplate(templateItem);
-	    featuredContent += templateContent;
-	    fallbackCount++;
-	  } else {
-	    featuredContent += `
+        retries++;
+        console.warn(`⚠️ LLM processing failed for "${item.title}" (attempt ${retries}/${LLM_CONFIG.maxRetries}):`, error.message);
+        
+        if (retries >= LLM_CONFIG.maxRetries) {
+          if (LLM_CONFIG.fallbackOnError) {
+            console.log(`🔄 Falling back to template for "${item.title}"`);
+            // Use template for this specific item
+            const templateItem = [item];
+            const templateContent = generateFeaturedTemplate(templateItem);
+            featuredContent += templateContent;
+            fallbackCount++;
+          } else {
+            featuredContent += `
 ## [${item.title}](${url})
 
 コンテンツの処理中にエラーが発生しました。
 
 `;
-	  }
-	  processed = true;
-	}
+          }
+          processed = true;
+        }
       }
     }
   }
@@ -489,7 +489,7 @@ export async function generateInbrief(tmplData, writingStyle) {
   if (inBriefItems.length === 0) {
     return '';
   }
-
+  
   let inBriefContent = '';
   let llmSuccessCount = 0;
   let fallbackCount = 0;
@@ -500,36 +500,36 @@ export async function generateInbrief(tmplData, writingStyle) {
     
     let processed = false;
     let retries = 0;
-
+    
     while (!processed && retries < LLM_CONFIG.maxRetries) {
       try {
-	const content = await extractArticleContent(url);
-	const japaneseContent = await generateJapaneseContent(item.title, url, content, writingStyle, 'INBRIEF');
-
-	inBriefContent += `
+        const content = await extractArticleContent(url);
+        const japaneseContent = await generateJapaneseContent(item.title, url, content, writingStyle, 'INBRIEF');
+        
+        inBriefContent += `
 - **[${item.title}](${url})**: ${japaneseContent.translatedTitle}
 `;
-	llmSuccessCount++;
-	processed = true;
+        llmSuccessCount++;
+        processed = true;
       } catch (error) {
-	retries++;
-	console.warn(`⚠️ LLM processing failed for "${item.title}" (attempt ${retries}/${LLM_CONFIG.maxRetries}):`, error.message);
-
-	if (retries >= LLM_CONFIG.maxRetries) {
-	  if (LLM_CONFIG.fallbackOnError) {
-	    console.log(`🔄 Falling back to template for "${item.title}"`);
-	    // Use template for this specific item
-	    const templateItem = [item];
-	    const templateContent = generateInbriefTemplate(templateItem);
-	    inBriefContent += templateContent;
-	    fallbackCount++;
-	  } else {
-	    inBriefContent += `
+        retries++;
+        console.warn(`⚠️ LLM processing failed for "${item.title}" (attempt ${retries}/${LLM_CONFIG.maxRetries}):`, error.message);
+        
+        if (retries >= LLM_CONFIG.maxRetries) {
+          if (LLM_CONFIG.fallbackOnError) {
+            console.log(`🔄 Falling back to template for "${item.title}"`);
+            // Use template for this specific item
+            const templateItem = [item];
+            const templateContent = generateInbriefTemplate(templateItem);
+            inBriefContent += templateContent;
+            fallbackCount++;
+          } else {
+            inBriefContent += `
 - **[${item.title}](${url})**: [翻訳エラー]
 `;
-	  }
-	  processed = true;
-	}
+          }
+          processed = true;
+        }
       }
     }
   }
@@ -549,15 +549,15 @@ export async function generateInbrief(tmplData, writingStyle) {
 export async function generateContent(tmplData, options = {}) {
   // Check if LLM is enabled and OpenAI API key is available
   const llmAvailable = LLM_CONFIG.enabled && process.env.OPENAI_API_KEY;
-
+  
   if (!llmAvailable) {
     console.log('🤖 LLM processing disabled or OpenAI API key not available, using template mode');
     console.log('📝 Generating content using original template...');
-
+    
     const mustReadContent = generateMustreadTemplate(tmplData);
     const featuredContent = generateFeaturedTemplate(tmplData);
     const inBriefContent = generateInbriefTemplate(tmplData);
-
+    
     const file = () => {
       return `
 ${mustReadContent}
@@ -568,7 +568,7 @@ ${inBriefContent}`;
 
     const vol = options.title || getNextVol();
     const mustReadCount = tmplData.filter(item => item.label === 'MUSTREAD').length;
-
+    
     return matter.stringify(file(), {
       title: `Vol.${vol}`,
       date: options.date || getNextWednesday(),
@@ -576,7 +576,7 @@ ${inBriefContent}`;
       permalink: `/posts/${vol}/`,
     });
   }
-
+  
   console.log('🎨 Analyzing writing style...');
   let writingStyle;
   try {
@@ -675,7 +675,7 @@ export async function main() {
     const filePath = saveContent(content, options);
     
     console.log(`🎉 Successfully created: ${filePath}`);
-
+    
     // Check if LLM was used
     if (LLM_CONFIG.enabled && process.env.OPENAI_API_KEY) {
       console.log('✨ The post includes Japanese translations and excerpts generated by AI!');
