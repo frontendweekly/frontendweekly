@@ -20,3 +20,9 @@ functions/*.zip
 
 # Local Netlify folder
 .netlify
+
+# Test coverage reports
+coverage/
+
+# Editor configuration
+.vscode/
