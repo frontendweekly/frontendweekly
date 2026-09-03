@@ -61,7 +61,7 @@
     "postcss-preset-env": "^6.7.0",
     "posthtml": "^0.16.5",
     "posthtml-urls": "^1.0.0",
-    "sanitize-html": "^2.5.1",
+    "sanitize-html": "^2.17.7",
     "twitter": "^1.7.1"
   },
   "devDependencies": {
